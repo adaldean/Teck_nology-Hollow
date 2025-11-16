@@ -49,7 +49,7 @@ body {
     text-decoration: none;
 }
 
-/* SUBMENU */
+
 .submenu {
     display: none;
     position: absolute;
@@ -69,12 +69,12 @@ body {
     white-space: nowrap;
 }
 
-/* Hover: Mostrar submenu */
+
 .dropdown:hover .submenu {
     display: block;
 }
 
-/* Hover efectos */
+
 .nav-links li:hover > a {
     background-color: #00BBFF;
 }
