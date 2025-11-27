@@ -2,15 +2,12 @@
 -- PostgreSQL database dump
 --
 
-\restrict EpQPeH0zbmDZFsj8Z3UqALP4rJQicFxNUSjwhCDwZJiahH4u22pnFidRkEDypYc
-
--- Dumped from database version 17.6 (Debian 17.6-0+deb13u1)
--- Dumped by pg_dump version 17.6 (Debian 17.6-0+deb13u1)
+-- Dumped from database version 16.9 (Ubuntu 16.9-0ubuntu0.24.04.1)
+-- Dumped by pg_dump version 16.9 (Ubuntu 16.9-0ubuntu0.24.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
-SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -733,6 +730,10 @@ ALTER TABLE ONLY public.venta_pos ALTER COLUMN id_venta SET DEFAULT nextval('pub
 --
 
 COPY public.categoria (id_categoria, nombre) FROM stdin;
+1	computadoras
+2	moviles
+3	consolas
+4	accesorios
 \.
 
 
@@ -741,6 +742,13 @@ COPY public.categoria (id_categoria, nombre) FROM stdin;
 --
 
 COPY public.cliente (id_cliente, nombre, email, telefono, direccion) FROM stdin;
+101	Ana García	ana.g@mail.com	5511223344	Calle Falsa 123, Ciudad A
+102	Juan Pérez	juanp@mail.com	5598765432	Av. Siempreviva 742, Ciudad B
+103	María López	marial@mail.com	5555667788	Blvd. del Sol 50, Ciudad A
+104	Carlos Ruiz	carlosr@mail.com	5544332211	Sector Oriente 8, Ciudad C
+105	Sofía Díaz	sofiad@mail.com	5577889900	Pza. Central 1, Ciudad A
+106	Luis Torres	luist@mail.com	5512345678	Calle Principal 99, Ciudad B
+107	Elena Castro	elenac@mail.com	5500998877	Ruta 5 Km 10, Ciudad C
 \.
 
 
@@ -749,6 +757,10 @@ COPY public.cliente (id_cliente, nombre, email, telefono, direccion) FROM stdin;
 --
 
 COPY public.detalle_pedido (id_detalle, id_pedido, id_producto, cantidad, subtotal) FROM stdin;
+501	1	2002	1	349.99
+503	2	2004	1	79.99
+504	3	2003	3	179.97
+505	4	2001	1	899.99
 \.
 
 
@@ -757,6 +769,10 @@ COPY public.detalle_pedido (id_detalle, id_pedido, id_producto, cantidad, subtot
 --
 
 COPY public.detalle_venta_pos (id_detalle, id_venta, id_producto, cantidad, subtotal) FROM stdin;
+801	1001	2004	1	29.99
+802	1001	2003	1	79.99
+803	1002	2001	1	59.99
+804	1003	2002	1	349.99
 \.
 
 
@@ -765,6 +781,13 @@ COPY public.detalle_venta_pos (id_detalle, id_venta, id_producto, cantidad, subt
 --
 
 COPY public.empleado (id_empleado, nombre, cargo, email, id_tienda) FROM stdin;
+1	Rodrigo Méndez	Gerente	rod.m@mail.com	1
+2	Valeria Soto	Vendedor	val.s@mail.com	1
+3	Pablo Reyes	Cajero	pablo.r@mail.com	1
+4	Isabel Gil	Vendedor	isa.g@mail.com	2
+5	Diego Cruz	Gerente	diego.c@mail.com	2
+6	Lucía Vidal	Almacenista	lucia.v@mail.com	3
+7	Javier Luna	Vendedor	jav.l@mail.com	3
 \.
 
 
@@ -773,6 +796,11 @@ COPY public.empleado (id_empleado, nombre, cargo, email, id_tienda) FROM stdin;
 --
 
 COPY public.envio (id_envio, id_pedido, id_paqueteria, fecha_envio, estado) FROM stdin;
+501	1	1	2025-11-15	Entregado
+502	2	2	2025-11-16	En Tránsito
+503	3	1	2025-11-16	Entregado
+504	4	3	2025-11-17	Pendiente
+505	5	2	2025-11-18	En Tránsito
 \.
 
 
@@ -781,6 +809,11 @@ COPY public.envio (id_envio, id_pedido, id_paqueteria, fecha_envio, estado) FROM
 --
 
 COPY public.paqueteria (id_paqueteria, nombre, telefono) FROM stdin;
+1	Rápido Express	5566778899
+2	Global Logística	5511009988
+3	Envíos Seguros	5533445566
+4	Paq Plus	5501010101
+5	Veloz Entregas	5520202020
 \.
 
 
@@ -789,6 +822,11 @@ COPY public.paqueteria (id_paqueteria, nombre, telefono) FROM stdin;
 --
 
 COPY public.pedido (id_pedido, id_cliente, fecha, estado, metodo_pago, total) FROM stdin;
+1	101	2025-11-14 00:00:00	Completado	Tarjeta Crédito	249.97
+2	102	2025-11-15 00:00:00	En Proceso	PayPal	29.97
+3	103	2025-11-15 00:00:00	Completado	Tarjeta Débito	19.99
+4	104	2025-11-16 00:00:00	Pendiente	Transferencia	399.99
+5	105	2025-11-17 00:00:00	En Proceso	Tarjeta Crédito	99.99
 \.
 
 
@@ -797,6 +835,17 @@ COPY public.pedido (id_pedido, id_cliente, fecha, estado, metodo_pago, total) FR
 --
 
 COPY public.producto (id_producto, nombre, descripcion, precio, stock, id_categoria, id_proveedor) FROM stdin;
+2001	Laptop Ultradelgada	Portátil 14" con 16GB RAM	899.99	150	1	1
+2002	Smartphone Z10	Teléfono gama media, 128GB	349.99	300	2	1
+2003	Consola Next-Gen	Consola de videojuegos 1TB	499.99	75	3	6
+2004	Monitor Curvo 27"	Monitor para juegos 144Hz	299.99	500	1	2
+2005	Mouse Gamer RGB	Mouse retroiluminado 7200 DPI	19.99	300	3	2
+2006	Teclado Mecánico RGB	Teclado mecánico switch rojo con iluminación RGB	59.99	120	3	2
+2007	Audífonos Inalámbricos Pro	Audífonos bluetooth con cancelación de ruido	89.99	80	4	1
+2008	Tablet 10" Full HD	Tablet de 10 pulgadas con procesador Octa-Core y 64GB	149.99	45	1	3
+2009	Disco SSD 1TB	Unidad de estado sólido 1TB NVMe Gen4	129.99	200	4	4
+2010	Smartwatch Serie 6	Reloj inteligente resistente al agua con monitor de salud	199.99	65	4	2
+2011	Bocina Bluetooth XL	Bocina portátil con graves profundos, 24h de batería	39.99	150	4	3
 \.
 
 
@@ -805,6 +854,13 @@ COPY public.producto (id_producto, nombre, descripcion, precio, stock, id_catego
 --
 
 COPY public.programa_lealtad (id_programa, id_cliente, puntos, nivel) FROM stdin;
+401	101	500	Oro
+402	102	150	Plata
+403	103	250	Bronce
+404	104	1000	Oro
+405	105	50	Bronce
+406	106	0	Bronce
+407	107	300	Plata
 \.
 
 
@@ -813,6 +869,13 @@ COPY public.programa_lealtad (id_programa, id_cliente, puntos, nivel) FROM stdin
 --
 
 COPY public.proveedor (id_proveedor, nombre, telefono, email) FROM stdin;
+1	Tech Solutions S.A.	5511221122	contacto@techsol.com
+2	Home Goods Co.	5533443344	ventas@homegoods.com
+3	Green Life Ltda.	5555665566	info@greenlife.com
+4	Fashion Direct	5577887788	soporte@fashiondirect.com
+5	Healthy Snacks Inc.	5599009900	pedidos@healthysnacks.com
+6	Toy World	5510203040	contacto@toyworld.com
+7	Sport Gear	5521436587	ventas@sportgear.com
 \.
 
 
@@ -821,6 +884,13 @@ COPY public.proveedor (id_proveedor, nombre, telefono, email) FROM stdin;
 --
 
 COPY public.rol (id_rol, nombre) FROM stdin;
+1	Administrador
+2	Gerente
+3	Vendedor
+4	Cajero
+5	Almacenista
+6	Supervisor
+7	Contable
 \.
 
 
@@ -829,6 +899,11 @@ COPY public.rol (id_rol, nombre) FROM stdin;
 --
 
 COPY public.tienda (id_tienda, nombre, direccion) FROM stdin;
+1	Tienda Central	Av. Principal 90, Centro
+2	Tienda Sur	Calle 3 Sur 20, Col Pedregal
+3	Tienda Norte	Blvd. Industrial 500, Zona Norte
+4	Tienda Este	Plaza Comercial 1
+5	Tienda Oeste	Av Oeste No.8
 \.
 
 
@@ -837,6 +912,11 @@ COPY public.tienda (id_tienda, nombre, direccion) FROM stdin;
 --
 
 COPY public.usuario_sistema (id_usuario, nombre, email, contrasena, id_rol) FROM stdin;
+1	David Admin	d.admin@mail.com	09876	1
+2	Rodrigo M.	rod.m@mail.com	3456	2
+3	Valeria S.	val.s@mail.com	1234	3
+4	Isabel G.	isa.g@mail.com	87654	3
+5	Diego C.	diego.c@mail.com	123455	2
 \.
 
 
@@ -845,6 +925,12 @@ COPY public.usuario_sistema (id_usuario, nombre, email, contrasena, id_rol) FROM
 --
 
 COPY public.venta_pos (id_venta, id_empleado, id_tienda, fecha, total) FROM stdin;
+1001	2	1	2025-11-19 00:00:00	29.97
+1002	3	1	2025-11-19 00:00:00	9.99
+1003	4	2	2025-11-19 00:00:00	99.99
+1004	2	1	2025-11-19 00:00:00	79.96
+1005	5	3	2025-11-19 00:00:00	399.99
+1006	4	2	2025-11-19 00:00:00	49.99
 \.
 
 
@@ -1204,6 +1290,4 @@ ALTER TABLE ONLY public.venta_pos
 --
 -- PostgreSQL database dump complete
 --
-
-\unrestrict EpQPeH0zbmDZFsj8Z3UqALP4rJQicFxNUSjwhCDwZJiahH4u22pnFidRkEDypYc
 
