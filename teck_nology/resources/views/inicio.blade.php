@@ -24,7 +24,7 @@
 
       <nav class="menu-links">
         {{-- Ajustar rutas a URLs de Laravel si corresponden --}}
-        <a href="{{ url('users/login') }}" class="inicio" title="Iniciar Sesión">
+        <a href="{{ url('privado/login') }}" class="inicio" title="Iniciar Sesión">
             <img src="{{ asset('imagenes/usuario.png') }}" alt="Iniciar Sesión" class="icono-nav">
         </a>
         <a href="{{ url('carrito') }}" class="carrito" title="carrito">
@@ -89,12 +89,13 @@
       </aside>
         
         <section class="area-productos">
-          <div class="opciones-clasificacion">
-           <a href="*" class="chip-categoria">Computadoras</a>
-           <a href="*" class="chip-categoria">Moviles</a>
-           <a href="*" class="chip-categoria">Accesorios</a>
-           <a href="*" class="chip-categoria">Juegos</a>         
-          </div>
+        <div class="opciones-clasificacion">
+          {{-- Estos chips ahora son útiles para navegar o filtrar --}}
+          <a href="{{ url('categoria/computadoras') }}" class="chip-categoria">Computadoras</a>
+          <a href="{{ url('categoria/moviles') }}" class="chip-categoria">Moviles</a>
+          <a href="{{ url('categoria/accesorios') }}" class="chip-categoria">Accesorios</a>
+          <a href="{{ url('categoria/consolas') }}" class="chip-categoria">Juegos</a>         
+        </div>
           
           <div class="opciones-ordenar">
             <button class="boton-ordenar activo">Productos</button>
