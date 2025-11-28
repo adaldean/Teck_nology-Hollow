@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers; // <-- ¡ESTO ES CRUCIAL!
+namespace App\Http\Controllers; 
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,21 +10,18 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('privado/login'); // Retorna la vista 'login.blade.php'
+        return view('privado/login'); 
     }
 
     public function login(Request $request)
     {
-        // Validar datos
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
 
-        // Buscar usuario por email
-        $user = UsuarioSistema::where('email', $request->email)->first();
 
-        // Comparar contraseña directamente (texto plano)
+        $user = UsuarioSistema::where('email', $request->email)->first();
         if ($user && $user->contrasena === $request->password) {
             Auth::login($user);
             return redirect('/privado/inventario')->with('success', 'Login exitoso');
