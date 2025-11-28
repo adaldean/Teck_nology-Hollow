@@ -6,30 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tr.sneakers - Inventario</title>
     <link rel="icon" href="#">
-    {{-- Ruta corregida para el CSS --}}
     <link rel="stylesheet" href="{{ asset('css/estiloinve.css') }}">
 </head>
 <body>
-    
     <div class="container">
         <aside class="sidebar">
             <div class="logo">
-                {{-- Ruta corregida para el logo --}}
                 <img src="{{ asset('imagenes/19e743dc-8b04-43b4-ad4b-da5ba6b4e109.png') }}" alt="Tr.sneakers Logo" class="logo-img">
             </div>
-            
             <ul class="nav-links">
-                <li><a href="">Home</a></li>
-
-                <li class="dropdown active">
-                    <a href="#">Inventario</a>
-                    <ul class="submenu">
-                        <li><a href="{{ url('inventario/computadoras') }}">Computadoras</a></li>
-                        <li><a href="{{ url('inventario/moviles') }}">Móviles</a></li>
-                        <li><a href="{{ url('inventario/accesorios') }}">Juegos y accesorios</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Usuarios</a></li>
+                <li><a href="#">Home</a></li>
+                <li class="active"><a href="#">Inventario</a></li>
+                <li><a href="{{ asset('usuarios')}}">Usuarios</a></li>
                 <li><a href="#">Configuración</a></li>
                 <li><a href="#">Cerrar Sesión</a></li>
             </ul>
@@ -43,71 +31,85 @@
                 </div>
             </div>
 
+            {{-- Mensaje de login exitoso --}}
+            @if(session('success'))
+                <div class="alerta-exito">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <section class="seccion_inventario" id="contenido">
-                
                 <div class="fila-categorias-agregar">
                     <div class="categorias">
-                        {{-- Muestra el total de productos --}}
-                        <span class="categoria-btn active">{{ $productos->count() }} Productos</span>
-                        <a href="#" class="categoria-btn">Ofertas</a>
-                        <a href="#" class="categoria-btn">Sin Stock</a>
+                        <a class="categoria-btn active">Computadoras</a>
+                        <a class="categoria-btn">Moviles</a>
+                        <a class="categoria-btn">Videojuegos</a>
+                        <a class="categoria-btn">Accesorios</a>
                     </div>
-                    
-                    <div class="contenedor-boton-agregar">
-                        {{-- Enlace para crear un nuevo producto (debería apuntar a una ruta 'create') --}}
-                        <a href="{{ url('inventario/crear') }}" class="boton-agregar">
-                            + Agregar Nuevo Producto
-                        </a>
+                    <div class="contenedor-boton-agregar"></div>
+                </div>
+
+                <div class="contenedor-tabla-productos">
+                    <div class="barra-herramientas">
+                        <div class="busqueda">
+                            <input type="text" class="campo-busqueda" placeholder="Buscar producto...">
+                            <button class="boton-buscar">Buscar</button>
+                        </div>
+                        <a href="{{ url('inventario/crear') }}" class="boton-agregar"> + Agregar Producto</a>
+                    </div>
+
+                    <div class="tabla-contenedor">
+                        <table class="tabla-productos">
+                            <thead>
+                                <tr>
+                                    <th class="columna-checkbox"><input type="checkbox" class="checkbox-todos"></th>
+                                    <th class="columna-id">ID</th>
+                                    <th class="columna-nombre">NOMBRE</th>
+                                    <th class="columna-descripcion">DESCRIPCIÓN</th>
+                                    <th class="columna-precio">PRECIO</th>
+                                    <th class="columna-stock">STOCK</th>
+                                    <th class="columna-categoria">CATEGORIA</th>
+                                    <th class="columna-proveedor">PROVEEDOR</th>
+                                    <th class="columna-acciones">ACCIONES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($productos as $producto)
+                                <tr class="fila-producto">
+                                    <td class="columna-checkbox"><input type="checkbox" class="checkbox-producto"></td>
+                                    <td class="columna-id">{{ $producto->id_producto }}</td>
+                                    <td class="columna-nombre">{{ $producto->nombre }}</td>
+                                    <td class="columna-descripcion">{{ Str::limit($producto->descripcion, 80) }}</td>
+                                    <td class="columna-precio">${{ number_format($producto->precio, 2) }}</td>
+                                    <td class="columna-stock">{{ $producto->stock }}</td>
+                                    <td class="columna-categoria">{{ $producto->categoria->nombre ?? 'Sin categoría' }}</td>
+                                    <td class="columna-proveedor">{{ $producto->proveedor->nombre ?? 'Sin proveedor' }}</td>
+                                    <td class="columna-acciones">
+                                        <a href="{{ route('inventario.show', $producto->id_producto) }}" class="boton-ver">Ver</a>
+                                        <a href="{{ url('inventario/editar/' . $producto->id_producto) }}" class="boton-editar">Editar</a>
+                                        <button class="boton-eliminar">Eliminar</button>
+                                    </td>
+                                </tr>
+                                @endforeach
+
+                                @empty($productos)
+                                <tr>
+                                    <td colspan="9" style="text-align:center;">
+                                        No hay productos registrados en este momento. Utilice el botón "Agregar Producto" para comenzar.
+                                    </td>
+                                </tr>
+                                @endempty
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
-                <div class="divisor"></div>
-
-                {{-- Contenedor principal para las tarjetas de productos --}}
-                <div class="productos-listado">
-                    
-                    @foreach($productos as $producto)
-                    <div class="producto-tarjeta">
-                        <div class="encabezado-p">
-                            {{-- Muestra el nombre del producto --}}
-                            <span class="nombre-producto">{{ $producto->nombre }}</span>
-                            {{-- Muestra el ID del producto (puede ser útil para referencia) --}}
-                            <span style="font-size:0.9em; color:#7f8c8d;">ID: {{ $producto->id_producto }}</span>
-                        </div>
-                        
-                        <div class="producto-detalles">
-                            <p><strong>Precio:</strong> ${{ number_format($producto->precio, 2) }}</p>
-                            <p><strong>Stock:</strong> {{ $producto->stock }}</p>
-                            <p><strong>Descripción:</strong> {{ Str::limit($producto->descripcion, 80) }}</p>
-
-                        </div>
-                        
-                        <div class="producto-acciones">
-                            {{-- Enlace para editar el producto --}}
-                            <a href="{{ url('inventario/editar/' . $producto->id_producto) }}" class="actualizar-btn">
-                                Actualizar
-                            </a>
-                            {{-- Botón o enlace para eliminar (usar formulario POST/DELETE) --}}
-                            <button style="background: #e74c3c;" class="actualizar-btn">Eliminar</button>
-                        </div>
-                    </div>
-                    @endforeach
-
-                    @empty($productos)
-                    <div class="producto-tarjeta">
-                        <p>No hay productos registrados en este momento. Utilice el botón "Agregar Nuevo Producto" para comenzar.</p>
-                    </div>
-                    @endempty
-                </div>
-                
-                {{-- Paginación (si usas Producto::paginate() en el controlador) --}}
                 <div class="paginacion">
                     <a href="#" class="pagina-btn">1</a>
                     <a href="#" class="pagina-btn active">2</a>
                     <span class="puntos">...</span>
                     <a href="#" class="siguiente-btn">Siguiente →</a>
                 </div>
-
             </section>
         </main>
     </div>

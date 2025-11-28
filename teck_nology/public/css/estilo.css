@@ -13,12 +13,19 @@ header {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 10px 30px;
+  padding: 15px 30px;
   background: #cac5c5;
   min-height: 100px;
   position: relative;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
 }
 
 .logo-container {

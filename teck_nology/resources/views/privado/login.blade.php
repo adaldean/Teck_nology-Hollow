@@ -11,30 +11,63 @@
 <body class="login">
    <div class="header">
        <div class="logo-container">
-           <img src="{{ asset('imagenes/19e743dc-8b04-43b4-ad4b-da5ba6b4e109.png') }}" alt="Logo de Zapatilla" class="logo">
+           <!-- Placeholder de logo. Cambia la URL por tu imagen real. -->
+           <img src="{{ asset('imagenes/19e743dc-8b04-43b4-ad4b-da5ba6b4e109.png') }}"
+                alt="Logo de Zapatilla" 
+                class="logo">
        </div>
    </div>
 
     <main class="login-page">
         <div class="contenedor-formulario">
-            <form action="procesar_login.php" method="POST">
+            <!-- Bloque para mostrar errores generales de la sesión (ej. credenciales inválidas) -->
+            @if ($errors->any())
+                <div class="alert-error">
+                    <ul>
+                        <!-- Solo mostramos el error del campo 'correo' si falla Auth::attempt -->
+                        @if ($errors->has('correo'))
+                            <li class="list-none">{{ $errors->first('correo') }}</li>
+                        @endif
+                    </ul>
+                </div>
+            @endif
 
+            <form action="{{ url('/login') }}" method="POST">
+                @csrf
+                
                 <div class="grupo-input">
                     <label for="correo">Correo</label>
-                    <input type="email" id="correo" name="correo"  required>
+                    <input type="email" 
+                           id="correo" 
+                           name="correo" 
+                           value="{{ old('correo') }}" 
+                           required 
+                           class="@error('correo') border-red-500 @enderror">
+                    <!-- Muestra error de validación del correo -->
+                    @error('correo')
+                        <p class="error-message">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="grupo-input">
                     <label for="contraseña">Contraseña</label>
-                    <input type="password" id="contraseña" name="contraseña" required>
-                </div>            
+                    <input type="password" 
+                           id="contraseña" 
+                           name="contraseña" 
+                           required
+                           class="@error('contraseña') border-red-500 @enderror">
+                    <!-- Muestra error de validación de la contraseña -->
+                    @error('contraseña')
+                        <p class="error-message">{{ $message }}</p>
+                    @enderror
+                </div>                
+                <a href="{{asset('privado/inventario') }}">
+                <button type="submit" class="boton-login">Iniciar Sesión</button>
+                </a>
 
-                <button type="submit" class="boton-principal">
-                    Iniciar sesión
-                </button>
-                <a href="Crear_cuenta.html" class="enlace-secundario">Crear cuenta nueva</a>         
             </form>
         </div>
     </main>
 </body>
+</html>
 </html>

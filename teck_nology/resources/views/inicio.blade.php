@@ -24,7 +24,7 @@
 
       <nav class="menu-links">
         {{-- Ajustar rutas a URLs de Laravel si corresponden --}}
-        <a href="{{ url('privado/login') }}" class="inicio" title="Iniciar Sesión">
+        <a href="{{ url('../../login') }}" class="inicio" title="Iniciar Sesión">
             <img src="{{ asset('imagenes/usuario.png') }}" alt="Iniciar Sesión" class="icono-nav">
         </a>
         <a href="{{ url('carrito') }}" class="carrito" title="carrito">
@@ -94,30 +94,30 @@
           <a href="{{ url('categoria/computadoras') }}" class="chip-categoria">Computadoras</a>
           <a href="{{ url('categoria/moviles') }}" class="chip-categoria">Moviles</a>
           <a href="{{ url('categoria/accesorios') }}" class="chip-categoria">Accesorios</a>
-          <a href="{{ url('categoria/consolas') }}" class="chip-categoria">Juegos</a>         
+          <a href="{{ url('categoria/consolas') }}" class="chip-categoria">Consolas</a>         
         </div>
           
           <div class="opciones-ordenar">
-            <button class="boton-ordenar activo">Productos</button>
-            <button class="boton-ordenar">Precio ascendente</button>
-            <button class="boton-ordenar">Precio descendiente</button>
-            <button class="boton-ordenar">Ofertas </button>
+            <label for="ordenar-por">Ordenar por:</label>
+            <select id="ordenar-por" name="ordenar-por">
+              <option value="relevancia">Relevancia</option>
+              <option value="precio-asc">Precio: de menor a mayor</option>
+              <option value="precio-desc">Precio: de mayor a menor</option>
+              <option value="novedades">Novedades</option>
+            </select>
           </div>
           
-          {{-- INTEGRACIÓN DEL FOREACH Y LA SOLUCIÓN AL ERROR --}}
           <div class="productos-cuadricula">
-            {{-- La directiva @foreach ahora envuelve la tarjeta de producto --}}
+
             @foreach($productos as $producto)
             <div class="producto-tarjeta">
-              {{-- Se asume que 'producto-imagen' debe mostrar una imagen --}}
               <div class="producto-imagen">
-                {{-- Esto asume que tienes un campo 'imagen' en tu objeto producto --}}
                 <img src="{{ asset('imagenes/' . $producto->imagen) }}" alt="{{ $producto->nombre }}">
               </div>
               <div class="producto-info">
-                {{-- Mostrar nombre y precio usando la sintaxis de Blade {{ ... }} --}}
                 <p class="producto-nombre">{{ $producto->nombre }}</p>
                 <p class="producto-precio">${{ $producto->precio }}</p>
+                <button class="producto-agregar-carrito">Agregar al carrito</button>
               </div>
             </div>
             @endforeach
