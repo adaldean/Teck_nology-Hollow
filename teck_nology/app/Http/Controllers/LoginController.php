@@ -1,36 +1,43 @@
 <?php
 
-namespace App\Http\Controllers; 
+namespace App\Http\Controllers; // <-- ¡ESTO ES CRUCIAL!
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Models\UsuarioSistema; 
 
 class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('privado/login');
+        return view('privado/login'); // Retorna la vista 'login.blade.php'
     }
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        // Validar datos
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
 
-        $user = UsuarioSistema::where('email', $credentials['email'])->first();
+        // Buscar usuario por email
+        $user = UsuarioSistema::where('email', $request->email)->first();
 
-        if ($user && Hash::check($credentials['password'], $user->password)) {
+        // Comparar contraseña directamente (texto plano)
+        if ($user && $user->contrasena === $request->password) {
             Auth::login($user);
-            return redirect()->intended('/privado/inventario');
+            return redirect('/privado/inventario')->with('success', 'Login exitoso');
         }
 
-        return back()->withErrors(['email' => 'Credenciales inválidas.']);
+        return back()->withErrors(['email' => 'Credenciales inválidas.'])->onlyInput('email');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect('/login');
     }  
 }

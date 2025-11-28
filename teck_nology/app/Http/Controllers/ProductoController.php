@@ -31,4 +31,40 @@ class ProductoController extends Controller
 
         return view('catalogo', compact('productos'));
     }
-}
+
+    public function edit($id)
+    {
+        $producto = Producto::findOrFail($id);
+        return view('privado/editar_producto', compact('producto'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $producto = Producto::findOrFail($id);
+        $producto->update($request->all());
+        return redirect('/inventario')->with('success', 'Producto actualizado correctamente.');
+    }
+
+    public function destroy($id)
+    {
+        $producto = Producto::findOrFail($id);
+        $producto->delete();
+        return redirect('/inventario')->with('success', 'Producto eliminado correctamente.');   
+    }
+
+    public function create()
+    {
+        return view('privado/agregar_producto');
+    }
+
+    public function store(Request $request)
+    {
+        Producto::create($request->all());
+        return redirect('/inventario')->with('success', 'Producto agregado correctamente.');
+    }
+
+    public function show()
+    {
+        return view('producto'); 
+    }
+} 

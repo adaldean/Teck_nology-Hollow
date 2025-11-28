@@ -2,118 +2,93 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tr.sneakers - Inventario</title>
-    <link rel="icon" href="#">
-    {{-- Ruta corregida para el CSS --}}
-    <link rel="stylesheet" href="{{ asset('css/estiloinve.css') }}">
+    <title>Gestión de Usuarios - Tr.sneakers</title>
+    <link rel="stylesheet" href="{{ asset('css/estilo_gestionclien.css') }}">
 </head>
 <body>
-    
     <div class="container">
-        <aside class="sidebar">
+        <aside class="sidebar"> 
             <div class="logo">
-                {{-- Ruta corregida para el logo --}}
-                <img src="{{ asset('imagenes/19e743dc-8b04-43b4-ad4b-da5ba6b4e109.png') }}" alt="Tr.sneakers Logo" class="logo-img">
+                <img src="{{ asset('imagenes/19e743dc-8b04-43b4-ad4b-da5ba6b4e109.png') }}" alt="Teck_Nology-Hollow" class="logo-img">
             </div>
-                        <ul class="nav-links">
-                <li><a href="#">Home</a></li>                
-                <li class="active"><a href="#">Inventario</a></li>                
-                <li><a href="gestion_clientes.html">Usuarios</a></li>
+            <ul class="nav-links">
+                <li><a href="{{ url('/') }}">Home</a></li>                
+                <li><a href="{{ url('privado/inventario') }}">Inventario</a></li>               
+                <li class="active"><a href="{{ url('usuarios') }}">Usuarios</a></li>
                 <li><a href="#">Configuración</a></li>
-                <li><a href="#">Cerrar Sesión</a></li>
-           
+                <li>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn-logout">Cerrar Sesión</button>
+                    </form>
+                </li>
+            </ul>
         </aside>
 
-        <main class="main-content">
-            <div class="header">
-                <h1>INVENTARIO</h1>
-                <div class="user-info">
+        <main class="contenido-principal-completo">
+            <div class="header">                
+                <h1>USUARIOS DEL SISTEMA</h1>
+                <div class="info-usuario">
                     <span>Administrador</span>
                 </div>
             </div>
 
-            <section class="seccion_inventario" id="contenido">
-                
-                <div class="fila-categorias-agregar">
-                        {{-- Muestra el total de productos --}}
-                        <div class="categorias">
-                        <a class="categoria-btn active">Computadoras</a>
-                        <a class="categoria-btn">Moviles</a>
-                        <a class="categoria-btn">Videojuegos</a>
-                        <a class="categoria-btn">Accesorios</a>
+            <div class="contenedor-tabla-usuarios">
+                <div class="barra-herramientas">
+                    <div class="busqueda">
+                        <form method="GET" action="{{ url('usuarios') }}">
+                            <input type="text" name="q" class="campo-busqueda" placeholder="Buscar usuario...">
+                            <button type="submit" class="boton-buscar">Buscar</button>
+                        </form>
                     </div>
-                    
-                    <div class="contenedor-boton-agregar">
-                    </div>
+                    <a href="{{ url('usuarios/crear') }}" class="boton-agregar">+ Agregar Usuario</a>
                 </div>
-<div class="contenedor-tabla-productos">
-    <div class="barra-herramientas">
-        <div class="busqueda">
-            <input type="text" class="campo-busqueda" placeholder="Buscar producto...">
-            <button class="boton-buscar">Buscar</button>
-        </div>
-        <a href="{{ url('inventario/crear') }}" class="boton-agregar"> + Agregar Producto</a>
-    </div>
 
-    <div class="tabla-contenedor">
-        <table class="tabla-productos">
-            <thead>
-                <tr>
-                    <th class="columna-checkbox">
-                        <input type="checkbox" class="checkbox-todos">
-                    </th>
-                    <th class="columna-id">ID</th>
-                    <th class="columna-nombre">NOMBRE</th>
-                    <th class="columna-descripcion">DESCRIPCIÓN</th>
-                    <th class="columna-precio">PRECIO</th>
-                    <th class="columna-stock">STOCK</th>
-                    <th class="columna-categoria">CATEGORIA</th>
-                    <th class="columna-acciones">ACCIONES</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($productos as $producto)
-                <tr class="fila-producto">
-                    <td class="columna-checkbox">
-                        <input type="checkbox" class="checkbox-producto">
-                    </td>
-                    <td class="columna-id">{{ $producto->id_producto }}</td>
-                    <td class="columna-nombre">{{ $producto->nombre }}</td>
-                    <td class="columna-descripcion">{{ Str::limit($producto->descripcion, 80) }}</td>
-                    <td class="columna-precio">${{ number_format($producto->precio, 2) }}</td>
-                    <td class="columna-stock">{{ $producto->stock }}</td>
-                    <td class="columna-categoria">{{ $producto->categoria->nombre ?? 'Sin categoría' }}</td>
-                    <td class="columna-acciones">
-                        <a href="{{ url('inventario/editar/' . $producto->id_producto) }}" class="boton-editar">Editar</a>
-                        <button class="boton-eliminar">Eliminar</button>
-                    </td>
-                </tr>
-                @endforeach
+                <div class="tabla-contenedor">
+                    <table class="tabla-usuarios">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NOMBRE</th>
+                                <th>EMAIL</th>
+                                <th>CONTRASEÑA</th>
+                                <th>ROL</th>
+                                <th>ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($usuarios as $usuario)
+                                <tr>
+                                    <td>{{ $usuario->id }}</td>
+                                    <td>{{ $usuario->nombre }}</td>
+                                    <td>{{ $usuario->email }}</td>
+                                    <td>{{ $usuario->contrasena }}</td>
+                                    <td>{{ $usuario->rol ?? 'Sin rol' }}</td>
+                                    <td>
+                                        <a href="{{ url('usuarios/'.$usuario->id.'/editar') }}" class="boton-editar">Editar</a>
+                                        <form action="{{ url('usuarios/'.$usuario->id.'/eliminar') }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="boton-eliminar">Eliminar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
 
-                @empty($productos)
-                <tr>
-                    <td colspan="7" style="text-align:center;">
-                        No hay productos registrados en este momento. Utilice el botón "Agregar Producto" para comenzar.
-                    </td>
-                </tr>
-                @endempty
-            </tbody>
-        </table>
-    </div>
-</div>
+                            @empty($usuarios)
+                                <tr>
+                                    <td colspan="6" style="text-align:center;">No hay usuarios registrados.</td>
+                                </tr>
+                            @endempty
+                        </tbody>
+                    </table>
+                </div>
 
-                
-                {{-- Paginación (si usas Producto::paginate() en el controlador) --}}
+                {{-- Paginación si usas paginate() --}}
                 <div class="paginacion">
-                    <a href="#" class="pagina-btn">1</a>
-                    <a href="#" class="pagina-btn active">2</a>
-                    <span class="puntos">...</span>
-                    <a href="#" class="siguiente-btn">Siguiente →</a>
+                    {{ $usuarios->links() }}
                 </div>
-
-            </section>
+            </div>
         </main>
     </div>
 </body>
