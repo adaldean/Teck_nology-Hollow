@@ -3,26 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// Usamos el Modelo Producto (Eloquent) en lugar de Illuminate\Support\Facades\DB
-use App\Models\Producto; 
+use App\Models\Producto;
+use App\Models\Categoria;
 
 class ProductoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Trae todos los productos usando el Modelo Eloquent
-        // Si la tabla 'producto' está vacía, devuelve una colección vacía.
-        $productos = Producto::all();
+        $categoria = $request->get('categoria');
+        $orden = $request->get('orden');
 
-        // Retorna la vista 'inicio.blade.php' y le pasa la variable $productos
-        return view('inicio', compact('productos'));
-    }
-    public function showInventory()
-    {
-        // Usa el modelo para traer todos los productos
-        $productos = Producto::all(); 
+        $query = Producto::query();
 
-        // Retorna la vista 'inventario.blade.php' y le pasa la variable $productos
-        return view('privado/inventario', compact('productos'));
+        if ($categoria) {
+            $query->where('id_categoria', $categoria);
+        }
+
+        if ($orden == 'asc') {
+            $query->orderBy('precio', 'asc');
+        } elseif ($orden == 'desc') {
+            $query->orderBy('precio', 'desc');
+        } elseif ($orden == 'ofertas') {
+            $query->where('precio', '<', 500); 
+        }
+
+        $productos = $query->paginate(12);
+
+        return view('catalogo', compact('productos'));
     }
 }
