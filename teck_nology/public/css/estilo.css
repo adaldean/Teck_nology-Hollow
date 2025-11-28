@@ -28,17 +28,6 @@ header {
   position: relative;
 }
 
-.logo-container {
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 40%;
-  padding: 8px;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
 .logo {
   width: 109px;
   height: 109px;

@@ -1,0 +1,80 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\UsuarioSistema;
+use Illuminate\Http\Request;
+
+class UsuarioController extends Controller
+{
+    public function index(Request $request)
+    {
+        $q = $request->query('q');
+
+        $usuarios = UsuarioSistema::query()
+            ->when($q, function ($query) use ($q) {
+                $query->where('nombre', 'LIKE', "%{$q}%")
+                      ->orWhere('email', 'LIKE', "%{$q}%");
+            })
+            ->orderBy('id_usuario', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('privado.usuarios', compact('usuarios'));
+    }
+
+    public function create()
+    {
+        return view('privado.usuarios_crear');
+    }
+
+    public function edit($id)
+    {
+        $usuario = UsuarioSistema::findOrFail($id);
+        return view('privado.usuarios_editar', compact('usuario'));
+    }
+
+    public function destroy($id)
+    {
+        $usuario = UsuarioSistema::findOrFail($id);
+        $usuario->delete();
+        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nombre' => 'required|max:255',
+            'email' => 'required|email|unique:usuario_sistemas,email',
+            'contrasena' => 'required|min:6',
+        ]);
+
+        UsuarioSistema::create([
+            'nombre' => $request->nombre,
+            'email' => $request->email,
+            'contrasena' => $request->contrasena,
+        ]);
+
+        return redirect()->route('usuarios.index')->with('success', 'Usuario creado');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $usuario = UsuarioSistema::findOrFail($id);
+
+        $request->validate([
+            'nombre' => 'required|max:255',
+            'email' => 'required|email|unique:usuario_sistemas,email,' . $usuario->id,
+            'contrasena' => 'nullable|min:6',
+        ]);
+
+        $usuario->nombre = $request->nombre;
+        $usuario->email = $request->email;
+        if ($request->filled('contrasena')) {
+            $usuario->contrasena = $request->contrasena;
+        }
+        $usuario->save();
+
+        return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado');
+    }
+}
