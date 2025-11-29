@@ -515,13 +515,3 @@ h1 {
     justify-content: center;
   }
 }
- 
-.oferta-tag {
-  display: inline-block;
-  background-color: #FC4B08;
-  color: white;
-  padding: 3px 8px;
-  border-radius: 5px;
-  font-size: 0.8em;
-  margin-top: 5px;
-}
