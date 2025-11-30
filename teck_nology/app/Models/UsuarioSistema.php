@@ -5,14 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
-// El nombre del modelo debe ser singular y, por convención, coincidir con el nombre de la tabla
-// (aunque aquí forzamos el nombre de la tabla)
 class UsuarioSistema extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    // 1. Especificar el nombre de la tabla
     protected $table = 'usuario_sistema';
 
     // 2. Especificar la clave primaria si no se llama 'id'
