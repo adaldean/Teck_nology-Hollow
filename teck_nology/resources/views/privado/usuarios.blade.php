@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Gestión de Usuarios - Tr.sneakers</title>
+    <title>Gestión de Usuarios</title>
     <link rel="stylesheet" href="{{ asset('css/estilo_gestionclien.css') }}">
 </head>
 <body>
@@ -25,25 +25,29 @@
             </ul>
         </aside>
 
-        <main class="contenido-principal-completo">
+        <main class="main-content">
             <div class="header">                
                 <h1>USUARIOS DEL SISTEMA</h1>
                 <div class="info-usuario">
                     <span>Administrador</span>
                 </div>
             </div>
+                <section class="seccion_inventario" id="contenido">
+                <div class="fila-categorias-agregar">
+                    <div class="categorias">
+                        <a class="categoria-btn active">Empleados</a>
+                        <a class="categoria-btn">Clientes</a>
+                    </div>
+            </div>
 
             <div class="contenedor-tabla-usuarios">
                 <div class="barra-herramientas">
                     <div class="busqueda">
-                        <form method="GET" action="{{ url('usuarios') }}">
-                            <input type="text" name="q" class="campo-busqueda" placeholder="Buscar usuario...">
-                            <button type="submit" class="boton-buscar">Buscar</button>
-                        </form>
+                        <input type="text" class="campo-busqueda" placeholder="Buscar usuario...">
+                        <button class="boton-buscar">Buscar</button>
                     </div>
-                    <a href="{{ url('usuarios/crear') }}" class="boton-agregar">+ Agregar Usuario</a>
+                    <a href="{{ url('usuarios/crear') }}" class="boton-agregar"> + Agregar Usuario</a>
                 </div>
-
                 <div class="tabla-contenedor">
                     <table class="tabla-usuarios">
                         <thead>
@@ -59,11 +63,11 @@
                         <tbody>
                             @foreach($usuarios as $usuario)
                                 <tr>
-                                    <td>{{ $usuario->id }}</td>
+                                    <td>{{ $usuario->id_usuario }}</td>
                                     <td>{{ $usuario->nombre }}</td>
                                     <td>{{ $usuario->email }}</td>
                                     <td>{{ $usuario->contrasena }}</td>
-                                    <td>{{ $usuario->rol ?? 'Sin rol' }}</td>
+                                    <td>{{ $usuario->rol->nombre?? 'Sin rol' }}</td>
                                     <td>
                                         <a href="{{ url('usuarios/'.$usuario->id.'/editar') }}" class="boton-editar">Editar</a>
                                         <form action="{{ url('usuarios/'.$usuario->id.'/eliminar') }}" method="POST" style="display:inline;">

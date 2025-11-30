@@ -9,7 +9,15 @@
     <link rel="stylesheet" href="{{ asset('css/estiloinve.css') }}">
 </head>
 <body>
+
     <div class="container">
+
+            {{-- Mensaje de login exitoso --}}
+            @if(session('success'))
+                <div class="alerta-exito">
+                    {{ session('success') }}
+                </div>
+            @endif
         <aside class="sidebar">
             <div class="logo">
                 <img src="{{ asset('imagenes/19e743dc-8b04-43b4-ad4b-da5ba6b4e109.png') }}" alt="Tr.sneakers Logo" class="logo-img">
@@ -19,7 +27,12 @@
                 <li class="active"><a href="#">Inventario</a></li>
                 <li><a href="{{ asset('/../usuarios')}}">Usuarios</a></li>
                 <li><a href="#">Configuración</a></li>
-                <li><a href="#">Cerrar Sesión</a></li>
+                <li>                
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn-logout">Cerrar Sesión</button>
+                    </form>
+                </li>
             </ul>
         </aside>
 
@@ -30,14 +43,6 @@
                     <span>Administrador</span>
                 </div>
             </div>
-
-            {{-- Mensaje de login exitoso --}}
-            @if(session('success'))
-                <div class="alerta-exito">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <section class="seccion_inventario" id="contenido">
                 <div class="fila-categorias-agregar">
                     <div class="categorias">

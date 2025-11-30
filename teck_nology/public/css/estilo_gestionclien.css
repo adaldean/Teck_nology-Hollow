@@ -52,6 +52,18 @@ body {
     list-style: none;
 }
 
+.btn-logout {
+    background: none;
+    border: none;
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+}
+
 .nav-links li {
     padding: 14px 25px;
     transition: all 0.3s ease;
@@ -68,7 +80,7 @@ body {
     border-left: 4px solid var(--naranja);
 }
 
-.nav-links a {
+.nav-links a, .btn-logout {
     color: white;
     text-decoration: none;
     font-weight: 500;
@@ -97,7 +109,7 @@ body {
     font-weight: 700;
 }
 
-.user-info {
+.info-usuario{
     font-weight: 600;
     color: var(--azul);
     font-size: 15px;
@@ -193,7 +205,7 @@ body {
     color: white;
 }
 
-.contenedor-tabla-productos {
+.contenedor-tabla-usuarios {
     background: white;
     border-radius: 8px;
     padding: 20px;
@@ -231,35 +243,39 @@ body {
     overflow-x: auto;
 }
 
-.tabla-productos {
+.tabla-usuarios {
     width: 100%;
     border-collapse: collapse;
     font-size: 14px;
 }
 
-.tabla-productos thead {
+.tabla-usuarios thead {
     background: var(--azul);
     color: white;
 }
 
-.tabla-productos th,
-.tabla-productos td {
+.tabla-usuarios th{
+    padding: 12px 15px;
+    border-bottom: 2px solid var(--gris-borde);
+    text-align: center;
+}
+.tabla-usuarios td {
     padding: 12px 15px;
     border-bottom: 1px solid var(--gris-borde);
     text-align: left;
 }
 
-.tabla-productos th.columna-checkbox,
-.tabla-productos td.columna-checkbox {
+.tabla-usuarios th.columna-checkbox,
+.tabla-usuarios td.columna{
     text-align: center;
     width: 50px;
 }
 
-.tabla-productos tbody tr {
+.tabla-usuarios tbody tr {
     transition: background .2s ease;
 }
 
-.tabla-productos tbody tr:hover {
+.tabla-usuarios tbody tr:hover {
     background: #f1f9fc;
 }
 

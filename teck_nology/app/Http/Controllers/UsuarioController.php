@@ -1,28 +1,36 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Rol;
 use App\Models\UsuarioSistema;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
-    public function index(Request $request)
+public function index(Request $request)
+{
+    $q = $request->query('q');
+
+    $usuarios = UsuarioSistema::with('rol')
+        ->when($q, function ($query) use ($q) {
+            $query->where('nombre', 'LIKE', "%{$q}%")
+                  ->orWhere('email', 'LIKE', "%{$q}%")
+                  ->orWhereHas('rol', function ($sub) use ($q) {
+                      $sub->where('nombre', 'LIKE', "%{$q}%");
+                  });
+        })
+        ->orderBy('id_usuario', 'asc')
+        ->paginate(10)
+        ->withQueryString();
+
+    return view('privado.usuarios', compact('usuarios'));
+}
+
+    public function rol ()
     {
-        $q = $request->query('q');
-
-        $usuarios = UsuarioSistema::query()
-            ->when($q, function ($query) use ($q) {
-                $query->where('nombre', 'LIKE', "%{$q}%")
-                      ->orWhere('email', 'LIKE', "%{$q}%");
-            })
-            ->orderBy('id_usuario', 'desc')
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('privado.usuarios', compact('usuarios'));
+        $roles = Rol::all();
+        return view('privado.usuarios', compact('roles'));
     }
-
     public function create()
     {
         return view('privado.usuarios_crear');

@@ -10,19 +10,20 @@ class UsuarioSistema extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $table = 'usuario_sistema';
-
-    // 2. Especificar la clave primaria si no se llama 'id'
     protected $primaryKey = 'id_usuario';
-
-    // 3. Especificar qué campos se pueden llenar masivamente
+    public $timestamps = false;
     protected $fillable = [
         'nombre',
         'email',
-        'contrasena', // ¡Importante! Este campo debe estar presente
+        'contrasena', 
         'id_rol',
     ];
 
-    // 4. Mapeo de campos de autenticación (Necesario para Laravel Auth)
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class, 'id_rol', 'id_rol');
+    }
+
     public function getAuthPassword()
     {
         return $this->contrasena;
@@ -33,7 +34,4 @@ class UsuarioSistema extends Authenticatable
         'contrasena',
     ];
 
-    // 6. Si usas timestamps (created_at, updated_at), déjalo en true.
-    // Si tu tabla no los tiene, configúralo en false.
-    public $timestamps = false;
 }

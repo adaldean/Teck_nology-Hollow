@@ -7,6 +7,17 @@ use App\Models\Categoria;
 
 class ProductoController extends Controller
 {
+    public function showcart()
+    {
+        return view('carrito'); 
+    }
+
+    public function showInventory()
+    {
+        $productos = Producto::all();
+        return view('privado/inventario', compact('productos'));
+    }
+
     public function index(Request $request)
     {
         $categoria = $request->get('categoria');
@@ -28,7 +39,7 @@ class ProductoController extends Controller
 
         $productos = $query->paginate(12);
 
-        return view('catalogo', compact('productos'));
+        return view('inicio', compact('productos'));
     }
 
     public function edit($id)
@@ -66,4 +77,7 @@ class ProductoController extends Controller
     {
         return view('producto'); 
     }
-} 
+
+
+}
+

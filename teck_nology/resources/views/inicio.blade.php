@@ -137,5 +137,43 @@
         </section>
       </div>
     </main>
+    <div class="seccion-mapa-inferior">
+  <div class="contenedor-mapa-seccion">
+    <section class="ubicacion-negocio">
+      <h2 class="titulo-mapa">Localiza nuestro negocio.</h2>
+      <div class="contenido-mapa">
+        <div class="mapa-contenedor">
+          <iframe 
+            src="https://maps.google.com/maps?q=Tecnol%C3%B3gico+Nacional+de+M%C3%A9xico+Campus+Iztapalapa&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <div class="info-contacto">
+          <p class="direccion-texto">🏢 Tecnológico Nacional de México Campus Iztapalapa.</p>
+          <p class="telefono-texto">📞 Número telefónico: 55-12-34-56-78</p>
+          <p class="horario-texto">🕒 Horario: Lunes a Viernes 9:00 AM - 6:00 PM.</p>
+        </div>
+        <!-- 🔹 Nuevo bloque de redes sociales -->
+        <div class="redes-sociales">
+          <a href="https://facebook.com" target="_blank">
+            <img src="ruta/facebook.png" alt="Facebook" class="icono-red">
+          </a>
+          <a href="https://twitter.com" target="_blank">
+            <img src="ruta/twitter.png" alt="Twitter" class="icono-red">
+          </a>
+          <a href="https://instagram.com" target="_blank">
+            <img src="ruta/instagram.png" alt="Instagram" class="icono-red">
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
 </body>
 </html>

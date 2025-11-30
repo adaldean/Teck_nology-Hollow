@@ -52,6 +52,18 @@ body {
     list-style: none;
 }
 
+.btn-logout {
+    background: none;
+    border: none;
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+}
+
 .nav-links li {
     padding: 14px 25px;
     transition: all 0.3s ease;
@@ -68,7 +80,7 @@ body {
     border-left: 4px solid var(--naranja);
 }
 
-.nav-links a {
+.nav-links a, .btn-logout {
     color: white;
     text-decoration: none;
     font-weight: 500;

@@ -55,8 +55,10 @@
                         <p class="error-message">{{ $message }}</p>
                     @enderror
                 </div>                
-
+                <div class="logins">
                 <button type="submit" class="boton-login">Iniciar Sesión</button>
+                <button type="button" class="boton-cuenta" onclick="window.location.href='{{ url('/registro') }}'">Crear Cuenta</button>
+                </div>
             </form>
         </div>
     </main>
