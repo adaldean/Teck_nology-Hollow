@@ -7,17 +7,11 @@ use App\Models\Producto;
 
 class Categoria extends Model
 {
-    protected $table = 'categories';
+    protected $table = 'categoria';
     protected $primaryKey = 'id_categoria';
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
-        'description',
+        'nombre',
     ];
-
-    public function productos()
-    {
-        return $this->hasMany(Producto::class, 'id_categoria', 'id_categoria');
-    }
 }

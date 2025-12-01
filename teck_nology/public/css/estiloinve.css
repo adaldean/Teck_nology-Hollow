@@ -353,3 +353,20 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     transition: all 0.3s ease;
 }
+#alerta-exito {
+    position: fixed;
+    top: -100px; /* empieza oculto arriba */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    font-weight: bold;
+    z-index: 9999;
+    transition: top 0.5s ease-in-out;
+}
+#alerta-exito.show {
+    top: 20px; /* se muestra */
+}   

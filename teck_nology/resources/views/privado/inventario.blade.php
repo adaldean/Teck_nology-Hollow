@@ -4,20 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tr.sneakers - Inventario</title>
+    <title>Inventario</title>
     <link rel="icon" href="#">
     <link rel="stylesheet" href="{{ asset('css/estiloinve.css') }}">
 </head>
 <body>
 
     <div class="container">
-
-            {{-- Mensaje de login exitoso --}}
-            @if(session('success'))
-                <div class="alerta-exito">
-                    {{ session('success') }}
-                </div>
-            @endif
         <aside class="sidebar">
             <div class="logo">
                 <img src="{{ asset('imagenes/19e743dc-8b04-43b4-ad4b-da5ba6b4e109.png') }}" alt="Tr.sneakers Logo" class="logo-img">
@@ -43,6 +36,12 @@
                     <span>Administrador</span>
                 </div>
             </div>
+         @if(session('success'))
+            <div id="alerta-exito"> Bienvenido,
+            {{ auth()->user()->nombre }}! {{ session('success') }}
+            </div>
+         @endif
+
             <section class="seccion_inventario" id="contenido">
                 <div class="fila-categorias-agregar">
                     <div class="categorias">
@@ -90,7 +89,6 @@
                                     <td class="columna-categoria">{{ $producto->categoria->nombre ?? 'Sin categoría' }}</td>
                                     <td class="columna-proveedor">{{ $producto->proveedor->nombre ?? 'Sin proveedor' }}</td>
                                     <td class="columna-acciones">
-                                        <a href="{{ route('inventario.show', $producto->id_producto) }}" class="boton-ver">Ver</a>
                                         <a href="{{ url('inventario/editar/' . $producto->id_producto) }}" class="boton-editar">Editar</a>
                                         <button class="boton-eliminar">Eliminar</button>
                                     </td>
@@ -119,4 +117,19 @@
         </main>
     </div>
 </body>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const alerta = document.getElementById('alerta-exito');
+        if (alerta) {
+            alerta.style.top = '20px';
+
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                alerta.style.top = '-100px';
+            }, 3000);
+        }
+    });
+</script>
+
+
 </html>

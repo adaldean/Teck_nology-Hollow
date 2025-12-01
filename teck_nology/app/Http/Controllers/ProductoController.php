@@ -20,7 +20,7 @@ class ProductoController extends Controller
 
     public function index(Request $request)
     {
-        $categoria = $request->get('categoria');
+        $categoria = $request->get('nombre');
         $orden = $request->get('orden');
 
         $query = Producto::query();
