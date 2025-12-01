@@ -1,13 +1,24 @@
+/* Aqui se agrego html y body para la franja*/
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: sans-serif;
   margin: 0;
   background: linear-gradient(to bottom, #132446 0%, #7ab99f 70%, #61a883 100%); 
   justify-content: flex-start;
   align-items: center;
-    background-repeat: no-repeat;
+  background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  display: flex;/* Se agrego esto*/
+  flex-direction: column;
+  min-height: 100vh;
 }
+
 header {
   display: flex;
   align-items: center;
@@ -81,11 +92,16 @@ header {
 .icono-nav:hover {
   transform: scale(1.1);
 }
+
 main {
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  flex: 1; /* Se agrego esto*/
+  width: 100%;
+  box-sizing: border-box;
 }
+
 h1 {
   font-size: 1.8em;
   margin-bottom: 20px;
@@ -359,12 +375,15 @@ h1 {
   background: #000000;
   padding: 30px 0;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+  margin-top: auto; /* Se agrego esto*/
+  box-sizing: border-box;
 }
 
 .contenedor-mapa-seccion {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .ubicacion-negocio {
@@ -388,9 +407,9 @@ h1 {
 
 .redes-sociales {
   display: flex;
-  flex-direction: column; /* íconos en columna */
+  flex-direction: column;
   gap: 15px;
-  align-items: flex-end; /* alineados a la derecha */
+  align-items: flex-end;
 }
 
 .icono-red {
