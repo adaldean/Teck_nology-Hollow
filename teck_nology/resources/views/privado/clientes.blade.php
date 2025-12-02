@@ -35,8 +35,8 @@
                 <section class="seccion_inventario" id="contenido">
                 <div class="fila-categorias-agregar">
                     <div class="categorias">
-                        <a class="categoria-btn active">Empleados</a>
-                        <a class="categoria-btn" href={{ url('privado/clientes') }}>Clientes</a>
+                        <a class="categoria-btn" href={{ url('privado/usuarios') }}>Empleados</a>
+                        <a class="categoria-btn active">Clientes</a>
                     </div>
             </div>
 
@@ -55,22 +55,22 @@
                                 <th>ID</th>
                                 <th>NOMBRE</th>
                                 <th>EMAIL</th>
-                                <th>CONTRASEÑA</th>
-                                <th>ROL</th>
+                                <th>TELEFONO</th>
+                                <th>DIRECCION</th>
                                 <th>ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($usuarios as $usuario)
+                            @foreach($clientes as $cliente)
                                 <tr>
-                                    <td>{{ $usuario->id_usuario }}</td>
-                                    <td>{{ $usuario->nombre }}</td>
-                                    <td>{{ $usuario->email }}</td>
-                                    <td>{{ $usuario->contrasena }}</td>
-                                    <td>{{ $usuario->rol->nombre?? 'Sin rol' }}</td>
+                                    <td>{{ $cliente->id_cliente }}</td>
+                                    <td>{{ $cliente->nombre }}</td>
+                                    <td>{{ $cliente->email }}</td>
+                                    <td>{{ $cliente->telefono}}</td>
+                                    <td>{{ $cliente->direccion }}</td>
                                     <td>
-                                        <a href="{{ url('usuarios/'.$usuario->id.'/editar') }}" class="boton-editar">Editar</a>
-                                        <form action="{{ url('usuarios/'.$usuario->id.'/eliminar') }}" method="POST" style="display:inline;">
+                                        <a href="{{ url('cliente/'.$cliente->id.'/editar') }}" class="boton-editar">Editar</a>
+                                        <form action="{{ url('cliente/'.$cliente->id.'/eliminar') }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="boton-eliminar">Eliminar</button>
@@ -79,7 +79,7 @@
                                 </tr>
                             @endforeach
 
-                            @empty($usuarios)
+                            @empty($cliente)
                                 <tr>
                                     <td colspan="6" style="text-align:center;">No hay usuarios registrados.</td>
                                 </tr>
@@ -88,7 +88,7 @@
                     </table>
                 </div>
                 <div class="paginacion">
-                    {{ $usuarios->links() }}
+                    
                 </div>
             </div>
         </main>

@@ -97,14 +97,11 @@
           <a href="{{ url('categoria/consolas') }}" class="chip-categoria">Consolas</a>         
         </div>
           
-          <div class="opciones-ordenar">
-            <label for="ordenar-por">Ordenar por:</label>
-            <select id="ordenar-por" name="ordenar-por">
-              <option value="relevancia">Relevancia</option>
-              <option value="precio-asc">Precio: de menor a mayor</option>
-              <option value="precio-desc">Precio: de mayor a menor</option>
-              <option value="novedades">Novedades</option>
-            </select>
+          <div class="opciones-ordenar">          
+          <button class="boton-ordenar activo">Productos</button>
+          <button class="boton-ordenar">Precio ascendente</button>
+          <button class="boton-ordenar">Precio descendiente</button>
+          <button class="boton-ordenar">Ofertas </button>
           </div>
           
           <div class="productos-cuadricula">
@@ -137,6 +134,7 @@
         </section>
       </div>
     </main>
+
     <div class="seccion-mapa-inferior">
   <div class="contenedor-mapa-seccion">
     <section class="ubicacion-negocio">

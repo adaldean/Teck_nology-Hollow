@@ -28,8 +28,7 @@ class UsuarioSistema extends Authenticatable
     {
         return $this->contrasena;
     }
-
-    // 5. Ocultar atributos sensibles al serializar (por ejemplo, al devolver JSON)
+    
     protected $hidden = [
         'contrasena',
     ];

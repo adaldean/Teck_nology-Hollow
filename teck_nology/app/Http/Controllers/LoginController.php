@@ -24,7 +24,7 @@ class LoginController extends Controller
         $user = UsuarioSistema::where('email', $request->email)->first();
         if ($user && $user->contrasena === $request->password) {
             Auth::login($user);
-            return redirect('/privado/inventario')->with('success', 'Login exitoso');
+            return redirect('/privado/home')->with('success', 'Login exitoso');
         }
 
         return back()->withErrors(['email' => 'Credenciales inválidas.'])->onlyInput('email');

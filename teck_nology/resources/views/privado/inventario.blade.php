@@ -9,16 +9,16 @@
     <link rel="stylesheet" href="{{ asset('css/estiloinve.css') }}">
 </head>
 <body>
-
+    
     <div class="container">
         <aside class="sidebar">
             <div class="logo">
                 <img src="{{ asset('imagenes/19e743dc-8b04-43b4-ad4b-da5ba6b4e109.png') }}" alt="Tr.sneakers Logo" class="logo-img">
             </div>
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
+                <li><a href="{{ url('privado/home') }}">Home</a></li> 
                 <li class="active"><a href="#">Inventario</a></li>
-                <li><a href="{{ asset('/../usuarios')}}">Usuarios</a></li>
+                <li><a href="{{ asset('privado/usuarios')}}">Usuarios</a></li>
                 <li><a href="#">Configuración</a></li>
                 <li>                
                     <form action="{{ route('logout') }}" method="POST">
@@ -36,16 +36,11 @@
                     <span>Administrador</span>
                 </div>
             </div>
-         @if(session('success'))
-            <div id="alerta-exito"> Bienvenido,
-            {{ auth()->user()->nombre }}! {{ session('success') }}
-            </div>
-         @endif
-
             <section class="seccion_inventario" id="contenido">
                 <div class="fila-categorias-agregar">
                     <div class="categorias">
-                        <a class="categoria-btn active">Computadoras</a>
+                        <a href="#" class="categoria-btn active">Todos</a>
+                        <a class="categoria-btn">Computadoras</a>
                         <a class="categoria-btn">Moviles</a>
                         <a class="categoria-btn">Videojuegos</a>
                         <a class="categoria-btn">Accesorios</a>
@@ -117,19 +112,5 @@
         </main>
     </div>
 </body>
-<script>
-    window.addEventListener('DOMContentLoaded', () => {
-        const alerta = document.getElementById('alerta-exito');
-        if (alerta) {
-            alerta.style.top = '20px';
-
-            // Ocultar después de 3 segundos
-            setTimeout(() => {
-                alerta.style.top = '-100px';
-            }, 3000);
-        }
-    });
-</script>
-
 
 </html>

@@ -257,7 +257,7 @@ body {
 .tabla-usuarios th{
     padding: 12px 15px;
     border-bottom: 2px solid var(--gris-borde);
-    text-align: center;
+    text-align: left;
 }
 .tabla-usuarios td {
     padding: 12px 15px;
