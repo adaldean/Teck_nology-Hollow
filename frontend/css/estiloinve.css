@@ -80,6 +80,9 @@ body {
     align-items: center;
     font-weight: 600;
     color: #217390;
+    background: rgba(33, 115, 144, 0.1);
+    padding: 8px 15px;
+    border-radius: 20px;
 }
 .seccion_inventario h2 {
     color: #2c3e50;
