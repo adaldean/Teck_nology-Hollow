@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tr.sneakers</title>
+    <link rel="icon" href="">
+    <link rel="stylesheet" href="../css/estilo_home.css">
+</head>
+<body>
+<div class="container">
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="imagenes/logo.png" alt="Tr.sneakers Logo" class="logo-img">
+        </div>
+        <ul class="nav-links">
+            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="inventario.html">Inventario</a></li>
+            <li><a href="usuarios.html">Usuarios</a></li>
+            <li><a href="configuracion.html">Configuración</a></li>
+        </ul>
+    </aside>
+    
+    <div class="main-content">
+        <div class="header">
+            <h1>Sistema web de inventarios</h1>
+            <div class="user-info">Administrador</div>
+        </div>
+        
+        <div id="alerta-exito" class="alerta-exito">
+            Bienvenido, Administrador!
+        </div>
+
+        <div class="fila-categorias-agregar">
+            <h2 style="font-size: 1.4rem; font-weight: 600;">Resumen general</h2>
+        </div>
+
+        <div class="categorias">
+            <div class="producto-card">
+                <img src="icons/ordenes.png" alt="Órdenes" style="width:40px; margin-bottom:10px;">
+                <h3>Órdenes de Compra</h3>
+                <p>5 pendientes</p>
+            </div>
+            <div class="producto-card">
+                <img src="icons/recibidos.png" alt="Recibidos" style="width:40px; margin-bottom:10px;">
+                <h3>Compras Recibidas</h3>
+                <p>3 registradas</p>
+            </div>
+            <div class="producto-card">
+                <img src="icons/devoluciones.png" alt="Devoluciones" style="width:40px; margin-bottom:10px;">
+                <h3>Devoluciones</h3>
+                <p>2 registradas</p>
+            </div>
+            <div class="producto-card">
+                <img src="icons/ventas.png" alt="Ventas" style="width:40px; margin-bottom:10px;">
+                <h3>Ventas</h3>
+                <p>3 registradas</p>
+            </div>
+            <div class="producto-card">
+                <img src="icons/proveedores.png" alt="Proveedores" style="width:40px; margin-bottom:10px;">
+                <h3>Proveedores</h3>
+                <p>2 activos</p>
+            </div>
+            <div class="producto-card">
+                <img src="icons/productos.png" alt="Productos" style="width:40px; margin-bottom:10px;">
+                <h3>Productos</h3>
+                <p>3 en catálogo</p>
+            </div>
+            <div class="producto-card">
+                <img src="icons/usuarios.png" alt="Usuarios" style="width:40px; margin-bottom:10px;">
+                <h3>Usuarios</h3>
+                <p>1 administrador</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/bienvenido.js"></script>
+</body>
+</html>
