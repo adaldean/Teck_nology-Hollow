@@ -85,4 +85,23 @@ public function index(Request $request)
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado');
     }
+
+    public function listar()
+{
+    $usuarios = UsuarioSistema::paginate(10);
+    return view('partials.tabla_usuario', compact('usuarios'));
+}
+
+public function buscar(Request $request)
+{
+    $query = $request->input('query');
+
+    $usuarios = UsuarioSistema::where('nombre', 'LIKE', "%{$query}%")
+        ->orWhere('email', 'LIKE', "%{$query}%")
+        ->orWhere('rol', 'LIKE', "%{$query}%")
+        ->paginate(10);
+
+    return view('partials.tabla_usuario', compact('usuarios'));
+}
+
 }

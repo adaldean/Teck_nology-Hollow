@@ -35,7 +35,7 @@
                 <section class="seccion_inventario" id="contenido">
                 <div class="fila-categorias-agregar">
                     <div class="categorias">
-                        <a class="categoria-btn" href={{ url('privado/usuarios') }}>Empleados</a>
+                        <a class="categoria-btn" data->Empleados</a>
                         <a class="categoria-btn active">Clientes</a>
                     </div>
             </div>
@@ -49,43 +49,7 @@
                     <a href="{{ url('usuarios/crear') }}" class="boton-agregar"> + Agregar Usuario</a>
                 </div>
                 <div class="tabla-contenedor">
-                    <table class="tabla-usuarios">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>NOMBRE</th>
-                                <th>EMAIL</th>
-                                <th>TELEFONO</th>
-                                <th>DIRECCION</th>
-                                <th>ACCIONES</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($clientes as $cliente)
-                                <tr>
-                                    <td>{{ $cliente->id_cliente }}</td>
-                                    <td>{{ $cliente->nombre }}</td>
-                                    <td>{{ $cliente->email }}</td>
-                                    <td>{{ $cliente->telefono}}</td>
-                                    <td>{{ $cliente->direccion }}</td>
-                                    <td>
-                                        <a href="{{ url('cliente/'.$cliente->id.'/editar') }}" class="boton-editar">Editar</a>
-                                        <form action="{{ url('cliente/'.$cliente->id.'/eliminar') }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="boton-eliminar">Eliminar</button>
-                                       </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-
-                            @empty($cliente)
-                                <tr>
-                                    <td colspan="6" style="text-align:center;">No hay usuarios registrados.</td>
-                                </tr>
-                            @endempty
-                        </tbody>
-                    </table>
+                    
                 </div>
                 <div class="paginacion">
                     

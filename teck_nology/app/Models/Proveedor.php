@@ -11,8 +11,8 @@ class Proveedor extends Model
     public $timestamps = false;
     protected $fillable = [
         'nombre',
-        'descripcion',
-        'precio',
+        'telefono',
+        'email',
     ];
 
     public function productos()

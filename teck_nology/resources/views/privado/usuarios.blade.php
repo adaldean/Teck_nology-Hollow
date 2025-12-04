@@ -35,57 +35,25 @@
                 <section class="seccion_inventario" id="contenido">
                 <div class="fila-categorias-agregar">
                     <div class="categorias">
-                        <a class="categoria-btn active">Empleados</a>
-                        <a class="categoria-btn" href={{ url('privado/clientes') }}>Clientes</a>
+                        <a class="categoria-btn" data-usuario="usuarios">Empleados</a>
+                        <a class="categoria-btn" data-cliente="cliente">Clientes</a>
                     </div>
             </div>
 
             <div class="contenedor-tabla-usuarios">
                 <div class="barra-herramientas">
                     <div class="busqueda">
-                        <input type="text" class="campo-busqueda" placeholder="Buscar usuario...">
-                        <button class="boton-buscar">Buscar</button>
+                         <form id="form-busqueda-usuarios" data-url="/usuarios/buscar" data-target=".tabla-contenedor">
+                             <input type="text" name="query" class="campo-busqueda" placeholder="Buscar usuario...">
+                            <button type="submit" class="boton-buscar">Buscar</button>
+                        </form>
                     </div>
                     <a href="{{ url('usuarios/crear') }}" class="boton-agregar"> + Agregar Usuario</a>
                 </div>
                 <div class="tabla-contenedor">
-                    <table class="tabla-usuarios">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>NOMBRE</th>
-                                <th>EMAIL</th>
-                                <th>CONTRASEÑA</th>
-                                <th>ROL</th>
-                                <th>ACCIONES</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($usuarios as $usuario)
-                                <tr>
-                                    <td>{{ $usuario->id_usuario }}</td>
-                                    <td>{{ $usuario->nombre }}</td>
-                                    <td>{{ $usuario->email }}</td>
-                                    <td>{{ $usuario->contrasena }}</td>
-                                    <td>{{ $usuario->rol->nombre?? 'Sin rol' }}</td>
-                                    <td>
-                                        <a href="{{ url('usuarios/'.$usuario->id.'/editar') }}" class="boton-editar">Editar</a>
-                                        <form action="{{ url('usuarios/'.$usuario->id.'/eliminar') }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="boton-eliminar">Eliminar</button>
-                                       </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-
-                            @empty($usuarios)
-                                <tr>
-                                    <td colspan="6" style="text-align:center;">No hay usuarios registrados.</td>
-                                </tr>
-                            @endempty
-                        </tbody>
-                    </table>
+                    @include('partials.tabla_usuario', ['usuarios' => $usuarios])
+                    @include('partials.tabla_clientes', ['clientes' => $clientes])
+                   
                 </div>
                 <div class="paginacion">
                     {{ $usuarios->links() }}

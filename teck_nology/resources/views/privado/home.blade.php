@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="icon" href="#">
-    <link rel="stylesheet" href="{{ asset('css/estiloinve.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/estilo_home.css') }}">
 </head>
 <body>
 <div class="container">
@@ -17,7 +17,7 @@
             <ul class="nav-links">
                 <li class=active><a>Home</a></li>
                 <li><a href="{{ url('privado/inventario')}}">Inventario</a></li>
-                <li><a href="{{ asset('/../usuarios')}}">Usuarios</a></li>
+                <li><a href="{{ asset('privado/usuarios')}}">Usuarios</a></li>
                 <li><a href="#">Configuración</a></li>
                 <li>                
                     <form action="{{ route('logout') }}" method="POST">
@@ -27,6 +27,7 @@
                 </li>
             </ul>
         </aside>
+    <div class="main-content">
     <div class="header">
         <h1>Sistema web de inventarios</h1>
         <div class="user-info">Bienvenido, Admin</div>

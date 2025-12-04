@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="{{ asset('css/estilo.css') }}">
 </head>
 <body>
-    <header>
+  <header>
    <div class="header">
        <div class="logo-container">
            {{-- Usar la función 'asset()' para la ruta de la imagen --}}

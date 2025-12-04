@@ -77,7 +77,41 @@ class ProductoController extends Controller
     {
         return view('producto'); 
     }
+    
+    public function buscar(Request $request)
+{
+    $query = $request->input('query');
 
+    $productos = Producto::with(['categoria','proveedor'])
+        ->where('id_producto', 'LIKE', "%{$query}%")
+        ->orwhere('nombre', 'LIKE', "%{$query}%")
+        ->orWhere('descripcion', 'LIKE', "%{$query}%")
+        ->orWhereHas('categoria', function($q) use ($query) {
+            $q->where('nombre', 'LIKE', "%{$query}%");
+        })
+        ->orWhereHas('proveedor', function($q) use ($query) {
+            $q->where('nombre', 'LIKE', "%{$query}%");
+        })
+        ->paginate(10);
 
+    return view('partials.tabla_productos', compact('productos'));
 }
 
+    public function filtrarPorCategoria(Request $request)
+{
+    $categoria = $request->input('categoria');
+    if ($categoria === 'todos') {
+        $productos = Producto::with('categoria')->paginate(10);
+        return view('partials.tabla_productos', compact('productos'));  
+    } else {
+    $productos = Producto::with('categoria', 'proveedor')
+        ->whereHas('categoria', function($q) use ($categoria) {
+            $q->where('nombre', $categoria);
+        })
+        ->paginate(10);
+
+    return view('partials.tabla_productos', compact('productos'));  
+
+    }
+}
+}

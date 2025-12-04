@@ -77,4 +77,23 @@ class ClienteController extends Controller
 
         return redirect()->route('clientes.index')->with('success', 'Cliente eliminado correctamente');
     }
+
+    public function listar()
+{
+    $clientes = Cliente::paginate(10);
+    return view('partials.tabla_clientes', compact('clientes'));
+}
+
+public function buscar(Request $request)
+{
+    $query = $request->input('query');
+
+    $clientes = Cliente::where('nombre', 'LIKE', "%{$query}%")
+        ->orWhere('email', 'LIKE', "%{$query}%")
+        ->paginate(10);
+
+    return view('partials.tabla_clientes', compact('clientes'));
+}
+
+
 }

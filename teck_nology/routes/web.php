@@ -22,6 +22,13 @@ Route::get('/privado/home', function () {
     return view('privado.home');
 })->name('privado.home');   
 
+    // --- RUTAS DE BÚSQUEDA ---
+Route::get('/inventario/buscar', [ProductoController::class, 'buscar'])->name('inventario.buscar');
+Route::get('/inventario/categoria', [ProductoController::class, 'filtrarPorCategoria'])->name('inventario.categoria');
+Route::get('/usuarios/buscar', [UsuarioController::class, 'buscar'])->name('usuarios.buscar');
+Route::get('/clientes/buscar', [ClienteController::class, 'buscar'])->name('clientes.buscar');
+
+
     // Inventario
     Route::get('privado/inventario', [ProductoController::class, 'showInventory'])->name('inventario.index');
     Route::get('/inventario/{id}', [ProductoController::class, 'show'])->name('inventario.show');
