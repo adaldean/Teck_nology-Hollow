@@ -20,24 +20,26 @@ class ProductoController extends Controller
 
     public function index(Request $request)
     {
-        $categoria = $request->get('nombre');
+        $categoria = $request->get('categoria'); // 👈 corregido
         $orden = $request->get('orden');
 
-        $query = Producto::query();
+        $query = Producto::with(['categoria','proveedor']);
 
-        if ($categoria) {
-            $query->where('id_categoria', $categoria);
+        if ($categoria && $categoria !== 'todos') {
+            $query->whereHas('categoria', function($q) use ($categoria) {
+                $q->where('nombre', $categoria);
+            });
         }
 
-        if ($orden == 'asc') {
+        if ($orden === 'asc') {
             $query->orderBy('precio', 'asc');
-        } elseif ($orden == 'desc') {
+        } elseif ($orden === 'desc') {
             $query->orderBy('precio', 'desc');
-        } elseif ($orden == 'ofertas') {
+        } elseif ($orden === 'ofertas') {
             $query->where('precio', '<', 500); 
         }
 
-        $productos = $query->paginate(12);
+        $productos = $query->paginate(6); // 👈 coherente con catálogo
 
         return view('inicio', compact('productos'));
     }
@@ -79,39 +81,38 @@ class ProductoController extends Controller
     }
     
     public function buscar(Request $request)
-{
-    $query = $request->input('query');
+    {
+        $query = $request->input('query');
 
-    $productos = Producto::with(['categoria','proveedor'])
-        ->where('id_producto', 'LIKE', "%{$query}%")
-        ->orwhere('nombre', 'LIKE', "%{$query}%")
-        ->orWhere('descripcion', 'LIKE', "%{$query}%")
-        ->orWhereHas('categoria', function($q) use ($query) {
-            $q->where('nombre', 'LIKE', "%{$query}%");
-        })
-        ->orWhereHas('proveedor', function($q) use ($query) {
-            $q->where('nombre', 'LIKE', "%{$query}%");
-        })
-        ->paginate(10);
+        $productos = Producto::with(['categoria','proveedor'])
+            ->where('id_producto', 'LIKE', "%{$query}%")
+            ->orWhere('nombre', 'LIKE', "%{$query}%")
+            ->orWhere('descripcion', 'LIKE', "%{$query}%")
+            ->orWhereHas('categoria', function($q) use ($query) {
+                $q->where('nombre', 'LIKE', "%{$query}%");
+            })
+            ->orWhereHas('proveedor', function($q) use ($query) {
+                $q->where('nombre', 'LIKE', "%{$query}%");
+            })
+            ->paginate(6); // 👈 coherente
 
-    return view('partials.tabla_productos', compact('productos'));
-}
+        return view('partials.tabla_productos', compact('productos'));
+    }
 
     public function filtrarPorCategoria(Request $request)
-{
-    $categoria = $request->input('categoria');
-    if ($categoria === 'todos') {
-        $productos = Producto::with('categoria')->paginate(10);
-        return view('partials.tabla_productos', compact('productos'));  
-    } else {
-    $productos = Producto::with('categoria', 'proveedor')
-        ->whereHas('categoria', function($q) use ($categoria) {
-            $q->where('nombre', $categoria);
-        })
-        ->paginate(10);
+    {
+        $categoria = $request->input('categoria');
 
-    return view('partials.tabla_productos', compact('productos'));  
+        if ($categoria === 'todos') {
+            $productos = Producto::with('categoria')->paginate(6);
+        } else {
+            $productos = Producto::with('categoria','proveedor')
+                ->whereHas('categoria', function($q) use ($categoria) {
+                    $q->where('nombre', $categoria);
+                })
+                ->paginate(6);
+        }
 
+        return view('partials.tabla_productos', compact('productos'));
     }
-}
 }

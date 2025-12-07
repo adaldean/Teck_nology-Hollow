@@ -23,7 +23,7 @@ public function index(Request $request)
         ->paginate(10)
         ->withQueryString();
 
-    return view('privado.usuarios', compact('usuarios'));
+    return view('privado.usuarios', compact('usuarios','clientes'));
 }
 
     public function rol ()

@@ -51,12 +51,19 @@
                     <a href="{{ url('usuarios/crear') }}" class="boton-agregar"> + Agregar Usuario</a>
                 </div>
                 <div class="tabla-contenedor">
-                    @include('partials.tabla_usuario', ['usuarios' => $usuarios])
-                    @include('partials.tabla_clientes', ['clientes' => $clientes])
-                   
-                </div>
+
+    <div id="tabla-usuarios" class="tabla-activa">
+        @include('partials.tabla_usuario', ['usuarios' => $usuarios ?? collect()])
+    </div>
+
+    <div id="tabla-clientes" class="tabla-oculta" style="display:none;">
+        @include('partials.tabla_clientes', ['clientes' => $clientes ?? collect()])
+    </div>
+
+</div>
+
                 <div class="paginacion">
-                    {{ $usuarios->links() }}
+
                 </div>
             </div>
         </main>

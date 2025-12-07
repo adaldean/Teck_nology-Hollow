@@ -39,11 +39,11 @@
             <section class="seccion_inventario" id="contenido">
                 <div class="fila-categorias-agregar">
                     <div class="categorias">
-                        <a href="#" class="categoria-btn" data-categoria="todos">Todos</a>
-                        <a href="#" class="categoria-btn" data-categoria="computadoras">Computadoras</a>
-                        <a href="#" class="categoria-btn" data-categoria="moviles">Moviles</a>
-                        <a href="#" class="categoria-btn" data-categoria="consolas">Videojuegos</a>
-                        <a href="#" class="categoria-btn" data-categoria="accesorios">Accesorios</a>
+                        <a  class="categoria-btn" data-categoria="todos">Todos</a>
+                        <a  class="categoria-btn" data-categoria="computadoras">Computadoras</a>
+                        <a  class="categoria-btn" data-categoria="moviles">Moviles</a>
+                        <a  class="categoria-btn" data-categoria="consolas">Videojuegos</a>
+                        <a  class="categoria-btn" data-categoria="accesorios">Accesorios</a>
                     </div>
                     <div class="contenedor-boton-agregar"></div>
                 </div>

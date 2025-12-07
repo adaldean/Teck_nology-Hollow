@@ -262,6 +262,23 @@ body {
   color: red;
 }
 
+.carrito {
+  position: relative;
+}
+
+.carrito-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #FC4B08;
+  color: white;
+  font-size: 0.8em;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 4px 7px;
+}
+
+
 @media (max-width: 768px) {
     .product-grid {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

@@ -21,36 +21,7 @@
     <div class="main-content">
 
         <div class="product-grid">
-
-            <div class="product-card">
-                <h3 class="card-title">Laptop Gamer X-Pro</h3>
-                <p class="card-price">$28500<span class="price-suffix"> MXN</span></p>
-                <ul class="features-list">
-                    <li>• Procesador: i7 12th Gen</li>
-                    <li>• RAM: 16 GB DDR5</li>
-                </ul>
-                <button type="button" class="card-button" onclick="agregarAlCarrito('Laptop Gamer X-Pro', 28500)">Agregar</button>
-            </div>
-
-            <div class="product-card">
-                <h3 class="card-title">Smartphone Ultra 15</h3>
-                <p class="card-price">$19999<span class="price-suffix"> MXN</span></p>
-                <ul class="features-list">
-                    <li>• Pantalla: 6.7" OLED</li>
-                    <li>• Almacenamiento: 256 GB</li>
-                </ul>
-                <button type="button" class="card-button" onclick="agregarAlCarrito('Smartphone Ultra 15', 19999)">Agregar</button>
-            </div>
-
-            <div class="product-card">
-                <h3 class="card-title">Audífonos BT Pro</h3>
-                <p class="card-price">$1899<span class="price-suffix"> MXN</span></p>
-                <ul class="features-list">
-                    <li>• Tipo: Cancelación de Ruido</li>
-                    <li>• Batería: 30 horas</li>
-                </ul>
-                <button type="button" class="card-button" onclick="agregarAlCarrito('Audífonos BT Pro', 1899)">Agregar</button>
-            </div>
+            <div id="carrito-contenedor"></div>
 
         </div>
 

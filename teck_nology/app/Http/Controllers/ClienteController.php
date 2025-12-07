@@ -21,13 +21,13 @@ class ClienteController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return view('privado.clientes', compact('clientes'));
+        return view('privado.usuarios', compact('clientes'));
     }
 
     // Mostrar formulario de creación
     public function create()
     {
-        return view('privado.clientes_crear');
+        return view('privado.usuarios_crear');
     }
 
     // Guardar nuevo cliente
@@ -42,14 +42,14 @@ class ClienteController extends Controller
 
         Cliente::create($request->all());
 
-        return redirect()->route('clientes.index')->with('success', 'Cliente creado correctamente');
+        return redirect()->route('usuarios.index')->with('success', 'Cliente creado correctamente');
     }
 
     // Mostrar formulario de edición
     public function edit($id)
     {
         $cliente = Cliente::findOrFail($id);
-        return view('privado.clientes_editar', compact('cliente'));
+        return view('privado.usuarios_editar', compact('cliente'));
     }
 
     // Actualizar cliente
@@ -66,7 +66,7 @@ class ClienteController extends Controller
 
         $cliente->update($request->all());
 
-        return redirect()->route('clientes.index')->with('success', 'Cliente actualizado correctamente');
+        return redirect()->route('usuarios.index')->with('success', 'Cliente actualizado correctamente');
     }
 
     // Eliminar cliente
@@ -75,7 +75,7 @@ class ClienteController extends Controller
         $cliente = Cliente::findOrFail($id);
         $cliente->delete();
 
-        return redirect()->route('clientes.index')->with('success', 'Cliente eliminado correctamente');
+        return redirect()->route('usuarios.index')->with('success', 'Cliente eliminado correctamente');
     }
 
     public function listar()
