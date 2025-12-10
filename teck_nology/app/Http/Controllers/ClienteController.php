@@ -1,36 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 
 class ClienteController extends Controller
 {
-    // Listar clientes con búsqueda y paginación
-    public function index(Request $request)
-    {
-        $q = $request->query('q');
+public function index()
+{
+    $clientes = Cliente::orderBy('id_cliente', 'desc')->paginate(10);
+    return view('partials.tabla_clientes', compact('clientes'));
+}
 
-        $clientes = Cliente::query()
-            ->when($q, function ($query) use ($q) {
-                $query->where('nombre', 'LIKE', "%{$q}%")
-                      ->orWhere('email', 'LIKE', "%{$q}%");
-            })
-            ->orderBy('id_cliente', 'desc')
-            ->paginate(10)
-            ->withQueryString();
 
-        return view('privado.usuarios', compact('clientes'));
-    }
-
-    // Mostrar formulario de creación
     public function create()
     {
         return view('privado.usuarios_crear');
     }
 
-    // Guardar nuevo cliente
     public function store(Request $request)
     {
         $request->validate([
@@ -94,6 +81,4 @@ public function buscar(Request $request)
 
     return view('partials.tabla_clientes', compact('clientes'));
 }
-
-
 }

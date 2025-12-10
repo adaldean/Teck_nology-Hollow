@@ -7,8 +7,7 @@ function cargarProductos(url = `/?categoria=${categoriaSeleccionada}&orden=${ord
             const doc = new DOMParser().parseFromString(html, 'text/html');
             document.querySelector('.productos-cuadricula').innerHTML = doc.querySelector('.productos-cuadricula').innerHTML;
             document.querySelector('.paginacion').innerHTML = doc.querySelector('.paginacion').innerHTML;
-
-            // Reasignar eventos a los links de paginación
+ 
             document.querySelectorAll('.paginacion a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();

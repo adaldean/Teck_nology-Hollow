@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Rol;
+use App\Models\Cliente;
 use App\Models\UsuarioSistema;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,7 @@ class UsuarioController extends Controller
 public function index(Request $request)
 {
     $q = $request->query('q');
+    $tipo = $request->query('tipo', 'usuarios'); 
 
     $usuarios = UsuarioSistema::with('rol')
         ->when($q, function ($query) use ($q) {
@@ -20,11 +22,20 @@ public function index(Request $request)
                   });
         })
         ->orderBy('id_usuario', 'asc')
-        ->paginate(10)
-        ->withQueryString();
+        ->paginate(10);
 
-    return view('privado.usuarios', compact('usuarios','clientes'));
+    $clientes = Cliente::when($q, function ($query) use ($q) {
+            $query->where('nombre', 'LIKE', "%{$q}%")
+                  ->orWhere('email', 'LIKE', "%{$q}%")
+                  ->orWhere('telefono', 'LIKE', "%{$q}%")
+                  ->orWhere('direccion', 'LIKE', "%{$q}%");
+        })
+        ->orderBy('id_cliente', 'asc')
+        ->paginate(10);
+
+    return view('privado.usuarios', compact('usuarios', 'clientes', 'tipo'));
 }
+
 
     public function rol ()
     {
