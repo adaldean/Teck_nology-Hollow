@@ -835,14 +835,14 @@ COPY public.pedido (id_pedido, id_cliente, fecha, estado, metodo_pago, total) FR
 --
 
 COPY public.producto (id_producto, nombre, descripcion, precio, stock, id_categoria, id_proveedor) FROM stdin;
-2001	Laptop Ultradelgada	Portátil 14" con 16GB RAM	899.99	150	1	1
+2001	Laptop Ultradelgada	Portátil 14 con 16GB RAM	899.99	150	1	1
 2002	Smartphone Z10	Teléfono gama media, 128GB	349.99	300	2	1
 2003	Consola Next-Gen	Consola de videojuegos 1TB	499.99	75	3	6
-2004	Monitor Curvo 27"	Monitor para juegos 144Hz	299.99	500	1	2
+2004	Monitor Curvo 27	Monitor para juegos 144Hz	299.99	500	1	2
 2005	Mouse Gamer RGB	Mouse retroiluminado 7200 DPI	19.99	300	3	2
 2006	Teclado Mecánico RGB	Teclado mecánico switch rojo con iluminación RGB	59.99	120	3	2
 2007	Audífonos Inalámbricos Pro	Audífonos bluetooth con cancelación de ruido	89.99	80	4	1
-2008	Tablet 10" Full HD	Tablet de 10 pulgadas con procesador Octa-Core y 64GB	149.99	45	1	3
+2008	Tablet 10 Full HD	Tablet de 10 pulgadas con procesador Octa-Core y 64GB	149.99	45	1	3
 2009	Disco SSD 1TB	Unidad de estado sólido 1TB NVMe Gen4	129.99	200	4	4
 2010	Smartwatch Serie 6	Reloj inteligente resistente al agua con monitor de salud	199.99	65	4	2
 2011	Bocina Bluetooth XL	Bocina portátil con graves profundos, 24h de batería	39.99	150	4	3
