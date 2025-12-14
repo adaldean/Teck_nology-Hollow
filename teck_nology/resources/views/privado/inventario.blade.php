@@ -39,7 +39,7 @@
             <section class="seccion_inventario" id="contenido">
                 <div class="fila-categorias-agregar">
                     <div class="categorias">
-                        <a  class="categoria-btn" data-categoria="todos">Todos</a>
+                        <a  class="categoria-btn active" data-categoria="todos">Todos</a>
                         <a  class="categoria-btn" data-categoria="computadoras">Computadoras</a>
                         <a  class="categoria-btn" data-categoria="moviles">Moviles</a>
                         <a  class="categoria-btn" data-categoria="consolas">Videojuegos</a>

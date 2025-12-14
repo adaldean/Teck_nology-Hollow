@@ -53,7 +53,20 @@ class ProductoController extends Controller
     public function update(Request $request, $id)
     {
         $producto = Producto::findOrFail($id);
-        $producto->update($request->all());
+
+        $validated = $request->validate([
+            'nombre' => 'required|max:255',
+            'precio' => 'required|numeric',
+            'stock' => 'nullable|integer',
+            'descripcion' => 'nullable|string',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+        ]);
+
+        if ($request->hasFile('imagen')) {
+            $validated['imagen'] = $request->file('imagen')->store('productos', 'public');
+        }
+
+        $producto->update($validated);
         return redirect('/inventario')->with('success', 'Producto actualizado correctamente.');
     }
 
@@ -64,14 +77,21 @@ class ProductoController extends Controller
         return redirect('/inventario')->with('success', 'Producto eliminado correctamente.');   
     }
 
-    public function create()
-    {
-        return view('privado/agregar_producto');
-    }
-
     public function store(Request $request)
     {
-        Producto::create($request->all());
+        $validated = $request->validate([
+            'nombre' => 'required|max:255',
+            'precio' => 'required|numeric',
+            'stock' => 'nullable|integer',
+            'descripcion' => 'nullable|string',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+        ]);
+
+        if ($request->hasFile('imagen')) {
+            $validated['imagen'] = $request->file('imagen')->store('productos', 'public');
+        }
+
+        Producto::create($validated);
         return redirect('/inventario')->with('success', 'Producto agregado correctamente.');
     }
 

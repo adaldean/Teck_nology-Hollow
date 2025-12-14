@@ -63,7 +63,8 @@ CREATE TABLE public.cliente (
     nombre character varying(100),
     email character varying(100),
     telefono character varying(20),
-    direccion text
+    direccion text,
+    contrasena character varying(255)
 );
 
 

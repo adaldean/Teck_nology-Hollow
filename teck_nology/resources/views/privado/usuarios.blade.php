@@ -2,6 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Gestión de Usuarios</title>
     <link rel="stylesheet" href="{{ asset('css/estilo_gestionclien.css') }}">
 </head>
@@ -14,7 +16,7 @@
             <ul class="nav-links">
                 <li><a href="{{ url('privado/home') }}">Home</a></li>
                 <li><a href="{{ url('privado/inventario') }}">Inventario</a></li>
-                <li class="active"><a href="{{ url('usuarios') }}">Usuarios</a></li>
+                <li class="active"><a href="{{ url('privado/usuarios') }}">Usuarios</a></li>
                 <li><a href="#">Configuración</a></li>
                 <li>
                     <form action="{{ route('logout') }}" method="POST">
@@ -49,7 +51,7 @@
                                 <button type="submit" class="boton-buscar">Buscar</button>
                             </form>
                         </div>
-                        <a href="{{ url('usuarios/crear') }}" class="boton-agregar"> + Agregar Usuario</a>
+                        <a href="{{ route('usuarios.create') }}" class="boton-agregar">+ Agregar Usuario</a>
                     </div>
 
                     <!-- TABLA EMPLEADOS -->
@@ -77,9 +79,8 @@
             </section>
         </main>
     </div>
-<script src="{{ asset('javascript/toggle-usuarios-clientes.js') }}"></script>
-<script src="{{ asset('javascript/buscar-usuarios.js') }}"></script>
-<script src="{{ asset('javascript/buscar-clientes.js') }}"></script>
 
+    <script src="{{ asset('javascript/toggle-usuarios-clientes.js') }}"></script>
+    <script src="{{ asset('javascript/Editar-usu.js') }}"></script>
 </body>
 </html>

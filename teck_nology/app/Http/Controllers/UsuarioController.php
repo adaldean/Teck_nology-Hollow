@@ -76,27 +76,51 @@ public function index(Request $request)
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario creado');
     }
-
-    public function update(Request $request, $id)
-    {
+ public function actualizarAjax(Request $request, $id){
+ try {
         $usuario = UsuarioSistema::findOrFail($id);
 
-        $request->validate([
+        $rules = [
             'nombre' => 'required|max:255',
-            'email' => 'required|email|unique:usuario_sistemas,email,' . $usuario->id,
-            'contrasena' => 'nullable|min:6',
-        ]);
+            'email' => 'required|email|unique:usuario_sistemas,email,' . $usuario->id_usuario . ',id_usuario',
+        ];
+
+        // Validar contraseña solo si se proporciona
+        if ($request->has('contrasena') && !empty($request->contrasena)) {
+            $rules['contrasena'] = 'required|min:6';
+        }
+
+        $request->validate($rules);
 
         $usuario->nombre = $request->nombre;
         $usuario->email = $request->email;
-        if ($request->filled('contrasena')) {
-            $usuario->contrasena = $request->contrasena;
+        
+        if ($request->has('contrasena') && !empty($request->contrasena)) {
+            $usuario->contrasena = bcrypt($request->contrasena);
         }
+        
         $usuario->save();
 
-        return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado');
-    }
+        return response()->json([
+            'success' => true,
+            'message' => 'Usuario actualizado correctamente',
+            'usuario' => $usuario
+        ]);
 
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error de validación',
+            'errors' => $e->errors()
+        ], 422);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error: ' . $e->getMessage()
+        ], 500);
+    }
+ }
     public function listar()
 {
     $usuarios = UsuarioSistema::paginate(10);

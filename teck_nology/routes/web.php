@@ -18,18 +18,17 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // --- RUTAS DE INVENTARIO (PROTEGIDAS por Auth Middleware) ---
 Route::middleware('auth')->group(function () {
-Route::get('/privado/home', function () {
-    return view('privado.home');
-})->name('privado.home');   
+    Route::get('/privado/home', function () {
+        return view('privado.home');
+    })->name('privado.home');   
 
     // --- RUTAS DE BÚSQUEDA ---
-Route::get('/inventario/buscar', [ProductoController::class, 'buscar'])->name('inventario.buscar');
-Route::get('/inventario/categoria', [ProductoController::class, 'filtrarPorCategoria'])->name('inventario.categoria');
-Route::get('/usuarios/buscar', [UsuarioController::class, 'buscar'])->name('usuarios.buscar');
-Route::get('/clientes/buscar', [ClienteController::class, 'buscar'])->name('clientes.buscar');
+    Route::get('/inventario/buscar', [ProductoController::class, 'buscar'])->name('inventario.buscar');
+    Route::get('/inventario/categoria', [ProductoController::class, 'filtrarPorCategoria'])->name('inventario.categoria');
+    Route::get('/usuarios/buscar', [UsuarioController::class, 'buscar'])->name('usuarios.buscar');
+    Route::get('/clientes/buscar', [ClienteController::class, 'buscar'])->name('clientes.buscar');
 
-
-    // Inventario
+    // --- INVENTARIO ---
     Route::get('privado/inventario', [ProductoController::class, 'showInventory'])->name('inventario.index');
     Route::get('/inventario/{id}', [ProductoController::class, 'show'])->name('inventario.show');
     Route::get('/inventario/agregar', [ProductoController::class, 'create'])->name('inventario.create');
@@ -37,23 +36,20 @@ Route::get('/clientes/buscar', [ClienteController::class, 'buscar'])->name('clie
     Route::get('/inventario/editar/{id}', [ProductoController::class, 'edit'])->name('inventario.edit'); 
     Route::post('/inventario/actualizar/{id}', [ProductoController::class, 'update'])->name('inventario.update');
     Route::delete('/inventario/eliminar/{id}', [ProductoController::class, 'destroy'])->name('inventario.destroy');
-// --- USUARIOS (EMPLEADOS) ---
-Route::get('/usuarios/buscar', [UsuarioController::class, 'buscar'])->name('usuarios.buscar');
-Route::get('privado/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
-Route::get('/usuarios/crear', [UsuarioController::class, 'create'])->name('usuarios.create');
-Route::get('/usuarios/{id}/editar', [UsuarioController::class, 'edit'])->name('usuarios.edit');
-Route::delete('/usuarios/{id}/eliminar', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
-Route::post('/usuarios/guardar', [UsuarioController::class, 'store'])->name('usuarios.store');
-Route::post('/usuarios/{id}/actualizar', [UsuarioController::class, 'update'])->name('usuarios.update');
 
+    // --- USUARIOS (EMPLEADOS) ---
+    Route::get('privado/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
+    Route::get('/usuarios/crear', [UsuarioController::class, 'create'])->name('usuarios.create');
+    Route::post('/usuarios/guardar', [UsuarioController::class, 'store'])->name('usuarios.store');
+    Route::get('/usuarios/editar/{id}', [UsuarioController::class, 'edit'])->name('usuarios.edit');
+    Route::put('/usuarios/{id}/actualizar', [UsuarioController::class, 'actualizarAjax'])->name('usuarios.actualizarAjax');
+    Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
 
-// --- CLIENTES ---
-// --- CLIENTES ---
-Route::get('privado/clientes', [ClienteController::class, 'index'])->name('clientes.index');
-Route::get('/clientes/crear', [ClienteController::class, 'create'])->name('clientes.create');
-Route::get('/clientes/{id}/editar', [ClienteController::class, 'edit'])->name('clientes.edit');
-Route::delete('/clientes/{id}/eliminar', [ClienteController::class, 'destroy'])->name('clientes.destroy');
-Route::post('/clientes/guardar', [ClienteController::class, 'store'])->name('clientes.store');
-Route::post('/clientes/{id}/actualizar', [ClienteController::class, 'update'])->name('clientes.update');
-
+    // --- CLIENTES ---
+    Route::get('privado/clientes', [ClienteController::class, 'index'])->name('clientes.index');
+    Route::get('/clientes/crear', [ClienteController::class, 'create'])->name('clientes.create');
+    Route::post('/clientes/guardar', [ClienteController::class, 'store'])->name('clientes.store');
+    Route::get('/clientes/editar/{id}', [ClienteController::class, 'edit'])->name('clientes.edit');
+    Route::put('/clientes/{id}/actualizar', [ClienteController::class, 'actualizarAjax'])->name('clientes.actualizarAjax');
+    Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
 });
