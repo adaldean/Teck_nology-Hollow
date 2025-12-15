@@ -18,9 +18,26 @@
           <div class="productos-cuadricula">
             @foreach($productos as $producto)
             <div class="producto-tarjeta">
-              <div class="producto-imagen">
-                <img src="{{ asset('imagenes/' . $producto->imagen) }}" alt="{{ $producto->nombre }}">
-              </div>
+        <div class="producto-imagen">
+          @php
+            $img = $producto->imagen ?? null;
+            // Default placeholder if no image
+            $default = asset('imagenes/19e743dc-8b04-43b4-ad4b-da5ba6b4e109.png');
+            $src = $default;
+            if ($img) {
+              // If image was stored via the storage disk (e.g. 'productos/filename'), serve from /storage
+              if (\Illuminate\Support\Str::startsWith($img, 'productos/') || \Illuminate\Support\Str::startsWith($img, 'storage/')) {
+                // ensure we don't duplicate 'storage/' prefix
+                $clean = preg_replace('/^storage\//', '', $img);
+                $src = asset('storage/' . $clean);
+              } else {
+                // Otherwise assume the file is in public/imagenes
+                $src = asset('imagenes/' . $img);
+              }
+            }
+          @endphp
+          <img src="{{ $src }}" alt="{{ $producto->nombre }}">
+          </div>
               <div class="producto-info">
                 <p class="producto-nombre">{{ $producto->nombre }}</p>
                 <p class="producto-precio">${{ $producto->precio }}</p>

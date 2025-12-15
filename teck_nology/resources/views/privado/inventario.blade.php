@@ -57,7 +57,7 @@
                     </div>
                         <div class="contenedor-boton-agregar">
                             <!-- Enlace al formulario de creación. Usamos la ruta de desarrollo /dev para que el botón funcione sin login durante pruebas. -->
-                            <a href="/dev/inventario/agregar" class="boton-agregar-principal">+ Agregar Producto</a>
+                           
                         </div>
                 </div>
 
@@ -67,9 +67,10 @@
                             <form id="form-busqueda">
                                 <input type="text" name="query" id="campo-busqueda" class="campo-busqueda" placeholder="Buscar producto...">
                                 <button type="submit" class="boton-buscar">Buscar</button>
-                            </form>
+                                </form>
                         </div>
-                        <!-- Botón secundario eliminado para evitar duplicado; se mantiene el botón principal arriba -->
+
+ <a href="/dev/inventario/agregar" class="boton-agregar">+ Agregar Producto</a>                        <!-- Botón secundario eliminado para evitar duplicado; se mantiene el botón principal arriba -->
                     </div>
 
                     <div class="tabla-contenedor">
