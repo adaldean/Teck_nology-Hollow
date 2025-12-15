@@ -51,7 +51,10 @@
                                 <button type="submit" class="boton-buscar">Buscar</button>
                             </form>
                         </div>
-                        <a href="{{ route('usuarios.create') }}" class="boton-agregar">+ Agregar Usuario</a>
+                        <div class="botones-agregar">
+                            <a href="{{ route('usuarios.create') }}" class="boton-agregar">+ Agregar Usuario</a>
+                            <a href="{{ route('clientes.create') }}" class="boton-agregar boton-agregar-cliente">+ Agregar Cliente</a>
+                        </div>
                     </div>
 
                     <!-- TABLA EMPLEADOS -->

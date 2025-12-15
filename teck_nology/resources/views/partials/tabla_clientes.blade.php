@@ -18,11 +18,11 @@
             <td>{{ $cliente->telefono }}</td>
             <td>{{ $cliente->direccion }}</td>
             <td>
-                <a href="{{ url('clientes/'.$cliente->id_cliente.'/editar') }}" class="boton-editar">Editar</a>
-                <form action="{{ url('clientes/'.$cliente->id_cliente.'/eliminar') }}" method="POST" style="display:inline;">
+                <a href="{{ route('clientes.edit', $cliente->id_cliente) }}" class="boton-editar">Editar</a>
+                <form action="{{ route('clientes.destroy', $cliente->id_cliente) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="boton-eliminar">Eliminar</button>
+                    <button type="submit" class="boton-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este cliente?')">Eliminar</button>
                 </form>
             </td>
         </tr>
