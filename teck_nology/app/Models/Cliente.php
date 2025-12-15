@@ -1,6 +1,9 @@
 <?php
-namespace app\Models;
+
+namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
+
 class Cliente extends Model
 {
     protected $table = 'cliente';
@@ -12,6 +15,10 @@ class Cliente extends Model
         'email',
         'telefono',
         'direccion',
+        'contrasena',
     ];
-    
+
+    protected $hidden = [
+        'contrasena',
+    ];
 }

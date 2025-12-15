@@ -19,6 +19,11 @@
 
     <main class="login-page">
         <div class="contenedor-formulario">
+                @if(session('cliente_id'))
+                    <div style="text-align:right;margin-bottom:8px;">
+                        <a href="{{ route('cliente.logout') }}" style="text-decoration:none;color:#c0392b;">Cerrar sesión (cliente)</a>
+                    </div>
+                @endif
             @if ($errors->any())
                 <div class="alert-error">
                     <ul>

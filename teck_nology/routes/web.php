@@ -6,6 +6,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ClienteController;
 
+// Ruta de desarrollo: acceso público al formulario de 'Agregar producto' sin auth (quitar antes de producir)
+Route::get('/dev/inventario/agregar', [ProductoController::class, 'create']);
+
 // --- RUTAS DE INICIO (HOME) y PRODUCTO ---
 Route::get('/', [ProductoController::class, 'index'])->name('inicio');
 Route::get('/producto/{id}', [ProductoController::class, 'show'])->name('producto.show');
@@ -15,6 +18,17 @@ Route::get('/carrito', [ProductoController::class, 'showCart'])->name('carrito')
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Registro público de clientes (formulario y envío)
+Route::get('/registro', [LoginController::class, 'showRegistroForm'])->name('registro.form');
+Route::post('/registro', [LoginController::class, 'register'])->name('registro.post');
+
+// Logout específico para clientes (limpia session cliente)
+Route::get('/cliente/logout', [LoginController::class, 'logoutCliente'])->name('cliente.logout');
+
+// Ruta de desarrollo: crear un cliente de prueba rápidamente (quitar en producción)
+Route::get('/dev/registro/seed', [LoginController::class, 'seedDevClient']);
+Route::get('/dev/registro/login', [LoginController::class, 'devLogin']);
 
 // --- RUTAS DE INVENTARIO (PROTEGIDAS por Auth Middleware) ---
 Route::middleware('auth')->group(function () {
@@ -53,3 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/clientes/{id}/actualizar', [ClienteController::class, 'actualizarAjax'])->name('clientes.actualizarAjax');
     Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
 });
+
+// Rutas de desarrollo no protegidas para pruebas rápidas (quitar en producción)
+Route::get('/dev/inventario/agregar', [ProductoController::class, 'create']);
+Route::post('/dev/inventario/guardar', [ProductoController::class, 'store']);

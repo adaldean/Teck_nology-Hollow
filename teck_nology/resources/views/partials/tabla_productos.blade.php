@@ -24,8 +24,13 @@
             <td class="columna-categoria">{{ $producto->categoria->nombre ?? 'Sin categoría' }}</td>
             <td class="columna-proveedor">{{ $producto->proveedor->nombre ?? 'Sin proveedor' }}</td>
             <td class="columna-acciones">
-                <a href="{{ url('inventario/editar/' . $producto->id_producto) }}" class="boton-editar">Editar</a>
-                <button class="boton-eliminar">Eliminar</button>
+                <a href="{{ route('inventario.edit', $producto->id_producto) }}" class="boton-editar">Editar</a>
+
+                <form action="{{ route('inventario.destroy', $producto->id_producto) }}" method="POST" style="display:inline-block; margin:0;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="boton-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este producto?')">Eliminar</button>
+                </form>
             </td>
         </tr>
         @empty

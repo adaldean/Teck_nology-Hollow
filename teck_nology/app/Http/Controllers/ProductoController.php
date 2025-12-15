@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\Categoria;
+use App\Models\Proveedor;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 
 
 class ProductoController extends Controller
@@ -10,6 +14,24 @@ class ProductoController extends Controller
     public function showcart()
     {
         return view('carrito'); 
+    }
+
+    public function create()
+    {
+        // Muestra el formulario para crear un nuevo producto
+        try {
+            $categorias = Categoria::all();
+            $proveedores = Proveedor::all();
+        } catch (\Exception $e) {
+            // Si hay un problema con la BD (p.ej. driver faltante), devolvemos colecciones vacías
+            // y mostramos un mensaje para que el usuario pueda continuar.
+            $categorias = collect();
+            $proveedores = collect();
+            // Use session flash so the view can show a warning
+            session()->flash('error', 'No se pudieron cargar categorías/proveedores (problema de conexión a la BD). Podés crear el producto sin asignarlos.');
+        }
+
+        return view('privado.crear_producto', compact('categorias','proveedores'));
     }
 
     public function showInventory()
@@ -47,7 +69,9 @@ class ProductoController extends Controller
     public function edit($id)
     {
         $producto = Producto::findOrFail($id);
-        return view('privado/editar_producto', compact('producto'));
+        $categorias = Categoria::all();
+        $proveedores = Proveedor::all();
+        return view('privado/editar_producto', compact('producto','categorias','proveedores'));
     }
 
     public function update(Request $request, $id)
@@ -59,6 +83,8 @@ class ProductoController extends Controller
             'precio' => 'required|numeric',
             'stock' => 'nullable|integer',
             'descripcion' => 'nullable|string',
+            'id_categoria' => 'nullable|integer|exists:categoria,id_categoria',
+            'id_proveedor' => 'nullable|integer|exists:proveedor,id_proveedor',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
         ]);
 
@@ -66,15 +92,29 @@ class ProductoController extends Controller
             $validated['imagen'] = $request->file('imagen')->store('productos', 'public');
         }
 
-        $producto->update($validated);
-        return redirect('/inventario')->with('success', 'Producto actualizado correctamente.');
+    $producto->update($validated);
+    return redirect()->route('inventario.index')->with('success', 'Producto actualizado correctamente.');
     }
 
     public function destroy($id)
     {
         $producto = Producto::findOrFail($id);
-        $producto->delete();
-        return redirect('/inventario')->with('success', 'Producto eliminado correctamente.');   
+        try {
+            // Eliminar registros relacionados en detalle_pedido antes de eliminar el producto
+            DB::transaction(function() use ($id, $producto) {
+                // Borrar registros en tablas que referencian producto
+                DB::table('detalle_pedido')->where('id_producto', $id)->delete();
+                DB::table('detalle_venta_pos')->where('id_producto', $id)->delete();
+                $producto->delete();
+            });
+
+            return redirect()->route('inventario.index')->with('success', 'Producto y sus detalles relacionados fueron eliminados correctamente.');
+        } catch (QueryException $e) {
+            // Foreign key constraint or other DB error
+            return redirect()->route('inventario.index')->with('error', 'No se puede eliminar el producto debido a un error de base de datos.');
+        } catch (\Exception $e) {
+            return redirect()->route('inventario.index')->with('error', 'Ocurrió un error al intentar eliminar el producto.');
+        }
     }
 
     public function store(Request $request)
@@ -84,6 +124,8 @@ class ProductoController extends Controller
             'precio' => 'required|numeric',
             'stock' => 'nullable|integer',
             'descripcion' => 'nullable|string',
+            'id_categoria' => 'nullable|integer|exists:categoria,id_categoria',
+            'id_proveedor' => 'nullable|integer|exists:proveedor,id_proveedor',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
         ]);
 
@@ -92,7 +134,7 @@ class ProductoController extends Controller
         }
 
         Producto::create($validated);
-        return redirect('/inventario')->with('success', 'Producto agregado correctamente.');
+    return redirect()->route('inventario.index')->with('success', 'Producto agregado correctamente.');
     }
 
     public function show()

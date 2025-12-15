@@ -36,6 +36,16 @@
                     <span>Administrador</span>
                 </div>
             </div>
+            @if(session('success'))
+                <div class="flash-message success" style="max-width:900px;margin:10px auto;padding:10px;background:#e6ffed;border:1px solid #b2f5c6;color:#064e2a;">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="flash-message error" style="max-width:900px;margin:10px auto;padding:10px;background:#ffe6e6;border:1px solid #f5b2b2;color:#6a0410;">
+                    {{ session('error') }}
+                </div>
+            @endif
             <section class="seccion_inventario" id="contenido">
                 <div class="fila-categorias-agregar">
                     <div class="categorias">
@@ -45,7 +55,10 @@
                         <a  class="categoria-btn" data-categoria="consolas">Videojuegos</a>
                         <a  class="categoria-btn" data-categoria="accesorios">Accesorios</a>
                     </div>
-                    <div class="contenedor-boton-agregar"></div>
+                        <div class="contenedor-boton-agregar">
+                            <!-- Enlace al formulario de creación. Usamos la ruta de desarrollo /dev para que el botón funcione sin login durante pruebas. -->
+                            <a href="/dev/inventario/agregar" class="boton-agregar-principal">+ Agregar Producto</a>
+                        </div>
                 </div>
 
                 <div class="contenedor-tabla-productos">
@@ -56,8 +69,7 @@
                                 <button type="submit" class="boton-buscar">Buscar</button>
                             </form>
                         </div>
-
-                        <a href="{{ url('inventario/crear') }}" class="boton-agregar"> + Agregar Producto</a>
+                        <!-- Botón secundario eliminado para evitar duplicado; se mantiene el botón principal arriba -->
                     </div>
 
                     <div class="tabla-contenedor">
