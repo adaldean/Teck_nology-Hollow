@@ -29,7 +29,15 @@ class LoginController extends Controller
             $cliente = Cliente::where('email', $request->email)->first();
             if ($cliente) {
                 // Soportar contraseñas hasheadas y también plain (fallback) por compatibilidad.
-                if (Hash::check($request->password, $cliente->contrasena) || $cliente->contrasena === $request->password) {
+                $stored = $cliente->contrasena ?? '';
+                $hashInfo = password_get_info($stored);
+                $checked = false;
+                if (!empty($stored) && isset($hashInfo['algo']) && $hashInfo['algo'] !== 0) {
+                    // Es un hash válido según password_get_info
+                    $checked = Hash::check($request->password, $stored);
+                }
+
+                if ($checked || $stored === $request->password) {
                     // Guardar cliente en sesión (no usar Auth para no dar acceso a panel de empleados)
                     session(['cliente_id' => $cliente->id_cliente, 'cliente_nombre' => $cliente->nombre]);
                     return redirect('/')->with('success', 'Ingreso como cliente exitoso');
@@ -42,7 +50,14 @@ class LoginController extends Controller
         $user = UsuarioSistema::where('email', $request->email)->first();
         if ($user) {
             // Soportar hash y plain (compatibilidad)
-            if (Hash::check($request->password, $user->contrasena) || $user->contrasena === $request->password) {
+            $stored = $user->contrasena ?? '';
+            $hashInfo = password_get_info($stored);
+            $checked = false;
+            if (!empty($stored) && isset($hashInfo['algo']) && $hashInfo['algo'] !== 0) {
+                $checked = Hash::check($request->password, $stored);
+            }
+
+            if ($checked || $stored === $request->password) {
                 Auth::login($user);
                 return redirect('/privado/home')->with('success', 'Login exitoso');
             }

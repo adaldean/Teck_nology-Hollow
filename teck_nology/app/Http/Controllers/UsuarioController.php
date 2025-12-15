@@ -64,14 +64,16 @@ public function index(Request $request)
     {
         $request->validate([
             'nombre' => 'required|max:255',
-            'email' => 'required|email|unique:usuario_sistemas,email',
+            'email' => 'required|email|unique:usuario_sistema,email',
             'contrasena' => 'required|min:6',
         ]);
 
         UsuarioSistema::create([
             'nombre' => $request->nombre,
             'email' => $request->email,
-            'contrasena' => $request->contrasena,
+            // Almacenamos contraseña hasheada por seguridad
+            'contrasena' => bcrypt($request->contrasena),
+            'id_rol' => $request->input('id_rol', 1),
         ]);
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario creado');
@@ -82,7 +84,8 @@ public function index(Request $request)
 
         $rules = [
             'nombre' => 'required|max:255',
-            'email' => 'required|email|unique:usuario_sistemas,email,' . $usuario->id_usuario . ',id_usuario',
+            // usar la tabla correcta 'usuario_sistema' (singular) en la regla unique
+            'email' => 'required|email|unique:usuario_sistema,email,' . $usuario->id_usuario . ',id_usuario',
         ];
 
         // Validar contraseña solo si se proporciona
@@ -94,18 +97,25 @@ public function index(Request $request)
 
         $usuario->nombre = $request->nombre;
         $usuario->email = $request->email;
-        
+        if ($request->has('id_rol')) {
+            $usuario->id_rol = $request->id_rol;
+        }
         if ($request->has('contrasena') && !empty($request->contrasena)) {
             $usuario->contrasena = bcrypt($request->contrasena);
         }
-        
+
         $usuario->save();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Usuario actualizado correctamente',
-            'usuario' => $usuario
-        ]);
+        // Si la petición espera JSON (AJAX), devolvemos JSON, si no, redirigimos
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Usuario actualizado correctamente',
+                'usuario' => $usuario
+            ]);
+        }
+
+        return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado correctamente');
 
     } catch (\Illuminate\Validation\ValidationException $e) {
         return response()->json([

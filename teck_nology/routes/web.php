@@ -5,6 +5,12 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ImageUploadController;
+
+// Excluir la URI de subida de imágenes de la verificación CSRF para permitir uploads desde
+// páginas estáticas o clientes externos. Si prefieres protegerla, elimina esta línea
+// y gestiona CSRF o auth según corresponda.
+\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::except(["/imagenes/upload"]);
 
 // Ruta de desarrollo: acceso público al formulario de 'Agregar producto' sin auth (quitar antes de producir)
 Route::get('/dev/inventario/agregar', [ProductoController::class, 'create']);
@@ -31,6 +37,10 @@ Route::get('/dev/registro/seed', [LoginController::class, 'seedDevClient']);
 Route::get('/dev/registro/login', [LoginController::class, 'devLogin']);
 
 // --- RUTAS DE INVENTARIO (PROTEGIDAS por Auth Middleware) ---
+// Endpoint público para subir imágenes desde el frontend (retorna JSON {url})
+// Nota: Puedes protegerlo con middleware('auth') si quieres que solo usuarios autenticados suban imágenes.
+Route::post('/imagenes/upload', [ImageUploadController::class, 'store'])->name('imagenes.upload');
+
 Route::middleware('auth')->group(function () {
     Route::get('/privado/home', function () {
         return view('privado.home');
@@ -61,6 +71,7 @@ Route::middleware('auth')->group(function () {
 
     // --- CLIENTES ---
     Route::get('privado/clientes', [ClienteController::class, 'index'])->name('clientes.index');
+    Route::get('/clientes/listar', [ClienteController::class, 'listar'])->name('clientes.listar');
     Route::get('/clientes/crear', [ClienteController::class, 'create'])->name('clientes.create');
     Route::post('/clientes/guardar', [ClienteController::class, 'store'])->name('clientes.store');
     Route::get('/clientes/editar/{id}', [ClienteController::class, 'edit'])->name('clientes.edit');

@@ -18,11 +18,7 @@
                 <td>{{ substr($usuario->contrasena, 0, 20) }}...</td>
                 <td>{{ $usuario->rol->nombre ?? 'Sin rol' }}</td>
                 <td>
-                    <button class="boton-editar" 
-                            data-id="{{ $usuario->id_usuario }}" 
-                            data-nombre="{{ $usuario->nombre }}" 
-                            data-email="{{ $usuario->email }}" 
-                            type="button">Editar</button>
+            <a href="{{ route('usuarios.edit', $usuario->id_usuario) }}" class="boton-editar">Editar</a>
                     <form action="{{ route('usuarios.destroy', $usuario->id_usuario) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')

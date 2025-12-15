@@ -1,21 +1,41 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 use App\Models\Cliente;
+use App\Models\UsuarioSistema;
+use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
-public function index()
+public function index(Request $request)
 {
-    $clientes = Cliente::orderBy('id_cliente', 'desc')->paginate(10);
-    return view('partials.tabla_clientes', compact('clientes'));
+    // Return the full admin view that contains both empleados and clientes tables
+    $q = $request->query('q');
+
+    $usuarios = UsuarioSistema::with('rol')
+        ->when($q, function ($query) use ($q) {
+            $query->where('nombre', 'LIKE', "%{$q}%")
+                  ->orWhere('email', 'LIKE', "%{$q}%");
+        })
+        ->orderBy('id_usuario', 'asc')
+        ->paginate(10);
+
+    $clientes = Cliente::when($q, function ($query) use ($q) {
+            $query->where('nombre', 'LIKE', "%{$q}%")
+                  ->orWhere('email', 'LIKE', "%{$q}%")
+                  ->orWhere('telefono', 'LIKE', "%{$q}%")
+                  ->orWhere('direccion', 'LIKE', "%{$q}%");
+        })
+        ->orderBy('id_cliente', 'asc')
+        ->paginate(10);
+
+    return view('privado.usuarios', compact('usuarios', 'clientes'));
 }
 
 
     public function create()
     {
-        return view('privado.usuarios_crear');
+        return view('privado.clientes_crear');
     }
 
     public function store(Request $request)
@@ -27,33 +47,81 @@ public function index()
             'direccion' => 'nullable|string',
         ]);
 
-        Cliente::create($request->all());
+        $data = $request->only(['nombre','email','telefono','direccion']);
+        if ($request->filled('contrasena')) {
+            $data['contrasena'] = bcrypt($request->contrasena);
+        }
 
-        return redirect()->route('usuarios.index')->with('success', 'Cliente creado correctamente');
+        $cliente = Cliente::create($data);
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Cliente creado correctamente',
+                'cliente' => $cliente
+            ]);
+        }
+
+        return redirect()->route('clientes.index')->with('success', 'Cliente creado correctamente');
     }
 
     // Mostrar formulario de edición
     public function edit($id)
     {
         $cliente = Cliente::findOrFail($id);
-        return view('privado.usuarios_editar', compact('cliente'));
+        return view('privado.clientes_editar', compact('cliente'));
     }
 
     // Actualizar cliente
-    public function update(Request $request, $id)
-    {
-        $cliente = Cliente::findOrFail($id);
+    public function actualizarAjax(Request $request, $id){
+        try {
+            $cliente = Cliente::findOrFail($id);
 
-        $request->validate([
-            'nombre' => 'required|max:100',
-            'email' => 'required|email|unique:cliente,email,' . $cliente->id_cliente,
-            'telefono' => 'nullable|max:20',
-            'direccion' => 'nullable|string',
-        ]);
+            $rules = [
+                'nombre' => 'required|max:100',
+                'email' => 'required|email|unique:cliente,email,' . $cliente->id_cliente . ',id_cliente',
+                'telefono' => 'nullable|max:20',
+                'direccion' => 'nullable|string',
+            ];
 
-        $cliente->update($request->all());
+            if ($request->has('contrasena') && !empty($request->contrasena)) {
+                $rules['contrasena'] = 'required|min:6';
+            }
 
-        return redirect()->route('usuarios.index')->with('success', 'Cliente actualizado correctamente');
+            $request->validate($rules);
+
+            $cliente->nombre = $request->nombre;
+            $cliente->email = $request->email;
+            $cliente->telefono = $request->telefono;
+            $cliente->direccion = $request->direccion;
+            if ($request->has('contrasena') && !empty($request->contrasena)) {
+                $cliente->contrasena = bcrypt($request->contrasena);
+            }
+
+            $cliente->save();
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Cliente actualizado correctamente',
+                    'cliente' => $cliente
+                ]);
+            }
+
+            return redirect()->route('clientes.index')->with('success', 'Cliente actualizado correctamente');
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error de validación',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     // Eliminar cliente
@@ -62,7 +130,7 @@ public function index()
         $cliente = Cliente::findOrFail($id);
         $cliente->delete();
 
-        return redirect()->route('usuarios.index')->with('success', 'Cliente eliminado correctamente');
+        return redirect()->route('clientes.index')->with('success', 'Cliente eliminado correctamente');
     }
 
     public function listar()
