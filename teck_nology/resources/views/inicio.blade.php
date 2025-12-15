@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teck_nology-Hollow</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="icon" href="#">
   {{-- Usar la función 'asset()' para las rutas estáticas --}{{-- para que no se les olvide --}} 
   <link rel="stylesheet" href="{{ asset('css/estilo.css') }}">
@@ -34,7 +35,38 @@
   </header>
 
   <main>
+
+  <script src="{{ asset('javascript/carritopago.js') }}"></script>
+    {{-- Site menu with anchors to company sections --}}
+    <nav class="site-menu">
+      <a href="#quienes-somos" class="menu-item">Quiénes somos</a>
+      <a href="#mision" class="menu-item">Misión</a>
+      <a href="#vision" class="menu-item">Visión</a>
+    </nav>
+
     @include('partials.tabla_catalogo', ['productos' => $productos])
+
+    {{-- Company informational sections --}}
+    <section id="quienes-somos" class="about-section">
+      <div class="about-inner">
+        <h2>Quiénes somos</h2>
+        <p>Teck_nology-Hollow es un proyecto de ejemplo que reúne tecnología y cultura, ofreciendo una selección curada de productos electrónicos con atención local.</p>
+      </div>
+    </section>
+
+    <section id="mision" class="about-section alt">
+      <div class="about-inner">
+        <h2>Misión</h2>
+        <p>Nuestra misión es conectar a las personas con tecnología accesible, confiable y con servicio humano. Buscamos calidad y responsabilidad en cada venta.</p>
+      </div>
+    </section>
+
+    <section id="vision" class="about-section">
+      <div class="about-inner">
+        <h2>Visión</h2>
+        <p>Ser un referente local en comercio electrónico responsable, promoviendo innovación, servicio y sostenibilidad.</p>
+      </div>
+    </section>
   </main>
 
     <div class="seccion-mapa-inferior">

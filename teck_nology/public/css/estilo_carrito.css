@@ -323,3 +323,104 @@ body {
         left: 15px;
     }
 }
+
+/* === Carrito-specific tweaks to match main site product cards === */
+.productos-cuadricula {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+}
+.producto-tarjeta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+    background: rgba(255,255,255,0.97);
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.06);
+}
+.producto-tarjeta .producto-imagen {
+    width: 140px;
+    height: 100px;
+    flex: 0 0 140px;
+    border-radius: 6px;
+    overflow: hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.producto-tarjeta .producto-imagen img { width:100%; height:100%; object-fit:cover; display:block; }
+.producto-tarjeta .producto-info { text-align:left; flex:1; }
+.producto-tarjeta .producto-nombre { font-size:1.05rem; margin:0 0 6px 0; font-weight:600; }
+.producto-tarjeta .producto-precio { color:#FC4B08; font-weight:700; margin:0 0 8px 0; }
+
+.card-qty-btn {
+    /* primary qty buttons use brand orange */
+    background: linear-gradient(180deg, #ff9b6b 0%, #FC4B08 100%);
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 8px;
+    font-size: 1rem;
+    box-shadow: 0 6px 18px rgba(252,75,8,0.18);
+    transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+}
+.card-qty-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(252,75,8,0.22); }
+.card-qty-btn:active { transform: translateY(0); opacity: 0.95 }
+.card-remove-btn {
+    background: linear-gradient(180deg, #fff 0%, #fff 100%);
+    color: #333; /* dark gray */
+    border: 1px solid rgba(51,51,51,0.12);
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    transition: background 150ms ease, color 150ms ease, transform 120ms ease;
+}
+.card-remove-btn:hover { background: rgba(51,51,51,0.04); transform: translateY(-2px); }
+.card-remove-btn:active { transform: translateY(0); }
+
+/* Primary action button styling consistent with site */
+.pay-button, .submit-button, .card-qty-btn.primary {
+    /* primary actions are dark gray with orange accent on hover */
+    background: linear-gradient(90deg,#333 0%, #222 100%);
+    color: #fff;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+    cursor: pointer;
+    font-weight: 700;
+    transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+}
+.pay-button:hover, .submit-button:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(0,0,0,0.24); background: linear-gradient(90deg,#333 0%, #2b2b2b 100%); }
+.pay-button:active, .submit-button:active { transform: translateY(0); }
+
+/* Small icon helper inside buttons (if using <i> or svg) */
+.card-qty-btn i, .card-remove-btn i, .pay-button i, .submit-button i {
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* Make quantity number stand out */
+.cart-quantity {
+    font-weight: 700;
+    margin: 0 8px;
+}
+
+.carrito-total { text-align: right; margin-top: 18px; font-size:1.2rem; font-weight:700; color:#14323a }
+
+/* Mobile adjustments */
+@media (max-width: 720px) {
+    .producto-tarjeta { flex-direction: column; align-items: stretch; }
+    .producto-tarjeta .producto-imagen { width:100%; height:180px; flex: none; }
+    .producto-tarjeta .producto-info { padding: 8px 0; }
+    .carrito-total { text-align:center }
+}
+
+/* Make the mini notification slightly nicer when CSS available */
+#mini-cart-notif {
+    transition: transform 240ms ease, opacity 240ms ease;
+}

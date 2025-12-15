@@ -197,6 +197,56 @@ h1 {
   margin-top: 20px;
   grid-template-columns: 1fr;
 }
+
+/* Site menu for informational sections */
+.site-menu {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 18px 0;
+}
+.site-menu .menu-item {
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  color: #214347;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.site-menu .menu-item:hover {
+  background: #214347;
+  color: #fff;
+}
+
+/* About/company sections */
+.about-section {
+  padding: 36px 18px;
+  margin: 22px 0;
+  background: rgba(255,255,255,0.95);
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+.about-section.alt {
+  background: linear-gradient(90deg, rgba(245,245,245,1), rgba(238,250,249,1));
+}
+.about-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.about-inner h2 {
+  margin-top: 0;
+  color: #14323a;
+}
+.about-inner p {
+  color: #22393a;
+  line-height: 1.6;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
 .producto-tarjeta {
   background-color: #fff;
   border: 1px solid #ddd;

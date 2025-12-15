@@ -41,11 +41,13 @@
               <div class="producto-info">
                 <p class="producto-nombre">{{ $producto->nombre }}</p>
                 <p class="producto-precio">${{ $producto->precio }}</p>
-                <button class="agregar-carrito" 
-                    data-nombre="{{ $producto->nombre }}" 
-                    data-precio="{{ $producto->precio }}">
-                    Agregar al carrito
-                </button>
+        <button class="agregar-carrito" 
+          data-id="{{ $producto->id_producto }}"
+          data-nombre="{{ $producto->nombre }}" 
+          data-precio="{{ $producto->precio }}"
+          onclick="agregarAlCarrito('{{ addslashes($producto->nombre) }}', {{ $producto->precio }}, {{ $producto->id_producto }})">
+          Agregar al carrito
+        </button>
 
               </div>
             </div>

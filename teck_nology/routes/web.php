@@ -18,7 +18,16 @@ Route::get('/dev/inventario/agregar', [ProductoController::class, 'create']);
 // --- RUTAS DE INICIO (HOME) y PRODUCTO ---
 Route::get('/', [ProductoController::class, 'index'])->name('inicio');
 Route::get('/producto/{id}', [ProductoController::class, 'show'])->name('producto.show');
-Route::get('/carrito', [ProductoController::class, 'showCart'])->name('carrito');
+use App\Http\Controllers\CartController;
+
+// Cart routes
+Route::get('/carrito', [CartController::class, 'show'])->name('carrito');
+Route::post('/carrito/agregar', [CartController::class, 'add'])->name('carrito.agregar');
+Route::post('/carrito/actualizar', [CartController::class, 'update'])->name('carrito.update');
+Route::post('/carrito/eliminar', [CartController::class, 'remove'])->name('carrito.remove');
+Route::get('/carrito/count', [CartController::class, 'count'])->name('carrito.count');
+Route::post('/carrito/checkout', [CartController::class, 'checkout'])->name('carrito.checkout');
+Route::get('/carrito/confirmacion', [CartController::class, 'confirmation'])->name('carrito.confirmation');
 
 // --- RUTAS DE AUTENTICACIÓN (LOGIN) ---
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
