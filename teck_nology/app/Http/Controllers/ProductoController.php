@@ -18,16 +18,15 @@ class ProductoController extends Controller
 
     public function create()
     {
-        // Muestra el formulario para crear un nuevo producto
+        
         try {
             $categorias = Categoria::all();
             $proveedores = Proveedor::all();
         } catch (\Exception $e) {
-            // Si hay un problema con la BD (p.ej. driver faltante), devolvemos colecciones vacías
-            // y mostramos un mensaje para que el usuario pueda continuar.
+           
             $categorias = collect();
             $proveedores = collect();
-            // Use session flash so the view can show a warning
+           
             session()->flash('error', 'No se pudieron cargar categorías/proveedores (problema de conexión a la BD). Podés crear el producto sin asignarlos.');
         }
 
@@ -42,7 +41,7 @@ class ProductoController extends Controller
 
     public function index(Request $request)
     {
-        $categoria = $request->get('categoria'); // 👈 corregido
+        $categoria = $request->get('categoria'); 
         $orden = $request->get('orden');
 
         $query = Producto::with(['categoria','proveedor']);
@@ -61,7 +60,7 @@ class ProductoController extends Controller
             $query->where('precio', '<', 500); 
         }
 
-        $productos = $query->paginate(6); // 👈 coherente con catálogo
+        $productos = $query->paginate(6); 
 
         return view('inicio', compact('productos'));
     }
@@ -100,9 +99,9 @@ class ProductoController extends Controller
     {
         $producto = Producto::findOrFail($id);
         try {
-            // Eliminar registros relacionados en detalle_pedido antes de eliminar el producto
+            
             DB::transaction(function() use ($id, $producto) {
-                // Borrar registros en tablas que referencian producto
+                
                 DB::table('detalle_pedido')->where('id_producto', $id)->delete();
                 DB::table('detalle_venta_pos')->where('id_producto', $id)->delete();
                 $producto->delete();
@@ -110,7 +109,7 @@ class ProductoController extends Controller
 
             return redirect()->route('inventario.index')->with('success', 'Producto y sus detalles relacionados fueron eliminados correctamente.');
         } catch (QueryException $e) {
-            // Foreign key constraint or other DB error
+            
             return redirect()->route('inventario.index')->with('error', 'No se puede eliminar el producto debido a un error de base de datos.');
         } catch (\Exception $e) {
             return redirect()->route('inventario.index')->with('error', 'Ocurrió un error al intentar eliminar el producto.');
@@ -156,7 +155,7 @@ class ProductoController extends Controller
             ->orWhereHas('proveedor', function($q) use ($query) {
                 $q->where('nombre', 'LIKE', "%{$query}%");
             })
-            ->paginate(6); // 👈 coherente
+            ->paginate(6);
 
         return view('partials.tabla_productos', compact('productos'));
     }

@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
-    // Add product to session cart
     public function add(Request $request)
     {
         $request->validate([
@@ -26,7 +25,6 @@ class CartController extends Controller
         $precio = $request->input('precio');
         $cantidad = $request->input('cantidad', 1);
 
-        // Try to find existing item by id if present, otherwise by name
         $foundKey = null;
         foreach ($cart as $key => $item) {
             if ($id && isset($item['id']) && $item['id'] == $id) { $foundKey = $key; break; }
@@ -69,17 +67,15 @@ class CartController extends Controller
             $detailed[] = $detail;
         }
 
-        // return cart summary
+
         $totalItems = array_sum(array_column($cart, 'cantidad'));
         return response()->json(['success' => true, 'count' => $totalItems, 'cart' => $detailed]);
     }
 
-    // Show cart page
     public function show()
     {
         $cart = session()->get('cart', []);
 
-        // Enrich cart items with product data when possible (image, slug, etc.)
         $detailed = [];
         foreach ($cart as $item) {
             $detail = $item;
@@ -96,7 +92,7 @@ class CartController extends Controller
                             $imgUrl = asset('imagenes/' . $img);
                         }
                     }
-                    // add product slug or extra if needed
+                    
                     $detail['producto_id'] = $prod->id_producto;
                 }
             }
