@@ -2,41 +2,51 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-body {
-  font-family: sans-serif;
-  margin: 0;
-  background: linear-gradient(to bottom, #132446 0%, #7ab99f 70%, #61a883 100%); 
-  justify-content: flex-start;
-  align-items: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  min-height: 100vh;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
 :root{
-  --bg-0: #0f1720; /* deep background */
-  --bg-1: linear-gradient(180deg,#0f1720 0%, #12202a 60%);
+  /* Modern navy / teal / warm gold palette for Blade pages */
+  --bg-0: #071022; /* very deep navy */
+  --bg-1: linear-gradient(180deg,#071022 0%, #0b2545 60%);
   --surface: #ffffff;
-  --muted: #6b7280;
-  --brand: #FC4B08; /* naranja */
-  --dark: #333333; /* gris oscuro */
+  --muted: #7b8a95;
+  --brand: #f6c85f; /* warm gold for accents/prices */
+  --dark: #17202a; /* text dark */
+  --sheen-duration: 5s;
+  --sheen-opacity: 0.9;
+  --sheen-bright: 0.12;
+  /* eccentric accents tuned to teal */
+  --accent-neon: rgba(23,195,178,0.12);
+  --glow-color: 23,195,178; /* teal RGB */
+  --btn-gradient-start: #17c3b2; /* teal */
+  --btn-gradient-end: #0b2545; /* navy */
+}
+  --bg-0: #020203; /* pure near-black */
+  --bg-1: linear-gradient(180deg,#020203 0%, #071428 60%);
+  --surface: #071426; /* dark card surface */
+  --muted: #7f9bb3;
+  --brand: #00f0ff; /* neon cyan */
+  --dark: #dceffb; /* light text */
   --radius: 12px;
   --card-radius: 10px;
   --glass: rgba(255,255,255,0.06);
   --shadow-md: 0 8px 20px rgba(2,6,23,0.6);
   --shadow-sm: 0 6px 18px rgba(2,6,23,0.45);
   --accent-contrast: #ffffff;
+  /* sheen / mirage tuning */
+  --sheen-duration: 5s;
+  --sheen-opacity: 0.9;
+  --sheen-bright: 0.14;
+  /* eccentric accents for catalog (electric glow) */
+  --accent-neon: rgba(0,208,255,0.12);
+  --glow-color: 0,208,255; /* cyan RGB */
+  --btn-gradient-start: #00d0ff; /* cyan */
+  --btn-gradient-end: #002b5c; /* deep blue */
 }
 
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 body {
@@ -84,6 +94,32 @@ header {
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+/* Product typography tweaks: black, elegant, decorative accent */
+.producto-nombre {
+  color: #000 !important;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  margin: 0;
+}
+.producto-precio {
+  color: #000 !important;
+  font-weight: 800;
+  font-size: 1.06rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.producto-precio::before{
+  content: '';
+  display: inline-block;
+  width: 26px;
+  height: 3px;
+  background: var(--brand);
+  border-radius: 2px;
+  opacity: 0.95;
+}
   flex-shrink: 0;
 }
 
@@ -93,6 +129,30 @@ header {
   object-fit: contain;
   border-radius: 50%;
 }
+
+/* Replace header img logo with crisp SVG brand mark */
+.logo-container {
+  background-image: url('/imagenes/brand-mark.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 64px 64px;
+  padding: 8px; /* adjust for SVG padding */
+  border-radius: 14px;
+}
+.logo-container img.logo {
+  display: block !important;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 12px;
+  position: relative;
+  z-index: 3;
+  transform: rotate(-6deg);
+  transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms ease;
+  box-shadow: 0 12px 30px rgba(2,6,23,0.25);
+}
+.logo-container:hover img.logo { transform: rotate(0deg) scale(1.03) }
+.logo-container:hover { transform: translateY(-2px); transition: transform 180ms ease }
 
 .header-derecha {
   width: 100%;
@@ -174,6 +234,68 @@ h1 {
 .area-productos {
   flex-grow: 1;
 }
+/* Deep stage backdrop and mirage floor (piso espejismo) for the catalog */
+.area-productos::before{
+  /* softened atmospheric backdrop to keep rows visually even */
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -160px;
+  transform: translateX(-50%);
+  width: 140%;
+  height: 700px;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(3,12,28,0.72) 0%, rgba(6,12,20,0.86) 36%, rgba(6,10,14,0.95) 70%),
+    linear-gradient(180deg, rgba(3,12,28,0.12), transparent 48%);
+  filter: blur(16px) saturate(105%);
+}
+
+.area-productos::after{
+  /* the 'mirage' floor under the grid (softened) */
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -140px;
+  width: 86%;
+  height: 260px;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  box-shadow: inset 0 60px 140px rgba(0,0,0,0.56);
+  border-radius: 18px;
+  transform-origin: center top;
+  transform: perspective(800px) rotateX(62deg) translateY(6px);
+  filter: blur(6px) contrast(1.03);
+  opacity: 0.84;
+  mix-blend-mode: overlay;
+  mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.12) 45%, rgba(0,0,0,0) 100%);
+}
+
+.area-productos .espejismo-sheen{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) skewX(-12deg);
+  bottom: -120px;
+  width: 120%;
+  height: 72px;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,var(--sheen-bright)) 46%, rgba(255,255,255,0.01) 100%);
+  opacity: calc(var(--sheen-opacity) * 0.82);
+  mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+  animation: sheen-move var(--sheen-duration) linear infinite;
+}
+
+@keyframes sheen-move{
+  from { transform: translateX(-80%) skewX(-12deg) }
+  50%  { transform: translateX(20%) skewX(-8deg) }
+  to   { transform: translateX(160%) skewX(-12deg) }
+}
+
+.area-productos .vignette{ position:absolute; inset:0; z-index:2; pointer-events:none; background: radial-gradient(60% 40% at 50% 30%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.18) 60%, rgba(0,0,0,0.34) 100%); mix-blend-mode:multiply }
 .opciones-clasificacion {
   display: flex;
   gap: 10px;
@@ -355,25 +477,53 @@ html {
   font-size: 0.9em;
   transition: background-color 0.2s ease;
 }
-.agregar-carrito {
-  margin-top: 8px;
-  padding: 10px 14px;
-  background: linear-gradient(90deg, var(--brand), #ff7a3b);
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  font-weight: 700;
-  transition: transform 140ms ease, box-shadow 140ms ease;
-  box-shadow: 0 8px 20px rgba(252,75,8,0.18);
+.agregar-carrito{ align-self:flex-start; margin-top:8px; padding:10px 14px; border-radius:12px; background:linear-gradient(90deg,var(--btn-gradient-start),var(--btn-gradient-end)); color:#fff; border:none; cursor:pointer; font-weight:800; position:relative; overflow:hidden; box-shadow: 0 10px 30px rgba(var(--glow-color),0.12), 0 4px 10px rgba(11,45,74,0.08); transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms ease }
+.agregar-carrito::after{ content:''; position:absolute; left:-20%; top:-40%; width:40%; height:200%; background: linear-gradient(120deg, rgba(255,255,255,0.25), rgba(255,255,255,0.05)); transform: rotate(18deg); transition: transform 650ms cubic-bezier(.2,.9,.2,1); opacity:0.6 }
+.agregar-carrito:hover{ transform: translateY(-6px) scale(1.02); box-shadow: 0 20px 60px rgba(var(--glow-color),0.16), 0 6px 18px rgba(11,45,74,0.12); }
+.agregar-carrito:active{ transform: translateY(-2px) scale(0.995); }
+
+/* Card hover: tilt, lift and subtle neon rim */
+.producto-tarjeta{
+  transition: transform 360ms cubic-bezier(.2,.9,.2,1), box-shadow 360ms ease, border-color 360ms ease;
+  transform-origin: center center;
 }
-.agregar-carrito:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(252,75,8,0.22); }
+.producto-tarjeta:hover{
+  transform: translateY(-12px) rotateX(4deg) rotateZ(-1deg);
+  box-shadow: 0 28px 80px rgba(11,45,74,0.12), 0 6px 30px rgba(252,75,8,0.06);
+  border: 1px solid rgba(252,75,8,0.08);
+}
+.producto-tarjeta:hover img{ transform: scale(1.06); transition: transform 420ms cubic-bezier(.2,.9,.2,1) }
+
+/* dynamic button base we can reuse */
+.btn-dynamic{ display:inline-block; position:relative; padding:10px 16px; border-radius:12px; cursor:pointer; user-select:none; -webkit-tap-highlight-color: transparent }
+.btn-dynamic.primary{ background: linear-gradient(90deg,var(--btn-gradient-start),var(--btn-gradient-end)); color:#fff; box-shadow: 0 10px 30px rgba(var(--glow-color),0.12) }
+.btn-dynamic.ghost{ background:transparent; border:1px solid rgba(11,45,74,0.06); color:var(--accent) }
+
+/* small badge accent */
+.chip-categoria{ position:relative }
+.chip-categoria::after{ content:''; position:absolute; right:-6px; top:-6px; width:10px; height:10px; border-radius:50%; background:linear-gradient(180deg,var(--btn-gradient-start),var(--btn-gradient-end)); box-shadow: 0 6px 18px rgba(var(--glow-color),0.12); opacity:0; transition: opacity 240ms }
+.chip-categoria:hover::after{ opacity:1 }
 
 .producto-precio {
   font-size: 1.2em;
   font-weight: bold;
   color: #FC4B08;
+}
+
+/* Ensure product names are black and elegantly styled on Blade pages */
+.productos-cuadricula .producto-tarjeta .producto-nombre,
+.producto-tarjeta .producto-nombre {
+  color: #000 !important;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin: 0 0 6px 0;
+  padding-bottom: 6px;
+  background-image: linear-gradient(90deg, var(--brand), rgba(0,0,0,0));
+  background-size: 40% 3px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
 }
 
 .paginacion {

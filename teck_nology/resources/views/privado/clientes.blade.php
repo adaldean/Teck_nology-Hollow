@@ -15,11 +15,10 @@
                 <li><a href="{{ url('privado/home') }}">Home</a></li>                
                 <li><a href="{{ url('privado/inventario') }}">Inventario</a></li>               
                 <li class="active"><a href="{{ url('usuarios') }}">Usuarios</a></li>
-                <li><a href="#">Configuración</a></li>
                 <li>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn-logout">Cerrar Sesión</button>
+                        <button type="submit" class="btn-logout btn-admin">Cerrar Sesión</button>
                     </form>
                 </li>
             </ul>
@@ -44,9 +43,9 @@
                 <div class="barra-herramientas">
                     <div class="busqueda">
                         <input type="text" class="campo-busqueda" placeholder="Buscar usuario...">
-                        <button class="boton-buscar">Buscar</button>
+                        <button class="boton-buscar btn-admin">Buscar</button>
                     </div>
-                    <a href="{{ url('usuarios/crear') }}" class="boton-agregar"> + Agregar Usuario</a>
+                    <a href="{{ url('usuarios/crear') }}" class="boton-agregar btn-admin"> + Agregar Usuario</a>
                 </div>
                 <div class="tabla-contenedor">
                     

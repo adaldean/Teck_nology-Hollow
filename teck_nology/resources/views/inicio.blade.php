@@ -109,4 +109,6 @@
 </body>
 <script src="{{ asset('javascript/ordernar.js') }}"></script>
 <script src="{{ asset('javascript/carritopago.js') }}"></script>
+<script src="{{ asset('javascript/catalogo-parallax.js') }}"></script>
+<script src="{{ asset('javascript/button-effects.js') }}"></script>
 </html>

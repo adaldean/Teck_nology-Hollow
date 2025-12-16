@@ -31,6 +31,15 @@
                     </ul>
                 </div>
             @endif
+            <!-- Elegante brand block: logo grande con anillo y título -->
+            <div class="brand">
+                <div class="brand-mark">
+                    <img src="{{ asset('imagenes/19e743dc-8b04-43b4-ad4b-da5ba6b4e109.png') }}" alt="Teck_nology logo" class="logo">
+                </div>
+                <h2 class="brand-title">Teck_nology</h2>
+                <p class="brand-subtitle">Tecnología con estilo</p>
+            </div>
+
             @include ('partials.login2')
         </div>
     </main>

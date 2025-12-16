@@ -18,11 +18,10 @@
                 <li class=active><a>Home</a></li>
                 <li><a href="{{ url('privado/inventario')}}">Inventario</a></li>
                 <li><a href="{{ asset('privado/usuarios')}}">Usuarios</a></li>
-                <li><a href="#">Configuración</a></li>
                 <li>                
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn-logout">Cerrar Sesión</button>
+                        <button type="submit" class="btn-logout btn-admin">Cerrar Sesión</button>
                     </form>
                 </li>
             </ul>

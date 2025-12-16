@@ -90,8 +90,8 @@
                         </div>
 
                         <div class="form-row form-actions" style="grid-column:1/-1;display:flex;gap:12px;justify-content:flex-end;">
-                            <a href="{{ route('inventario.index') }}" class="boton-cancelar" style="align-self:center;padding:8px 12px;background:#f3f3f3;border-radius:6px;text-decoration:none;color:#333;">Cancelar</a>
-                            <button type="submit" class="boton-guardar" style="padding:8px 16px;background:#1e8f4a;color:#fff;border-radius:6px;border:none;">Guardar</button>
+                            <a href="{{ route('inventario.index') }}" class="boton-cancelar btn-admin btn-ghost" style="align-self:center;padding:8px 12px;background:#f3f3f3;border-radius:6px;text-decoration:none;color:#333;">Cancelar</a>
+                            <button type="submit" class="boton-guardar btn-admin" style="padding:8px 16px;background:#1e8f4a;color:#fff;border-radius:6px;border:none;">Guardar</button>
                         </div>
                     </form>
 

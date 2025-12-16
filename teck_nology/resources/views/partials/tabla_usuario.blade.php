@@ -18,11 +18,11 @@
                 <td>{{ substr($usuario->contrasena, 0, 20) }}...</td>
                 <td>{{ $usuario->rol->nombre ?? 'Sin rol' }}</td>
                 <td>
-            <a href="{{ route('usuarios.edit', $usuario->id_usuario) }}" class="boton-editar">Editar</a>
-                    <form action="{{ route('usuarios.destroy', $usuario->id_usuario) }}" method="POST" style="display:inline;">
+                <a href="{{ route('usuarios.edit', $usuario->id_usuario) }}" class="boton-editar btn-admin">Editar</a>
+                        <form action="{{ route('usuarios.destroy', $usuario->id_usuario) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="boton-eliminar">Eliminar</button>
+                            <button type="submit" class="boton-eliminar btn-admin">Eliminar</button>
                     </form>
                 </td>
             </tr>

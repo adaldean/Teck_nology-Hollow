@@ -1,5 +1,8 @@
 <div class="contenido-principal">
-    <section class="area-productos">
+  <section class="area-productos">
+    <!-- Mirage helpers (sheen + vignette) to give the catalog a reflected floor effect -->
+    <div class="espejismo-sheen" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
     <div class="opciones-clasificacion">
       <a class="chip-categoria activo" data-categoria="todos">Todos</a>
       <a class="chip-categoria" data-categoria="computadoras">Computadoras</a>

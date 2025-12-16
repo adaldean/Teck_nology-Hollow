@@ -15,15 +15,14 @@
             <div class="logo">
                 <img src="{{ asset('imagenes/19e743dc-8b04-43b4-ad4b-da5ba6b4e109.png') }}" alt="Tr.sneakers Logo" class="logo-img">
             </div>
-            <ul class="nav-links">
+                    <ul class="nav-links">
                 <li><a href="{{ url('privado/home') }}">Home</a></li> 
                 <li class="active"><a href="#">Inventario</a></li>
                 <li><a href="{{ asset('privado/usuarios')}}">Usuarios</a></li>
-                <li><a href="#">Configuración</a></li>
                 <li>                
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn-logout">Cerrar Sesión</button>
+                        <button type="submit" class="btn-logout btn-admin">Cerrar Sesión</button>
                     </form>
                 </li>
             </ul>
@@ -64,13 +63,13 @@
                 <div class="contenedor-tabla-productos">
                     <div class="barra-herramientas">
                         <div class="busqueda">
-                            <form id="form-busqueda">
-                                <input type="text" name="query" id="campo-busqueda" class="campo-busqueda" placeholder="Buscar producto...">
-                                <button type="submit" class="boton-buscar">Buscar</button>
-                                </form>
+                                    <form id="form-busqueda">
+                                        <input type="text" name="query" id="campo-busqueda" class="campo-busqueda" placeholder="Buscar producto...">
+                                        <button type="submit" class="boton-buscar btn-admin">Buscar</button>
+                                    </form>
                         </div>
 
- <a href="/dev/inventario/agregar" class="boton-agregar">+ Agregar Producto</a>                        <!-- Botón secundario eliminado para evitar duplicado; se mantiene el botón principal arriba -->
+ <a href="/dev/inventario/agregar" class="boton-agregar btn-admin">+ Agregar Producto</a>                        <!-- Botón secundario eliminado para evitar duplicado; se mantiene el botón principal arriba -->
                     </div>
 
                     <div class="tabla-contenedor">

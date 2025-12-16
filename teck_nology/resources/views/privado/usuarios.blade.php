@@ -5,23 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Gestión de Usuarios</title>
-    <link rel="stylesheet" href="{{ asset('css/estilo_gestionclien.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/estiloinve.css') }}">
 </head>
 <body>
     <div class="container">
-        <aside class="sidebar">
+                <aside class="sidebar">
             <div class="logo">
                 <img src="{{ asset('imagenes/19e743dc-8b04-43b4-ad4b-da5ba6b4e109.png') }}" alt="Teck_Nology-Hollow" class="logo-img">
             </div>
             <ul class="nav-links">
                 <li><a href="{{ url('privado/home') }}">Home</a></li>
                 <li><a href="{{ url('privado/inventario') }}">Inventario</a></li>
-                <li class="active"><a href="{{ url('privado/usuarios') }}">Usuarios</a></li>
-                <li><a href="#">Configuración</a></li>
+                	<li class="active"><a href="{{ url('privado/usuarios') }}">Usuarios</a></li>
                 <li>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn-logout">Cerrar Sesión</button>
+                        <button type="submit" class="btn-logout btn-admin">Cerrar Sesión</button>
                     </form>
                 </li>
             </ul>
@@ -46,14 +45,14 @@
                 <div class="contenedor-tabla-usuarios">
                     <div class="barra-herramientas">
                         <div class="busqueda">
-                            <form id="form-busqueda-usuarios" data-url="/usuarios/buscar">
-                                <input type="text" name="query" class="campo-busqueda" placeholder="Buscar...">
-                                <button type="submit" class="boton-buscar">Buscar</button>
-                            </form>
+                                    <form id="form-busqueda-usuarios" data-url="/usuarios/buscar">
+                                        <input type="text" name="query" class="campo-busqueda" placeholder="Buscar...">
+                                        <button type="submit" class="boton-buscar btn-admin">Buscar</button>
+                                    </form>
                         </div>
                         <div class="botones-agregar">
-                            <a href="{{ route('usuarios.create') }}" class="boton-agregar">+ Agregar Usuario</a>
-                            <a href="{{ route('clientes.create') }}" class="boton-agregar boton-agregar-cliente">+ Agregar Cliente</a>
+                            <a href="{{ route('usuarios.create') }}" class="boton-agregar btn-admin">+ Agregar Usuario</a>
+                            <a href="{{ route('clientes.create') }}" class="boton-agregar boton-agregar-cliente btn-admin">+ Agregar Cliente</a>
                         </div>
                     </div>
 
