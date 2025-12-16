@@ -48,54 +48,52 @@ body {
     margin: 0 auto;
 }
 
-.nav-links {
-    /* Dark matte gestione clientes (usuarios) */
-    *{ box-sizing:border-box; margin:0; padding:0 }
-    :root{ --admin-bg:#0b0f12; --admin-surface:#0f1416; --admin-card:#0f1315; --accent:#9b5fe0; --accent-2:#d4af37; --muted:#9aa4ad; --glass:rgba(255,255,255,0.02); --radius:12px }
-    html,body{ height:100%; font-family:Inter, system-ui, -apple-system,'Segoe UI', Roboto, Arial; background:linear-gradient(180deg,var(--admin-bg),#060608); color:#e6eef8 }
-    .container{ display:flex; min-height:100vh }
-    .sidebar{ width:260px; background: linear-gradient(180deg,var(--admin-surface), rgba(0,0,0,0.35)); color:var(--muted); padding:22px 14px; position:fixed; height:100vh; border-right:1px solid rgba(255,255,255,0.03) }
-    .logo{ text-align:center; padding:10px 6px; margin-bottom:18px }
-    .logo-img{ max-width:160px }
-    .nav-links{ list-style:none; padding:6px 0 }
-    .nav-links li{ padding:12px 10px; border-radius:8px; margin-bottom:6px; transition: all .18s }
-    .nav-links li:hover{ background: rgba(155,95,224,0.05); color:#fff }
-    .nav-links a{ color:inherit; text-decoration:none; display:block; font-weight:600 }
-    .btn-logout{ background:none; border:none; color:var(--muted); font-weight:600; padding:0; text-align:left; cursor:pointer }
+/* Dark matte admin styles (moved out of accidental nesting) */
+:root{ --admin-bg:#0b0f12; --admin-surface:#0f1416; --admin-card:#0f1315; --accent:#9b5fe0; --accent-2:#d4af37; --muted:#9aa4ad; --glass:rgba(255,255,255,0.02); --radius:12px }
+html, body{ height:100%; font-family:Inter, system-ui, -apple-system,'Segoe UI', Roboto, Arial; background:linear-gradient(180deg,var(--admin-bg),#060608); color:#e6eef8 }
+.container{ display:flex; min-height:100vh }
+.sidebar{ width:260px; background: linear-gradient(180deg,var(--admin-surface), rgba(0,0,0,0.35)); color:var(--muted); padding:22px 14px; position:fixed; height:100vh; border-right:1px solid rgba(255,255,255,0.03) }
+.logo{ text-align:center; padding:10px 6px; margin-bottom:18px }
+.logo-img{ max-width:160px }
+.nav-links{ list-style:none; padding:6px 0 }
+.nav-links li{ padding:12px 10px; border-radius:8px; margin-bottom:6px; transition: all .18s }
+.nav-links li:hover{ background: rgba(155,95,224,0.05); color:#fff }
+.nav-links a{ color:inherit; text-decoration:none; display:block; font-weight:600 }
+.btn-logout{ background:none; border:none; color:var(--muted); font-weight:600; padding:0; text-align:left; cursor:pointer }
 
-    .main-content{ flex:1; padding:28px; margin-left:260px; width:calc(100% - 260px) }
-    .header{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:22px }
-    .header h1{ color:#f3f6fb; font-size:1.9rem; font-weight:700 }
-    .info-usuario{ color:var(--muted); font-weight:600 }
+.main-content{ flex:1; padding:28px; margin-left:260px; width:calc(100% - 260px) }
+.header{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:22px }
+.header h1{ color:#f3f6fb; font-size:1.9rem; font-weight:700 }
+.info-usuario{ color:var(--muted); font-weight:600 }
 
-    .contenedor-tabla-usuarios{ background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent), var(--admin-card); border-radius:var(--radius); padding:18px; box-shadow:0 14px 40px rgba(2,6,12,0.6); border:1px solid rgba(255,255,255,0.03); margin-top:18px }
+.contenedor-tabla-usuarios{ background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent), var(--admin-card); border-radius:var(--radius); padding:18px; box-shadow:0 14px 40px rgba(2,6,12,0.6); border:1px solid rgba(255,255,255,0.03); margin-top:18px }
 
-    .tabla-usuarios{ width:100%; border-collapse:collapse; color:#dfe9f5 }
-    .tabla-usuarios thead{ background: rgba(255,255,255,0.02); color:var(--muted) }
-    .tabla-usuarios th, .tabla-usuarios td{ padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.02); text-align:left }
-    .tabla-usuarios th.columna-checkbox, .tabla-usuarios td.columna{ text-align:center; width:50px }
-    .tabla-usuarios tbody tr{ transition:background .18s }
-    .tabla-usuarios tbody tr:hover{ background: linear-gradient(90deg, rgba(155,95,224,0.02), transparent) }
-    .columna-id{ font-weight:700; color:#e6eef8 }
-    .pagina-btn{ padding:8px 12px; border-radius:6px; background:transparent; border:1px solid rgba(255,255,255,0.03); color:var(--muted) }
-    .pagina-btn.active{ background: linear-gradient(90deg,var(--accent),var(--accent-2)); color:#071018; border-color:transparent }
+.tabla-usuarios{ width:100%; border-collapse:collapse; color:#dfe9f5 }
+.tabla-usuarios thead{ background: rgba(255,255,255,0.02); color:var(--muted) }
+.tabla-usuarios th, .tabla-usuarios td{ padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.02); text-align:left }
+.tabla-usuarios th.columna-checkbox, .tabla-usuarios td.columna{ text-align:center; width:50px }
+.tabla-usuarios tbody tr{ transition:background .18s }
+.tabla-usuarios tbody tr:hover{ background: linear-gradient(90deg, rgba(155,95,224,0.02), transparent) }
+.columna-id{ font-weight:700; color:#e6eef8 }
+.pagina-btn{ padding:8px 12px; border-radius:6px; background:transparent; border:1px solid rgba(255,255,255,0.03); color:var(--muted) }
+.pagina-btn.active{ background: linear-gradient(90deg,var(--accent),var(--accent-2)); color:#071018; border-color:transparent }
 
-    .boton-agregar, .boton-editar, .boton-eliminar, .boton-buscar{ padding:10px 16px; border-radius:10px; font-weight:700; cursor:pointer; transition:transform .18s, box-shadow .18s }
-    .boton-agregar{ background: linear-gradient(90deg,var(--accent),var(--accent-2)); color:#071018 }
-    /* Ensure edit/delete buttons are clearly visible and consistent with .btn-admin */
-    .boton-editar{ background: transparent; color:#f3f6fb; border:1px solid rgba(255,255,255,0.04); padding:.4rem .8rem; border-radius:8px }
-    .boton-editar:hover{ background: rgba(255,255,255,0.03); transform: translateY(-3px) }
-    .boton-eliminar{ background:#b94b4b; color:#fff; padding:.4rem .8rem; border-radius:8px }
-    .boton-eliminar:hover{ background:#964040; transform: translateY(-3px) }
+.boton-agregar, .boton-editar, .boton-eliminar, .boton-buscar{ padding:10px 16px; border-radius:10px; font-weight:700; cursor:pointer; transition:transform .18s, box-shadow .18s }
+.boton-agregar{ background: linear-gradient(90deg,var(--accent),var(--accent-2)); color:#071018 }
+/* Ensure edit/delete buttons are clearly visible and consistent with .btn-admin */
+.boton-editar{ background: transparent; color:#f3f6fb; border:1px solid rgba(255,255,255,0.04); padding:.4rem .8rem; border-radius:8px }
+.boton-editar:hover{ background: rgba(255,255,255,0.03); transform: translateY(-3px) }
+.boton-eliminar{ background:#b94b4b; color:#fff; padding:.4rem .8rem; border-radius:8px }
+.boton-eliminar:hover{ background:#964040; transform: translateY(-3px) }
 
-    .form-usuario{ background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent), var(--admin-card); border-radius:12px; padding:18px; border:1px solid rgba(255,255,255,0.03); box-shadow:0 12px 36px rgba(2,6,12,0.6); max-width:760px }
-    .form-row{ display:flex; flex-direction:column; gap:8px; margin-bottom:14px }
-    .form-row label{ font-weight:700; color:#e6eef8 }
-    .input-text, .select{ width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.01); color:#eaf3ff }
-    .input-text:focus, .select:focus{ outline:none; box-shadow:0 8px 24px rgba(155,95,224,0.06); border-color:rgba(155,95,224,0.12) }
+.form-usuario{ background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent), var(--admin-card); border-radius:12px; padding:18px; border:1px solid rgba(255,255,255,0.03); box-shadow:0 12px 36px rgba(2,6,12,0.6); max-width:760px }
+.form-row{ display:flex; flex-direction:column; gap:8px; margin-bottom:14px }
+.form-row label{ font-weight:700; color:#e6eef8 }
+.input-text, .select{ width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.01); color:#eaf3ff }
+.input-text:focus, .select:focus{ outline:none; box-shadow:0 8px 24px rgba(155,95,224,0.06); border-color:rgba(155,95,224,0.12) }
 
-    @media (max-width:1024px){ .sidebar{ width:220px } .main-content{ margin-left:220px; width:calc(100% - 220px) } }
-    @media (max-width:768px){ .container{ flex-direction:column } .sidebar{ width:100%; position:relative; height:auto } .main-content{ margin-left:0; width:100%; padding:18px } }
+@media (max-width:1024px){ .sidebar{ width:220px } .main-content{ margin-left:220px; width:calc(100% - 220px) } }
+@media (max-width:768px){ .container{ flex-direction:column } .sidebar{ width:100%; position:relative; height:auto } .main-content{ margin-left:0; width:100%; padding:18px } }
 
 @media (max-width: 900px) {
     .main-content { padding: 18px; margin-left: 10px; }
