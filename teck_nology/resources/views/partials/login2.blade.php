@@ -3,11 +3,7 @@
         <form action="{{ url('/login') }}" method="POST" class="form-login">
             @csrf
 
-            <!-- Botones de rol -->
-            <div class="tipo-login">
-                <button type="submit" name="role" value="empleado" class="boton-empleado">Empleados</button>
-                <button type="submit" name="role" value="cliente" class="boton-cliente">Clientes</button>
-            </div>
+            <!-- (Se han eliminado los botones de rol: solo queda Iniciar Sesión y Crear Cuenta) -->
 
             <!-- Campos de usuario -->
             <div class="grupo-input">

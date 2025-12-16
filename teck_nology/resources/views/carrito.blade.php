@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
-<body>
+<body class="{{ auth()->check() && optional(auth()->user())->id_rol == 1 ? 'admin-theme' : '' }}">
 
     <div class="header">
         <div class="logo-container">
@@ -24,7 +24,7 @@
     <div class="main-content">
 
     <div class="product-grid">
-      <div id="carrito-contenedor">
+  <div id="carrito-contenedor" class="carrito-contenedor">
         @if(!empty($cart) && count($cart) > 0)
           <div class="productos-cuadricula">
             @foreach($cart as $item)
@@ -61,7 +61,7 @@
           @endphp
           <div class="carrito-total"><h3>Total: ${{ number_format($total, 2) }}</h3></div>
         @else
-          <p>Tu carrito está vacío.</p>
+          <p class="carrito-vacio">Tu carrito está vacío.</p>
         @endif
       </div>
 

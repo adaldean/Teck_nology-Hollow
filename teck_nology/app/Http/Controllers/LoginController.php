@@ -22,29 +22,22 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
 
-        $role = $request->input('role', 'empleado');
-
-        if ($role === 'cliente') {
-            // Login para clientes: no usan el mismo guard que los empleados.
-            $cliente = Cliente::where('email', $request->email)->first();
-            if ($cliente) {
-                // Soportar contraseñas hasheadas y también plain (fallback) por compatibilidad.
-                if (Hash::check($request->password, $cliente->contrasena) || $cliente->contrasena === $request->password) {
-                    // Guardar cliente en sesión (no usar Auth para no dar acceso a panel de empleados)
-                    session(['cliente_id' => $cliente->id_cliente, 'cliente_nombre' => $cliente->nombre]);
-                    return redirect('/')->with('success', 'Ingreso como cliente exitoso');
-                }
-            }
-            return back()->withErrors(['email' => 'Credenciales de cliente inválidas.'])->onlyInput('email');
-        }
-
-        // Login para empleados/usuarios del sistema
+        // Intentar autenticar como usuario del sistema (empleado/administrador)
         $user = UsuarioSistema::where('email', $request->email)->first();
         if ($user) {
-            // Soportar hash y plain (compatibilidad)
             if (Hash::check($request->password, $user->contrasena) || $user->contrasena === $request->password) {
                 Auth::login($user);
                 return redirect('/privado/home')->with('success', 'Login exitoso');
+            }
+        }
+
+        // Si no es usuario del sistema o contraseña no coincide, intentar como cliente
+        $cliente = Cliente::where('email', $request->email)->first();
+        if ($cliente) {
+            if (Hash::check($request->password, $cliente->contrasena) || $cliente->contrasena === $request->password) {
+                // Guardar cliente en sesión (sin usar Auth guard)
+                session(['cliente_id' => $cliente->id_cliente, 'cliente_nombre' => $cliente->nombre]);
+                return redirect('/')->with('success', 'Ingreso como cliente exitoso');
             }
         }
 

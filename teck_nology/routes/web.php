@@ -22,6 +22,17 @@ use App\Http\Controllers\CartController;
 
 // Cart routes
 Route::get('/carrito', [CartController::class, 'show'])->name('carrito');
+
+// Serve frontend images located in the repository's frontend/imagenes folder
+// (development helper so catalog can use static images from frontend/imagenes)
+Route::get('/imagenes/static/{filename}', function ($filename) {
+    $path = base_path('../frontend/imagenes/' . $filename);
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    $mime = mime_content_type($path) ?: 'application/octet-stream';
+    return response()->file($path, ['Content-Type' => $mime]);
+})->where('filename', '.*');
 Route::post('/carrito/agregar', [CartController::class, 'add'])->name('carrito.agregar');
 Route::post('/carrito/actualizar', [CartController::class, 'update'])->name('carrito.update');
 Route::post('/carrito/eliminar', [CartController::class, 'remove'])->name('carrito.remove');

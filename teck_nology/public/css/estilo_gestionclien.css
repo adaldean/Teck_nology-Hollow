@@ -75,8 +75,36 @@ html, body{ height:100%; font-family:Inter, system-ui, -apple-system,'Segoe UI',
 .tabla-usuarios tbody tr{ transition:background .18s }
 .tabla-usuarios tbody tr:hover{ background: linear-gradient(90deg, rgba(155,95,224,0.02), transparent) }
 .columna-id{ font-weight:700; color:#e6eef8 }
-.pagina-btn{ padding:8px 12px; border-radius:6px; background:transparent; border:1px solid rgba(255,255,255,0.03); color:var(--muted) }
+.paginacion { display:flex; gap:8px; align-items:center; justify-content:flex-end; margin-top:12px }
+.pagina-btn{ padding:6px 8px; border-radius:6px; background:transparent; border:1px solid rgba(255,255,255,0.03); color:var(--muted); font-size:0.9rem; min-width:36px; text-align:center }
 .pagina-btn.active{ background: linear-gradient(90deg,var(--accent),var(--accent-2)); color:#071018; border-color:transparent }
+
+/* Smaller arrows / next/prev controls */
+.siguiente-btn, .anterior-btn { padding:6px 10px; font-size:0.9rem; border-radius:6px }
+.siguiente-btn::after, .anterior-btn::before { font-weight:700 }
+
+/* Responsive: scale pagination on small screens */
+@media (max-width:600px) {
+    .paginacion { gap:6px; justify-content:center }
+    .pagina-btn, .siguiente-btn, .anterior-btn { padding:6px 6px; font-size:0.82rem; min-width:30px }
+}
+
+/* Ensure default pagination links from vendor view are small too */
+.paginacion a, .paginacion span {
+    display:inline-block;
+    padding:6px 8px;
+    font-size:0.9rem;
+    line-height:1;
+    border-radius:6px;
+    color:var(--muted);
+    text-decoration:none;
+    border:1px solid rgba(255,255,255,0.03);
+    min-width:36px;
+    text-align:center;
+}
+.paginacion a:hover { background: rgba(255,255,255,0.02); color: #fff }
+.paginacion a[rel="next"], .paginacion a[rel="prev"] { padding:6px 8px }
+.paginacion span { background: transparent }
 
 .boton-agregar, .boton-editar, .boton-eliminar, .boton-buscar{ padding:10px 16px; border-radius:10px; font-weight:700; cursor:pointer; transition:transform .18s, box-shadow .18s }
 .boton-agregar{ background: linear-gradient(90deg,var(--accent),var(--accent-2)); color:#071018 }
@@ -265,5 +293,49 @@ html, body{ height:100%; font-family:Inter, system-ui, -apple-system,'Segoe UI',
     background-color: var(--verde-hover);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(24, 107, 58, 0.3);
+}
+
+/* Force high-contrast white text for clarity across admin pages */
+/* Use strong selectors and fallbacks to ensure visibility */
+html, body, .main-content, .contenedor-tabla-usuarios, .form-usuario, .modal-contenido {
+    color: #ffffff !important;
+}
+
+.sidebar, .nav-links a, .nav-links li { color: #ffffff !important; }
+
+.tabla-usuarios, .tabla-usuarios th, .tabla-usuarios td, .tabla-usuarios thead {
+    color: #ffffff !important;
+}
+
+.tabla-usuarios th { color: rgba(255,255,255,0.92) !important; font-weight:700 }
+.tabla-usuarios td { color: rgba(255,255,255,0.95) !important }
+
+.paginacion a, .paginacion span, .pagina-btn, .siguiente-btn, .anterior-btn {
+    color: #ffffff !important;
+    background: rgba(255,255,255,0.02) !important;
+    border-color: rgba(255,255,255,0.04) !important;
+}
+.pagina-btn.active { color: #071018 !important; background: linear-gradient(90deg,var(--accent),var(--accent-2)) !important }
+
+.boton-agregar, .boton-editar, .boton-eliminar, .boton-buscar, .btn-guardar, .btn-cancelar {
+    color: #ffffff !important;
+}
+
+.form-grupo label, .input-text, .select, .modal-header h2, .cerrar-modal {
+    color: #ffffff !important;
+}
+
+/* Make placeholder text still readable but muted */
+.form-grupo input::placeholder { color: rgba(255,255,255,0.6) !important }
+
+/* Ensure modal content has dark background and white text */
+.modal-contenido { background: linear-gradient(180deg,#0b0f12,#0b0f12) !important; color: #ffffff !important }
+
+/* Accessibility: increase table row contrast on hover */
+.tabla-usuarios tbody tr:hover { background: rgba(255,255,255,0.03) !important }
+
+/* Small screens: keep text readable */
+@media (max-width: 600px) {
+    .tabla-usuarios th, .tabla-usuarios td { font-size: 0.95rem !important }
 }
 

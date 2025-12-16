@@ -485,14 +485,40 @@ html {
 /* Card hover: tilt, lift and subtle neon rim */
 .producto-tarjeta{
   transition: transform 360ms cubic-bezier(.2,.9,.2,1), box-shadow 360ms ease, border-color 360ms ease;
+  will-change: transform;
   transform-origin: center center;
 }
-.producto-tarjeta:hover{
+.producto-tarjeta:is(:hover, :focus-within) {
+  /* Keep hover transform active when the card or any interactive child has focus or hover */
   transform: translateY(-12px) rotateX(4deg) rotateZ(-1deg);
   box-shadow: 0 28px 80px rgba(11,45,74,0.12), 0 6px 30px rgba(252,75,8,0.06);
   border: 1px solid rgba(252,75,8,0.08);
 }
-.producto-tarjeta:hover img{ transform: scale(1.06); transition: transform 420ms cubic-bezier(.2,.9,.2,1) }
+.producto-tarjeta:is(:hover, :focus-within) img{
+  transform: scale(1.06);
+  transition: transform 420ms cubic-bezier(.2,.9,.2,1);
+}
+
+/* Force catalog product image box to fixed dimensions and ensure cover fit */
+.productos-cuadricula .producto-tarjeta .producto-imagen{
+  width: 260px;
+  height: 220px;
+  min-width: 260px;
+  min-height: 220px;
+  max-width: 260px;
+  max-height: 220px;
+  overflow: hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.productos-cuadricula .producto-tarjeta .producto-imagen img{
+  width:100%; height:100%; object-fit:cover; display:block;
+}
+
+@media (max-width: 720px){
+  .productos-cuadricula .producto-tarjeta .producto-imagen{
+    width:100%; height:180px; min-width: auto; min-height: auto; max-width: none; max-height: none;
+  }
+}
 
 /* dynamic button base we can reuse */
 .btn-dynamic{ display:inline-block; position:relative; padding:10px 16px; border-radius:12px; cursor:pointer; user-select:none; -webkit-tap-highlight-color: transparent }
