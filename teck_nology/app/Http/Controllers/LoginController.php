@@ -88,6 +88,10 @@ class LoginController extends Controller
         // Iniciar sesión de cliente mediante sesión simple (no Auth guard)
         session(['cliente_id' => $cliente->id_cliente, 'cliente_nombre' => $cliente->nombre]);
 
+        if ($request->wantsJson() || $request->ajax() || str_contains($request->header('Accept',''), 'application/json')) {
+            return response()->json(['redirect' => url('/')]);
+        }
+
         return redirect('/')->with('success', 'Cuenta creada. Bienvenido ' . $cliente->nombre);
     }
 

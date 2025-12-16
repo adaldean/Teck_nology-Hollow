@@ -15,6 +15,24 @@
 
 <body class="{{ auth()->check() && optional(auth()->user())->id_rol == 1 ? 'admin-theme' : '' }}">
 
+    <script>
+      // Server-provided flag: is the current session a logged-in Cliente?
+      window.__isClienteLogged = {{ session()->has('cliente_id') ? 'true' : 'false' }};
+    </script>
+    <script>
+      // Ensure any leftover localStorage 'usuario' (from previous dev runs) does not make the app think
+      // the visitor is a logged Cliente. If the server session does not contain cliente_id, remove it.
+      (function(){
+        try {
+          if (!window.__isClienteLogged || window.__isClienteLogged === 'false') {
+            localStorage.removeItem('usuario');
+          }
+        } catch (e) {
+          // ignore
+        }
+      })();
+    </script>
+
     <div class="header">
         <div class="logo-container">
             <img src="{{ asset('imagenes/19e743dc-8b04-43b4-ad4b-da5ba6b4e109.png') }}" alt="Logo de Tecknology" class="logo">
@@ -94,7 +112,11 @@
         <label>Contraseña</label>
         <input type="password" id="passwordLogin">
 
-        <button type="button" class="submit-button" onclick="iniciarSesion()">Iniciar sesión</button>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button type="button" class="submit-button" onclick="iniciarSesion()">Iniciar sesión</button>
+          <button type="button" class="submit-button lighter" onclick="abrirModal('modalRegistro')">Crear cuenta</button>
+        </div>
+        <div id="login-error" style="color:#ff9b8a;margin-top:8px;display:none"></div>
       </div>
     </div>
 
@@ -132,6 +154,37 @@
 
           <button type="submit" class="submit-button">Realizar pago</button>
         </form>
+      </div>
+    </div>
+
+    <div id="modalRegistro" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarModal('modalRegistro')">&times;</span>
+        <h2>Crear cuenta</h2>
+
+        <label>Nombre</label>
+        <input type="text" id="regNombre">
+
+        <label>Correo</label>
+        <input type="email" id="regCorreo">
+
+        <label>Teléfono</label>
+        <input type="text" id="regTelefono">
+
+        <label>Dirección</label>
+        <input type="text" id="regDireccion">
+
+        <label>Contraseña</label>
+        <input type="password" id="regPassword">
+
+        <label>Confirmar contraseña</label>
+        <input type="password" id="regPasswordConf">
+
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button type="button" class="submit-button" onclick="registrarCliente()">Crear cuenta</button>
+          <button type="button" class="submit-button lighter" onclick="cerrarModal('modalRegistro')">Cancelar</button>
+        </div>
+        <div id="reg-error" style="color:#ff9b8a;margin-top:8px;display:none"></div>
       </div>
     </div>
 

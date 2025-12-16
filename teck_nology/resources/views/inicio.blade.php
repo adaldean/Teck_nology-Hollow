@@ -18,8 +18,8 @@
        </div>
    </div>
     <div class="header-derecha">
-      <form class="buscador" action="{{ url('resultados') }}" method="get">
-        <input type="search" name="q" placeholder="Buscar">
+      <form class="buscador" onsubmit="return false;">
+        <input type="search" id="catalog-search" name="q" placeholder="Buscar productos..." autocomplete="off">
       </form>
 
       <nav class="menu-links">
@@ -111,4 +111,6 @@
 <script src="{{ asset('javascript/carritopago.js') }}"></script>
 <script src="{{ asset('javascript/catalogo-parallax.js') }}"></script>
 <script src="{{ asset('javascript/button-effects.js') }}"></script>
+<script src="{{ asset('javascript/catalog-search.js') }}"></script>
+<script src="{{ asset('javascript/catalog-quickview.js') }}"></script>
 </html>

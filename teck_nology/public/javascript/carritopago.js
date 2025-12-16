@@ -124,30 +124,115 @@ function eliminarDelCarrito(index) {
 
 // --- PAGAR ---
 function pagar() {
-    let usuario = localStorage.getItem("usuario");
-
-    if (!usuario) {
-        abrirModal("modalLogin");
-    } else {
-        abrirModal("modalPago");
+    // Prefer server-side session check when available
+    try {
+        const isCliente = window.__isClienteLogged === true || window.__isClienteLogged === 'true';
+        if (!isCliente) {
+            abrirModal("modalLogin");
+        } else {
+            abrirModal("modalPago");
+        }
+    } catch (e) {
+        // Fallback to localStorage-based check
+        let usuario = localStorage.getItem("usuario");
+        if (!usuario) abrirModal("modalLogin"); else abrirModal("modalPago");
     }
 }
 
 // --- INICIAR SESIÓN ---
 function iniciarSesion() {
-    let correo = document.getElementById("correoLogin").value;
-    let pass = document.getElementById("passwordLogin").value;
+    const correo = document.getElementById("correoLogin").value || '';
+    const pass = document.getElementById("passwordLogin").value || '';
+    const errEl = document.getElementById('login-error');
+    if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
 
     if (correo.trim() === "" || pass.trim() === "") {
-        alert("Completa todos los campos");
+        if (errEl) { errEl.textContent = 'Completa todos los campos'; errEl.style.display = 'block'; }
         return;
     }
 
-    localStorage.setItem("usuario", correo);
-    alert("Inicio de sesión exitoso");
+    const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    const body = new FormData();
+    body.append('email', correo);
+    body.append('password', pass);
+    if (token) body.append('_token', token);
 
-    cerrarModal("modalLogin");
-    abrirModal("modalPago");
+    fetch('/login', { method: 'POST', body, credentials: 'same-origin', headers: { 'Accept': 'application/json', 'X-CSRF-TOKEN': token } })
+    .then(async res => {
+        if (!res.ok) {
+            const j = await res.json().catch(()=>null);
+            const msg = (j && j.errors && (j.errors.email || j.errors.password)) ? (Array.isArray(j.errors.email) ? j.errors.email[0] : j.errors.email) : 'Credenciales inválidas';
+            if (errEl){ errEl.textContent = msg; errEl.style.display = 'block'; }
+            return;
+        }
+        const j = await res.json().catch(()=>null);
+        // decide whether logged-in actor is a cliente based on redirect target
+    const redirectUrl = (j && j.redirect) ? String(j.redirect) : '';
+    // If redirect contains /privado (admin area) treat as system user; otherwise treat as cliente
+    const isCliente = redirectUrl && !redirectUrl.includes('/privado');
+        window.__isClienteLogged = isCliente;
+        // close login modal
+        cerrarModal('modalLogin');
+        if (isCliente) {
+            abrirModal('modalPago');
+        } else {
+            // if it's an admin/empleado, navigate to their destination
+            window.location.href = redirectUrl || '/';
+        }
+    }).catch(e => {
+        console.error('Login fetch failed', e);
+        if (errEl){ errEl.textContent = 'Error de red. Intenta de nuevo.'; errEl.style.display = 'block'; }
+    });
+}
+
+// --- REGISTRAR CLIENTE DESDE EL CARRITO ---
+function registrarCliente() {
+    const nombre = document.getElementById('regNombre').value || '';
+    const correo = document.getElementById('regCorreo').value || '';
+    const telefono = document.getElementById('regTelefono').value || '';
+    const direccion = document.getElementById('regDireccion').value || '';
+    const pass = document.getElementById('regPassword').value || '';
+    const pass2 = document.getElementById('regPasswordConf').value || '';
+    const errEl = document.getElementById('reg-error');
+    if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+
+    if (!nombre.trim() || !correo.trim() || !pass.trim() || !pass2.trim()) {
+        if (errEl){ errEl.textContent = 'Completa todos los campos obligatorios.'; errEl.style.display = 'block'; }
+        return;
+    }
+    if (pass !== pass2) {
+        if (errEl){ errEl.textContent = 'Las contraseñas no coinciden.'; errEl.style.display = 'block'; }
+        return;
+    }
+
+    const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    const body = new FormData();
+    body.append('nombre', nombre);
+    body.append('email', correo);
+    body.append('telefono', telefono);
+    body.append('direccion', direccion);
+    body.append('password', pass);
+    body.append('password_confirmation', pass2);
+    if (token) body.append('_token', token);
+
+    fetch('/register', { method: 'POST', body, credentials: 'same-origin', headers: { 'Accept': 'application/json', 'X-CSRF-TOKEN': token } })
+    .then(async res => {
+        if (!res.ok) {
+            const j = await res.json().catch(()=>null);
+            const msg = (j && j.errors) ? Object.values(j.errors).flat()[0] : 'Error en el registro';
+            if (errEl){ errEl.textContent = msg; errEl.style.display = 'block'; }
+            return;
+        }
+        const j = await res.json().catch(()=>null);
+        // mark client session client-side
+        window.__isClienteLogged = true;
+        cerrarModal('modalRegistro');
+        cerrarModal('modalLogin');
+        abrirModal('modalPago');
+    }).catch(e => {
+        console.error('Register fetch failed', e);
+        if (errEl){ errEl.textContent = 'Error de red. Intenta de nuevo.'; errEl.style.display = 'block'; }
+    });
 }
 
 // --- MODALES ---

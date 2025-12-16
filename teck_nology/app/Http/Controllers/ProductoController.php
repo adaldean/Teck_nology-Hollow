@@ -60,7 +60,7 @@ class ProductoController extends Controller
             $query->where('precio', '<', 500); 
         }
 
-        $productos = $query->paginate(6); 
+        $productos = $query->paginate(9); 
 
         return view('inicio', compact('productos'));
     }

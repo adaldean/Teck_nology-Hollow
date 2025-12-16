@@ -52,9 +52,12 @@ Route::post('/registro', [LoginController::class, 'register'])->name('registro.p
 // Logout específico para clientes (limpia session cliente)
 Route::get('/cliente/logout', [LoginController::class, 'logoutCliente'])->name('cliente.logout');
 
-// Ruta de desarrollo: crear un cliente de prueba rápidamente (quitar en producción)
-Route::get('/dev/registro/seed', [LoginController::class, 'seedDevClient']);
-Route::get('/dev/registro/login', [LoginController::class, 'devLogin']);
+// Rutas de desarrollo: solo habilitar cuando APP_ENV=local
+if (app()->environment('local')) {
+    // Crear un cliente de prueba rápidamente (dev)
+    Route::get('/dev/registro/seed', [LoginController::class, 'seedDevClient']);
+    Route::get('/dev/registro/login', [LoginController::class, 'devLogin']);
+}
 
 // --- RUTAS DE INVENTARIO (PROTEGIDAS por Auth Middleware) ---
 // Endpoint público para subir imágenes desde el frontend (retorna JSON {url})
@@ -99,6 +102,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
 });
 
-// Rutas de desarrollo no protegidas para pruebas rápidas (quitar en producción)
-Route::get('/dev/inventario/agregar', [ProductoController::class, 'create']);
-Route::post('/dev/inventario/guardar', [ProductoController::class, 'store']);
+// Rutas de desarrollo no protegidas para pruebas rápidas (habilitadas solo en local)
+if (app()->environment('local')) {
+    Route::get('/dev/inventario/agregar', [ProductoController::class, 'create']);
+    Route::post('/dev/inventario/guardar', [ProductoController::class, 'store']);
+}
