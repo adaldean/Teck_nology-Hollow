@@ -27,6 +27,9 @@ class LoginController extends Controller
         if ($user) {
             if (Hash::check($request->password, $user->contrasena) || $user->contrasena === $request->password) {
                 Auth::login($user);
+                if ($request->wantsJson() || $request->ajax() || str_contains($request->header('Accept',''), 'application/json')) {
+                    return response()->json(['redirect' => url('/privado/home')]);
+                }
                 return redirect('/privado/home')->with('success', 'Login exitoso');
             }
         }
@@ -37,8 +40,15 @@ class LoginController extends Controller
             if (Hash::check($request->password, $cliente->contrasena) || $cliente->contrasena === $request->password) {
                 // Guardar cliente en sesión (sin usar Auth guard)
                 session(['cliente_id' => $cliente->id_cliente, 'cliente_nombre' => $cliente->nombre]);
+                if ($request->wantsJson() || $request->ajax() || str_contains($request->header('Accept',''), 'application/json')) {
+                    return response()->json(['redirect' => url('/')]);
+                }
                 return redirect('/')->with('success', 'Ingreso como cliente exitoso');
             }
+        }
+
+        if ($request->wantsJson() || $request->ajax() || str_contains($request->header('Accept',''), 'application/json')) {
+            return response()->json(['errors' => ['email' => 'Credenciales inválidas.']], 422);
         }
 
         return back()->withErrors(['email' => 'Credenciales inválidas.'])->onlyInput('email');

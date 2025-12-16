@@ -29,6 +29,73 @@ body.login{
   color: #e9eef2;
 }
 
+/* Elegant animated dot decor (minimal, modern) */
+.login-decor {
+  position: absolute; z-index: 2; inset: 0; pointer-events: none; overflow: visible;
+}
+/* Rain-style animated dots */
+.login-decor .dot{
+  position: absolute;
+  width: 8px; height: 8px; border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.98), rgba(246,200,95,0.9));
+  box-shadow: 0 8px 20px rgba(246,200,95,0.06), 0 2px 6px rgba(2,6,23,0.08);
+  opacity: 0.95;
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  /* default animation, overridden inline for variety */
+  animation-name: rainDrop;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rainDrop {
+  0% {
+    transform: translateY(-18vh) translateX(0) scale(0.9);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(60vh) translateX(6px) scale(1.05);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateY(120vh) translateX(12px) scale(0.95);
+    opacity: 0;
+  }
+}
+
+/* Ensure the form card sits above decorative dots */
+.contenedor-formulario{ position:relative; z-index: 5; backdrop-filter: blur(6px) saturate(120%); }
+
+/* Slight glass border kept but toned down for elegance */
+.contenedor-formulario{
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 20px 60px rgba(2,6,23,0.45);
+}
+
+/* Accent underline for title */
+.titulo-login{ position:relative }
+.titulo-login::after{ content:''; display:block; height:3px; width:48px; background: linear-gradient(90deg,var(--brand), #9b5fe0); margin:8px auto 0 auto; border-radius:3px }
+
+/* Futuristic but subtle buttons */
+.boton-login{ background: linear-gradient(90deg, rgba(246,200,95,0.98), rgba(155,95,224,0.9)); color:#071022; box-shadow: 0 12px 36px rgba(155,95,224,0.12) }
+.boton-cuenta{ border:1px solid rgba(255,255,255,0.05); background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent) }
+
+/* mobile tweak to keep decor responsive */
+@media (max-width:720px){ .login-decor{ display:none } }
+
+/* Icon positions and subtle motion */
+.login-decor .icon{ position:absolute; opacity:0.95; filter: drop-shadow(0 8px 18px rgba(2,6,23,0.28)); }
+.login-decor .icon-ctrl{ right:16%; top:8%; width:72px; height:auto; transform: rotate(-6deg); animation: floaty 7s ease-in-out infinite; }
+.login-decor .icon-phone{ left:12%; top:22%; width:48px; height:auto; transform: rotate(-8deg); animation: floaty 6.5s ease-in-out infinite; }
+.login-decor .icon-laptop{ left:22%; bottom:12%; width:96px; height:auto; transform: rotate(4deg); animation: floaty 8s ease-in-out infinite; }
+.login-decor .icon-cable{ right:6%; bottom:18%; width:120px; height:auto; transform: rotate(6deg); opacity:0.7; }
+
+/* Reduce intensity on small screens */
+@media (max-width:900px){ .login-decor .icon-ctrl{ right:8%; top:6%; width:56px } .login-decor .icon-laptop{ width:72px } }
+
 /* Card */
 .login-page{ width:100%; display:flex; align-items:center; justify-content:center; padding:48px 20px }
 .contenedor-formulario{ width:100%; max-width:420px; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border-radius:var(--card-radius); padding:34px; box-shadow:var(--shadow-md); border:1px solid rgba(255,255,255,0.03); }
@@ -111,4 +178,12 @@ body.login{
 .btn-admin{ padding:12px 16px; border-radius:12px; font-weight:800; color:#071022; background: linear-gradient(90deg,#f6c85f,#ffb84d); border:none; box-shadow: 0 14px 36px rgba(246,200,95,0.18); transition: transform .18s, box-shadow .18s }
 .btn-admin:hover{ transform: translateY(-4px); box-shadow: 0 24px 60px rgba(246,200,95,0.22) }
 .btn-ghost{ background: transparent; border:1px solid rgba(255,255,255,0.06); color:#fff }
+
+/* Overlay used during login transition (smooth, modern) */
+.login-overlay{ position:absolute; inset:0; z-index:60; display:flex; align-items:center; justify-content:center; pointer-events:none; opacity:0; transform: scale(1.02); transition: opacity .48s cubic-bezier(.2,.8,.2,1), transform .48s cubic-bezier(.2,.8,.2,1); }
+.login-overlay.show{ opacity:1; transform: scale(1); pointer-events:auto }
+.login-overlay .overlay-dot{ width:72px; height:72px; border-radius:50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.98), rgba(246,200,95,0.95)); box-shadow: 0 30px 80px rgba(2,6,23,0.36); transform: translateY(-6px); animation: overlayPulse 1200ms ease-in-out infinite; }
+.login-overlay .overlay-message{ margin-left:14px; color:#071022; font-weight:700; background: rgba(255,255,255,0.92); padding:10px 14px; border-radius:999px; box-shadow: 0 8px 30px rgba(2,6,23,0.12); font-size:0.95rem }
+@keyframes overlayPulse{ 0%{ transform: scale(.96) translateY(-4px) } 50%{ transform: scale(1.08) translateY(0) } 100%{ transform: scale(.96) translateY(-4px) } }
+.login-overlay.hidden{ display:none }
 
