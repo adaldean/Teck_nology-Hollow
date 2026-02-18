@@ -1,158 +1,190 @@
 <!DOCTYPE html>
 <html lang="es">
-<head> 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teck_nology-Hollow</title>
-  <link rel="icon" href="#">
-  <link rel="stylesheet" href="../css/estilo.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechHollow | Innovación Tecnológica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <header>
-   <div class="header">
-       <div class="logo-container">
-           <img src="imagenes/19e743dc-8b04-43b4-ad4b-da5ba6b4e109.png" alt="" class="logo">
-       </div>
-   </div>
-    <div class="header-derecha">
-      <form class="buscador" action="resultados.html" method="get">
-        <input type="search" name="q" placeholder="Buscar...">
-      </form>
 
-      <nav class="menu-links">
-        <a href="../users/login.html" class="inicio" title="Iniciar Sesión">
-    <img src="../imagenes/usuario.png" alt="Iniciar Sesión" class="icono-nav">
-        </a>
-        <a href="carrito.html" class="carrito" title="carrito">
-          <img src="../imagenes/carrito.png" alt="carrito" class="icono-nav">
-        </a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <h1>Filtrar y ordenar</h1>
-    
-    <div class="contenido-principal">
-<aside class="panel-filtros">
-    
-    <div class="filtro-grupo">
-        <label>Palabras clave</label>
-        <div class="chips-container">
-            <span class="chip">Az <span class="cerrar-chip">x</span></span>
-            <span class="chip">A <span class="cerrar-chip">x</span></span>
-            <span class="chip">S <span class="cerrar-chip">x</span></span>
-        </div>
-    </div>
-        
-    <div class="filtro-grupo desplegable">
-        <input type="checkbox" id="filtro-color" class="filtro-checkbox">
-        <label for="filtro-color" class="filtro-header">
-            <span>Color</span>
-            <span class="flecha">▼</span>
-        </label>
-        <div class="filtro-contenido">
-            <div><input type="checkbox" checked>*</div>
-            <div><input type="checkbox" checked>*</div>
-            <div><input type="checkbox" checked>*</div>
-        </div>
-    </div>
-        
-    <div class="filtro-grupo desplegable">
-        <input type="checkbox" id="filtro-marca" class="filtro-checkbox">
-        <label for="filtro-marca" class="filtro-header">
-            <span>Marca</span>
-            <span class="flecha">▼</span>
-        </label>
-        <div class="filtro-contenido">
-            <div><input type="checkbox" checked>*</div>
-            <div><input type="checkbox">*</div>
-            <div><input type="checkbox" checked>*</div>
-        </div>
-    </div>
-        
-    <div class="filtro-grupo desplegable">
-        <input type="checkbox" id="filtro-precio" class="filtro-checkbox">
-        <label for="filtro-precio" class="filtro-header">
-            <span>Precio</span>
-            <span class="flecha">▼</span>
-        </label>
-        <div class="filtro-contenido">
-            <div class="rango-precio-valor">$0-$100</div>
-            <input type="range" min="0" max="100" value="30" class="slider"> 
-        </div>
-    </div>
-</aside>
-      
-      <section class="area-productos">
-        <div class="opciones-clasificacion">
-         <a href="*" class="chip-categoria">Computadoras</a>
-         <a href="*" class="chip-categoria">Moviles</a>
-         <a href="*" class="chip-categoria">Accesorios</a>
-         <a href="*" class="chip-categoria">Juegos</a>         
-        </div>
-        
-        <div class="opciones-ordenar">
-          <button class="boton-ordenar activo">Productos</button>
-          <button class="boton-ordenar">Precio ascendente</button>
-          <button class="boton-ordenar">Precio descendiente</button>
-          <button class="boton-ordenar">Ofertas </button>
-        </div>
-        
-        <div class="productos-cuadricula">
-          <div class="producto-tarjeta">
-            <div class="producto-imagen"></div>
-            <div class="producto-info">
-              <p class="producto-nombre">Texto</p>
-              <p class="producto-precio">$0</p>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-brand">
+                <img src="imagenes/tu-logo.png" alt="TechHollow Logo" class="logo">
+                <span class="brand-name">TECH_HOLLOW</span>
             </div>
-          </div>
-          <div class="producto-tarjeta">...</div>
-          <div class="producto-tarjeta">...</div>
-          <div class="producto-tarjeta">...</div>
-          <div class="producto-tarjeta">...</div>
-          <div class="producto-tarjeta">...</div>
-        </div>
-        
-        <div class="paginacion">
-          <a href="#">← Anterior</a>
-          <a href="#" class="pagina-actual">1</a>
-          <a href="#">2</a>
-          <a href="#">3</a>
-          <span>...</span>
-          <a href="#">67</a>
-          <a href="#">68</a>
-          <a href="#">Siguiente →</a>
-        </div>
-      </section>
-    </div>
-  </main>
 
-  <div class="seccion-mapa-inferior">
-    <div class="contenedor-mapa-seccion">
-      <section class="ubicacion-negocio">
-        <h2 class="titulo-mapa">Localiza nuestro negocio.</h2>
-        <div class="contenido-mapa">
-          <div class="mapa-contenedor">
-            <iframe 
-              src="https://maps.google.com/maps?q=Tecnol%C3%B3gico+Nacional+de+M%C3%A9xico+Campus+Iztapalapa&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
-              width="100%" 
-              height="100%" 
-              style="border:0;" 
-              allowfullscreen="" 
-              loading="lazy" 
-              referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-          </div>
-          <div class="info-contacto">
-            <p class="direccion-texto">🏢 Tecnológico Nacional de México Campus Iztapalapa.</p>
-            <p class="telefono-texto">📞 Número telefónico: 55-12-34-56-78</p>
-            <p class="horario-texto">🕒 Horario: Lunes a Viernes 9:00 AM - 6:00 PM.</p>
-          </div>
+            <div class="search-wrapper">
+                <form action="resultados.html" method="get">
+                    <input type="search" name="q" placeholder="Buscar periféricos, hardware, gadgets...">
+                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+            </div>
+
+            <nav class="header-actions">
+                <a href="../users/login.html" title="Cuenta" class="action-icon">
+                    <i class="fa-regular fa-user"></i>
+                </a>
+                <a href="carrito.html" title="Carrito" class="action-icon cart-trigger">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-badge">0</span>
+                </a>
+                <button id="dark-mode-toggle" class="theme-btn" title="Cambiar modo">
+                    <i class="fa-solid fa-moon"></i> 
+                </button>
+            </nav>
         </div>
-      </section>
-    </div>
-  </div>
+    </header>
+
+    <main class="store-container">
+        
+        <nav class="category-nav">
+            <a href="#" class="chip active">Todos</a>
+            <a href="#" class="chip">Computadoras</a>
+            <a href="#" class="chip">Móviles</a>
+            <a href="#" class="chip">Accesorios</a>
+            <a href="#" class="chip">Gaming</a>
+        </nav>
+
+        <div class="content-layout">
+            <aside class="filters-sidebar">
+                <div class="filter-card">
+                    <h3>Filtrar por</h3>
+                    
+                    <div class="filter-section">
+                        <h4>Palabras clave</h4>
+                        <div class="active-chips">
+                            <span class="chip-tag">Azul <i class="fa-solid fa-xmark"></i></span>
+                            <span class="chip-tag">Gamer <i class="fa-solid fa-xmark"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h4>Precio</h4>
+                        <div class="price-input-group">
+                            <span>$0</span>
+                            <input type="range" min="0" max="5000" value="1500" class="modern-slider">
+                            <span>$5k+</span>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h4>Marcas Populares</h4>
+                        <div class="checkbox-list">
+                            <label class="custom-check">Asus
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="custom-check">Logitech
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="custom-check">Razer
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="products-view">
+                <div class="view-controls">
+                    <p class="results-count">Mostrando 24 productos</p>
+                    <select class="sort-select">
+                        <option>Ordenar por: Relevancia</option>
+                        <option>Precio: Menor a Mayor</option>
+                        <option>Precio: Mayor a Menor</option>
+                        <option>Lo más nuevo</option>
+                    </select>
+                </div>
+
+                <div class="product-grid">
+                    <article class="product-card featured">
+                        <div class="product-image">
+                            <span class="badge sale">Oferta</span>
+                            <img src="ruta-imagen.jpg" alt="Producto">
+                        </div>
+                        <div class="product-info">
+                            <span class="category">Laptop</span>
+                            <h3>ZenBook Pro 14 AI</h3>
+                            <p class="price">$24,999 <span>$29,000</span></p>
+                            <button class="add-to-cart">Añadir al carrito</button>
+                        </div>
+                    </article>
+
+                    <article class="product-card">
+                        <div class="product-image">
+                            <img src="ruta-imagen.jpg" alt="Producto">
+                        </div>
+                        <div class="product-info">
+                            <span class="category">Audio</span>
+                            <h3>Headset HyperX Cloud</h3>
+                            <p class="price">$1,299</p>
+                            <button class="add-to-cart">Añadir</button>
+                        </div>
+                    </article>
+                    </div>
+
+                <div class="pagination-container">
+                    <button class="pag-btn"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="pag-numbers">
+                        <span class="current">1</span>
+                        <span>2</span>
+                        <span>3</span>
+                        <span class="dots">...</span>
+                        <span>12</span>
+                    </div>
+                    <button class="pag-btn"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-map">
+                <iframe src="https://maps.google.com/maps?q=Tecnol%C3%B3gico+Nacional+de+M%C3%A9xico+Campus+Iztapalapa&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed"></iframe>
+            </div>
+            <div class="footer-contact">
+                <h3>Visítanos</h3>
+                <p><i class="fa-solid fa-location-dot"></i> TecNM Campus Iztapalapa</p>
+                <p><i class="fa-solid fa-phone"></i> 55-12-34-56-78</p>
+                <p><i class="fa-solid fa-clock"></i> Lunes - Viernes: 9am - 6pm</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
+
+<script>
+  const btn = document.getElementById('dark-mode-toggle');
+  const icon = btn.querySelector('i');
+  
+  // Revisar si ya existía una preferencia guardada
+  if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    icon.classList.replace('fa-moon', 'fa-sun');
+  }
+
+  btn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    
+    // Cambiar el icono y guardar preferencia
+    if (document.body.classList.contains('dark-mode')) {
+      icon.classList.replace('fa-moon', 'fa-sun');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      icon.classList.replace('fa-sun', 'fa-moon');
+      localStorage.setItem('theme', 'light');
+    }
+  });
+</script>
 </html>

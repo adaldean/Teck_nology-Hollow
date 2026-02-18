@@ -4,10 +4,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teck_nology-Hollow</title>
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="icon" href="#">
-  {{-- Usar la función 'asset()' para las rutas estáticas --}{{-- para que no se les olvide --}} 
+    <title>TechHollow | Innovación Tecnológica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="{{ asset('css/estilo.css') }}">
 </head>
 <body>
