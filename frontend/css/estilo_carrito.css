@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. VARIABLES DE COLOR (ADN ORIGINAL)
+   1. VARIABLES Y MODO OSCURO
    ========================================================================== */
 :root {
   --primary: #26706a;
@@ -8,7 +8,6 @@
   --card-bg: #ffffff;
   --text-main: #333333;
   --text-muted: #666666;
-  --glass: rgba(255, 255, 255, 0.8);
   --border: rgba(0, 0, 0, 0.1);
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
 }
@@ -19,7 +18,6 @@
   --card-bg: #1e2a44;
   --text-main: #ecf0f1;
   --text-muted: #bdc3c7;
-  --glass: rgba(19, 36, 70, 0.8);
   --border: rgba(255, 255, 255, 0.1);
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
@@ -28,95 +26,85 @@
    2. BASES
    ========================================================================== */
 * {
-  box-sizing: border-box;
-  transition: background 0.4s ease, color 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 0; padding: 0; box-sizing: border-box;
+  transition: background 0.4s ease, color 0.4s ease, transform 0.3s ease;
 }
 
 body {
-  margin: 0;
   font-family: 'Jost', sans-serif;
   background: var(--bg-gradient);
   background-attachment: fixed;
   color: var(--text-main);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
-
-h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
 
 /* ==========================================================================
    3. HEADER Y LOGO
    ========================================================================== */
 .main-header {
-  background: var(--glass);
-  backdrop-filter: blur(15px);
+  height: 120px; display: flex; align-items: center; justify-content: center;
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: sticky;
-  top: 0; z-index: 1000;
 }
 
 .logo-container {
-  background: var(--card-bg);
-  border-radius: 50%;
-  padding: 10px;
-  width: 110px; height: 110px;
+  background: var(--card-bg); border-radius: 50%;
+  padding: 10px; width: 110px; height: 110px;
   display: flex; align-items: center; justify-content: center;
   position: absolute; top: 40px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
+  box-shadow: var(--shadow); border: 1px solid var(--border);
 }
 
 .logo { height: 80px; object-fit: contain; }
 
 /* ==========================================================================
-   4. PRODUCTOS Y MODALES
+   4. PRODUCTOS
    ========================================================================== */
-.main-content {
-  flex: 1;
-  padding: 80px 20px 40px;
-  display: flex; flex-direction: column; align-items: center;
-}
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px; width: 100%; max-width: 1100px; margin-bottom: 40px;
-}
-
-.product-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 20px; padding: 30px;
-  text-align: center; box-shadow: var(--shadow);
-}
-
+.main-content { padding: 120px 20px 40px; display: flex; flex-direction: column; align-items: center; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; width: 100%; max-width: 1100px; margin-bottom: 40px; }
+.product-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 30px; text-align: center; box-shadow: var(--shadow); }
 .product-card:hover { transform: translateY(-8px); }
-
-.card-title { color: var(--primary); margin-top: 0; }
-
-.price { font-size: 2rem; color: var(--accent); font-weight: 700; margin: 15px 0; }
-
+.card-title { font-family: 'Montserrat', sans-serif; color: var(--primary); margin-bottom: 10px; }
+.price { font-size: 2rem; color: var(--accent); font-weight: 700; margin-bottom: 15px; }
 .price-suffix { font-size: 0.5em; color: var(--text-muted); }
-
-.features-list { list-style: none; padding: 0; color: var(--text-muted); text-align: left; }
+.features-list { list-style: none; padding: 0; color: var(--text-muted); text-align: left; margin-bottom: 20px; }
 
 /* ==========================================================================
-   5. BOTONES Y ACCIONES
+   5. CONTADORES (MODO "X" PARA ELIMINAR)
    ========================================================================== */
-.add-to-cart, .pay-button {
-  background: var(--primary);
-  color: white; border: none; padding: 12px 25px;
-  border-radius: 12px; font-weight: 600; cursor: pointer;
+.actions-container { display: flex; justify-content: center; margin-top: 15px; }
+.quantity-controls {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(0,0,0,0.05); padding: 8px 18px;
+    border-radius: 50px; border: 1px solid var(--border);
 }
+.dark-mode .quantity-controls { background: rgba(255,255,255,0.05); }
 
-.pay-button { font-size: 1.2rem; padding: 15px 50px; box-shadow: var(--shadow); }
+.qty-btn {
+    background: var(--primary); color: white; border: none;
+    width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+}
+.qty-btn:hover { background: var(--accent); transform: scale(1.1); }
+.qty-number { font-weight: 700; font-size: 1.2rem; min-width: 30px; }
 
-.add-to-cart:hover, .pay-button:hover { filter: brightness(1.1); transform: scale(1.05); }
+.delete-btn {
+    background: none; border: none; color: var(--text-muted);
+    cursor: pointer; font-size: 1.2rem; margin-left: 10px;
+    display: flex; align-items: center; justify-content: center;
+}
+.delete-btn:hover { color: var(--accent); transform: scale(1.2) rotate(90deg); }
+
+/* ==========================================================================
+   6. BOTONES Y MODALES
+   ========================================================================== */
+.pay-button {
+  background: var(--primary); color: white; border: none;
+  padding: 15px 50px; border-radius: 12px; font-weight: 600;
+  cursor: pointer; font-size: 1.1rem; box-shadow: var(--shadow);
+}
+.pay-button:hover { background: var(--accent); transform: translateY(-3px); }
 
 .theme-toggle {
   position: fixed; top: 20px; right: 20px;
@@ -125,88 +113,36 @@ h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
   border: 1px solid var(--border); cursor: pointer; z-index: 1100;
 }
 
-.back-button {
-  position: fixed; bottom: 20px; left: 20px;
-  background: var(--card-bg); color: var(--primary);
-  width: 50px; height: 50px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  text-decoration: none; box-shadow: var(--shadow); border: 1px solid var(--border);
-}
-
 .modal {
   display: none; position: fixed; z-index: 2000;
   left: 0; top: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
   justify-content: center; align-items: center;
 }
 
 .modal-content {
   background: var(--card-bg); padding: 40px; border-radius: 20px;
-  width: 100%; max-width: 400px; border: 1px solid var(--border); box-shadow: var(--shadow);
+  width: 90%; max-width: 400px; position: relative;
+  border: 1px solid var(--border); box-shadow: var(--shadow);
+  text-align: center;
 }
 
 .modal-content input {
-  width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px;
-  border: 1px solid var(--border); background: var(--bg-gradient); color: var(--text-main);
+  width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px;
+  border: 1px solid var(--border); background: transparent; color: var(--text-main);
+  outline: none;
 }
 
-.close { position: absolute; right: 15px; top: 10px; cursor: pointer; color: var(--text-muted); font-size: 24px; }
+.modal-content a:hover {
+    color: var(--accent) !important;
+    border-bottom-color: var(--accent) !important;
+}
+
+.close { position: absolute; right: 20px; top: 15px; cursor: pointer; font-size: 24px; color: var(--text-muted); }
 
 /* RESPONSIVA */
-/* Para Tablets (Pantallas medianas) */
-@media (max-width: 1024px) {
-    .sidebar {
-        width: 80px; /* Reducimos el ancho del sidebar */
-    }
-    
-    /* Escondemos los textos del menú para que solo queden los iconos */
-    .sidebar .logo-img, 
-    .nav-links li a span, 
-    .btn-logout span {
-        display: none; 
-    }
-
-    .main-content {
-        margin-left: 80px; /* Ajustamos el margen del contenido */
-        padding: 20px;
-    }
-}
-
-/* Para Celulares (Pantallas pequeñas) */
 @media (max-width: 768px) {
-    .container {
-        flex-direction: column; /* El sidebar pasa a estar arriba */
-    }
-
-    .sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-    }
-
-    .nav-links {
-        display: flex;
-        flex-wrap: wrap; /* Permite que los iconos se acomoden en filas si no caben */
-        justify-content: space-around;
-        padding: 10px;
-    }
-
-    .main-content {
-        margin-left: 0;
-        padding: 15px;
-    }
-
-    .header {
-        flex-direction: column; /* Título y usuario se apilan verticalmente */
-        text-align: center;
-        gap: 15px;
-    }
-
-    /* CRUCIAL: Evita que las tablas de Inventario y Usuarios rompan el diseño */
-    .table-card, .table-container {
-        overflow-x: auto; 
-        display: block; /* Permite scroll horizontal en la tabla */
-    }
+    .product-grid { grid-template-columns: 1fr; }
+    .logo-container { width: 90px; height: 90px; top: 30px; }
+    .logo { height: 60px; }
 }

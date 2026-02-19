@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teck_nology-Hollow | Inicio</title>
+    <title>Teck_nology-Hollow | Carrito</title>
     <link rel="icon" href="../../static/images/Tech_Icon.png"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
@@ -24,32 +24,61 @@
 
     <main class="main-content">
         <div class="product-grid">
-            <div class="product-card">
+            <div class="product-card" id="prod-1">
                 <h3 class="card-title">Laptop Gamer X-Pro</h3>
                 <p class="price">$28500<span class="price-suffix"> MXN</span></p>
                 <ul class="features-list">
                     <li>• Procesador: i7 12th Gen</li>
                     <li>• RAM: 16 GB DDR5</li>
                 </ul>
-                <button class="add-to-cart" onclick="agregarAlCarrito('Laptop Gamer X-Pro', 28500)">Agregar</button>
+                <div class="actions-container">
+                    <div class="quantity-controls">
+                        <button class="qty-btn" onclick="cambiarCantidad('prod-1', -1)"><i class="fas fa-minus"></i></button>
+                        <span class="qty-number">0</span>
+                        <button class="qty-btn" onclick="cambiarCantidad('prod-1', 1)"><i class="fas fa-plus"></i></button>
+                        <button class="delete-btn" onclick="eliminarProducto('prod-1')" title="Eliminar producto">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="product-card">
+
+            <div class="product-card" id="prod-2">
                 <h3 class="card-title">Smartphone Ultra 15</h3>
                 <p class="price">$19999<span class="price-suffix"> MXN</span></p>
                 <ul class="features-list">
                     <li>• Pantalla: 6.7" OLED</li>
                     <li>• Almacenamiento: 256 GB</li>
                 </ul>
-                <button class="add-to-cart" onclick="agregarAlCarrito('Smartphone Ultra 15', 19999)">Agregar</button>
+                <div class="actions-container">
+                    <div class="quantity-controls">
+                        <button class="qty-btn" onclick="cambiarCantidad('prod-2', -1)"><i class="fas fa-minus"></i></button>
+                        <span class="qty-number">0</span>
+                        <button class="qty-btn" onclick="cambiarCantidad('prod-2', 1)"><i class="fas fa-plus"></i></button>
+                        <button class="delete-btn" onclick="eliminarProducto('prod-2')" title="Eliminar producto">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="product-card">
+
+            <div class="product-card" id="prod-3">
                 <h3 class="card-title">Audífonos BT Pro</h3>
                 <p class="price">$1899<span class="price-suffix"> MXN</span></p>
                 <ul class="features-list">
                     <li>• Tipo: Cancelación de Ruido</li>
                     <li>• Batería: 30 horas</li>
                 </ul>
-                <button class="add-to-cart" onclick="agregarAlCarrito('Audífonos BT Pro', 1899)">Agregar</button>
+                <div class="actions-container">
+                    <div class="quantity-controls">
+                        <button class="qty-btn" onclick="cambiarCantidad('prod-3', -1)"><i class="fas fa-minus"></i></button>
+                        <span class="qty-number">0</span>
+                        <button class="qty-btn" onclick="cambiarCantidad('prod-3', 1)"><i class="fas fa-plus"></i></button>
+                        <button class="delete-btn" onclick="eliminarProducto('prod-3')" title="Eliminar producto">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         <button class="pay-button" onclick="pagar()">Pagar Ahora</button>
@@ -59,13 +88,23 @@
       <div class="modal-content">
         <span class="close" onclick="cerrarModal('modalAuth')">&times;</span>
         <h2>Inicia sesión</h2>
-        <label>Correo</label>
-        <input type="email" id="correoLogin" placeholder="ejemplo@correo.com">
-        <label>Contraseña</label>
-        <input type="password" id="passwordLogin">
-        <button class="add-to-cart" style="width: 100%; margin-top: 20px;" onclick="iniciarSesion()">Entrar</button>
-        <p style="text-align: center; margin-top: 15px; font-size: 0.9rem;">
-            ¿No tienes cuenta? <a href="Crear_cuenta.html" style="color: var(--primary); font-weight: 600; text-decoration: none;">Crear cuenta</a>
+        <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 0.9rem;">Ingresa tus datos para continuar.</p>
+        
+        <div style="text-align: left;">
+            <label style="font-weight: 600; font-size: 0.85rem;">Correo electrónico</label>
+            <input type="email" id="correoLogin" placeholder="ejemplo@correo.com">
+            
+            <label style="font-weight: 600; font-size: 0.85rem; margin-top: 10px; display: block;">Contraseña</label>
+            <input type="password" id="passwordLogin">
+        </div>
+        
+        <button class="pay-button" style="width: 100%; margin-top: 20px;" onclick="iniciarSesion()">Entrar</button>
+        
+        <p style="text-align: center; margin-top: 25px; font-size: 0.9rem;">
+            ¿No tienes cuenta? <br>
+            <a href="Crear_cuenta.html" style="color: var(--primary); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--primary); padding-bottom: 2px;">
+                Crear cuenta
+            </a>
         </p>
       </div>
     </div>
@@ -79,13 +118,12 @@
           <input type="text" placeholder="Cuenta destino" required>
           <input type="number" placeholder="Comisión $" required>
           <input type="date" required>
-          <button type="submit" class="add-to-cart" style="width: 100%; margin-top: 15px;">Confirmar Pago</button>
+          <button type="submit" class="pay-button" style="width: 100%; margin-top: 15px;">Confirmar Pago</button>
         </form>
       </div>
     </div>
 
     <script>
-        // Lógica de tema persistente
         function applyTheme() {
             const theme = localStorage.getItem('theme');
             if (theme === 'dark') {
@@ -102,6 +140,20 @@
             const isDark = body.classList.contains("dark-mode");
             icon.classList.replace(isDark ? "fa-moon" : "fa-sun", isDark ? "fa-sun" : "fa-moon");
             localStorage.setItem("theme", isDark ? "dark" : "light");
+        }
+
+        function cambiarCantidad(prodId, cambio) {
+            const card = document.getElementById(prodId);
+            const qtySpan = card.querySelector('.qty-number');
+            let cantidad = parseInt(qtySpan.textContent);
+            cantidad += cambio;
+            if (cantidad < 0) cantidad = 0;
+            qtySpan.textContent = cantidad;
+        }
+
+        function eliminarProducto(prodId) {
+            const card = document.getElementById(prodId);
+            card.querySelector('.qty-number').textContent = "0";
         }
 
         function pagar() {
