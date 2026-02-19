@@ -151,3 +151,62 @@ h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
 }
 
 .close { position: absolute; right: 15px; top: 10px; cursor: pointer; color: var(--text-muted); font-size: 24px; }
+
+/* RESPONSIVA */
+/* Para Tablets (Pantallas medianas) */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 80px; /* Reducimos el ancho del sidebar */
+    }
+    
+    /* Escondemos los textos del menú para que solo queden los iconos */
+    .sidebar .logo-img, 
+    .nav-links li a span, 
+    .btn-logout span {
+        display: none; 
+    }
+
+    .main-content {
+        margin-left: 80px; /* Ajustamos el margen del contenido */
+        padding: 20px;
+    }
+}
+
+/* Para Celulares (Pantallas pequeñas) */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* El sidebar pasa a estar arriba */
+    }
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap; /* Permite que los iconos se acomoden en filas si no caben */
+        justify-content: space-around;
+        padding: 10px;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .header {
+        flex-direction: column; /* Título y usuario se apilan verticalmente */
+        text-align: center;
+        gap: 15px;
+    }
+
+    /* CRUCIAL: Evita que las tablas de Inventario y Usuarios rompan el diseño */
+    .table-card, .table-container {
+        overflow-x: auto; 
+        display: block; /* Permite scroll horizontal en la tabla */
+    }
+}
