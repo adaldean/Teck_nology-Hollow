@@ -25,6 +25,9 @@
     <main class="main-content">
         <div class="product-grid">
             <div class="product-card" id="prod-1">
+                <button class="delete-btn" onclick="eliminarProducto('prod-1')" title="Eliminar producto">
+                    <i class="fas fa-times"></i>
+                </button>
                 <h3 class="card-title">Laptop Gamer X-Pro</h3>
                 <p class="price">$28500<span class="price-suffix"> MXN</span></p>
                 <ul class="features-list">
@@ -36,14 +39,14 @@
                         <button class="qty-btn" onclick="cambiarCantidad('prod-1', -1)"><i class="fas fa-minus"></i></button>
                         <span class="qty-number">0</span>
                         <button class="qty-btn" onclick="cambiarCantidad('prod-1', 1)"><i class="fas fa-plus"></i></button>
-                        <button class="delete-btn" onclick="eliminarProducto('prod-1')" title="Eliminar producto">
-                            <i class="fas fa-times"></i>
-                        </button>
                     </div>
                 </div>
             </div>
 
             <div class="product-card" id="prod-2">
+                <button class="delete-btn" onclick="eliminarProducto('prod-2')" title="Eliminar producto">
+                    <i class="fas fa-times"></i>
+                </button>
                 <h3 class="card-title">Smartphone Ultra 15</h3>
                 <p class="price">$19999<span class="price-suffix"> MXN</span></p>
                 <ul class="features-list">
@@ -55,14 +58,14 @@
                         <button class="qty-btn" onclick="cambiarCantidad('prod-2', -1)"><i class="fas fa-minus"></i></button>
                         <span class="qty-number">0</span>
                         <button class="qty-btn" onclick="cambiarCantidad('prod-2', 1)"><i class="fas fa-plus"></i></button>
-                        <button class="delete-btn" onclick="eliminarProducto('prod-2')" title="Eliminar producto">
-                            <i class="fas fa-times"></i>
-                        </button>
                     </div>
                 </div>
             </div>
 
             <div class="product-card" id="prod-3">
+                <button class="delete-btn" onclick="eliminarProducto('prod-3')" title="Eliminar producto">
+                    <i class="fas fa-times"></i>
+                </button>
                 <h3 class="card-title">Audífonos BT Pro</h3>
                 <p class="price">$1899<span class="price-suffix"> MXN</span></p>
                 <ul class="features-list">
@@ -74,9 +77,6 @@
                         <button class="qty-btn" onclick="cambiarCantidad('prod-3', -1)"><i class="fas fa-minus"></i></button>
                         <span class="qty-number">0</span>
                         <button class="qty-btn" onclick="cambiarCantidad('prod-3', 1)"><i class="fas fa-plus"></i></button>
-                        <button class="delete-btn" onclick="eliminarProducto('prod-3')" title="Eliminar producto">
-                            <i class="fas fa-times"></i>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -88,23 +88,16 @@
       <div class="modal-content">
         <span class="close" onclick="cerrarModal('modalAuth')">&times;</span>
         <h2>Inicia sesión</h2>
-        <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 0.9rem;">Ingresa tus datos para continuar.</p>
-        
         <div style="text-align: left;">
             <label style="font-weight: 600; font-size: 0.85rem;">Correo electrónico</label>
             <input type="email" id="correoLogin" placeholder="ejemplo@correo.com">
-            
             <label style="font-weight: 600; font-size: 0.85rem; margin-top: 10px; display: block;">Contraseña</label>
             <input type="password" id="passwordLogin">
         </div>
-        
         <button class="pay-button" style="width: 100%; margin-top: 20px;" onclick="iniciarSesion()">Entrar</button>
-        
         <p style="text-align: center; margin-top: 25px; font-size: 0.9rem;">
             ¿No tienes cuenta? <br>
-            <a href="Crear_cuenta.html" style="color: var(--primary); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--primary); padding-bottom: 2px;">
-                Crear cuenta
-            </a>
+            <a href="Crear_cuenta.html" style="color: var(--primary); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--primary);">Crear cuenta</a>
         </p>
       </div>
     </div>
