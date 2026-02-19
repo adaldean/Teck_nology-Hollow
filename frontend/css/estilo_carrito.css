@@ -1,299 +1,153 @@
-body {
-    margin: 0;
-    font-family: sans-serif;
-    background: linear-gradient(to bottom, #132446 0%, #7ab99f 70%, #61a883 100%);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow-x: hidden;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+/* ==========================================================================
+   1. VARIABLES DE COLOR (ADN ORIGINAL)
+   ========================================================================== */
+:root {
+  --primary: #26706a;
+  --accent: #FC4B08;
+  --bg-gradient: radial-gradient(circle at top right, #fdfdfd, #e0f2f1);
+  --card-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --glass: rgba(255, 255, 255, 0.8);
+  --border: rgba(0, 0, 0, 0.1);
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
 }
 
-.header {
-    width: 100%;
-    height: 140px;
-    background: #cac5c5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1;
+.dark-mode {
+  --primary: #4db6ac;
+  --bg-gradient: radial-gradient(circle at top right, #0b1426, #132446);
+  --card-bg: #1e2a44;
+  --text-main: #ecf0f1;
+  --text-muted: #bdc3c7;
+  --glass: rgba(19, 36, 70, 0.8);
+  --border: rgba(255, 255, 255, 0.1);
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   2. BASES
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  transition: background 0.4s ease, color 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body {
+  margin: 0;
+  font-family: 'Jost', sans-serif;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+
+/* ==========================================================================
+   3. HEADER Y LOGO
+   ========================================================================== */
+.main-header {
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--border);
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0; z-index: 1000;
 }
 
 .logo-container {
-    background:  rgba(255, 255, 255, 0.7);
-    border-radius: 50%;
-    padding: 8px;
-    width: 120px;
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    transform: translateY(1%);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background: var(--card-bg);
+  border-radius: 50%;
+  padding: 10px;
+  width: 110px; height: 110px;
+  display: flex; align-items: center; justify-content: center;
+  position: absolute; top: 40px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
 }
 
-.logo {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    border-radius: 50%;
-}
+.logo { height: 80px; object-fit: contain; }
 
+/* ==========================================================================
+   4. PRODUCTOS Y MODALES
+   ========================================================================== */
 .main-content {
-    flex-grow: 1;
-    padding: 70px 20px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: transparent;
+  flex: 1;
+  padding: 80px 20px 40px;
+  display: flex; flex-direction: column; align-items: center;
 }
 
 .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    width: 100%;
-    max-width: 900px;
-    justify-content: center;
-    margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px; width: 100%; max-width: 1100px; margin-bottom: 40px;
 }
 
 .product-card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.2s ease-in-out;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px; padding: 30px;
+  text-align: center; box-shadow: var(--shadow);
 }
 
-.product-card:hover {
-    transform: translateY(-5px);
+.product-card:hover { transform: translateY(-8px); }
+
+.card-title { color: var(--primary); margin-top: 0; }
+
+.price { font-size: 2rem; color: var(--accent); font-weight: 700; margin: 15px 0; }
+
+.price-suffix { font-size: 0.5em; color: var(--text-muted); }
+
+.features-list { list-style: none; padding: 0; color: var(--text-muted); text-align: left; }
+
+/* ==========================================================================
+   5. BOTONES Y ACCIONES
+   ========================================================================== */
+.add-to-cart, .pay-button {
+  background: var(--primary);
+  color: white; border: none; padding: 12px 25px;
+  border-radius: 12px; font-weight: 600; cursor: pointer;
 }
 
-.card-title {
-    font-size: 1.5em;
-    color: #000000;
-    margin-bottom: 10px;
-}
+.pay-button { font-size: 1.2rem; padding: 15px 50px; box-shadow: var(--shadow); }
 
-.card-price {
-    font-size: 2.2em;
-    font-weight: bold;
-    color: #000000; 
-    margin-bottom: 15px;
-}
+.add-to-cart:hover, .pay-button:hover { filter: brightness(1.1); transform: scale(1.05); }
 
-.price-suffix {
-    font-size: 0.6em;
-    font-weight: normal;
-    color: #666;
-}
-
-.features-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 20px 0;
-    text-align: left;
-    width: 100%;
-    max-width: 150px;
-    color: #555;
-}
-
-.features-list li {
-    margin-bottom: 5px;
-}
-
-.card-button {
-    background-color: #333; 
-    color: rgb(255, 255, 255);
-    border: none;
-    padding: 10px 25px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
-}
-
-.card-button:hover {
-    background-color: #555;
-}
-
-.bottom-actions {
-    width: 100%;
-    max-width: 900px;
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 20px;
-}
-
-.pay-button {
-    background-color: #333;
-    color: rgb(255, 255, 255);
-    border: none;
-    padding: 15px 40px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.2em;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.pay-button:hover {
-    background-color: #5f5e5f;
-}
-
-.footer-navigation {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 100;
+.theme-toggle {
+  position: fixed; top: 20px; right: 20px;
+  background: var(--card-bg); color: var(--primary);
+  width: 45px; height: 45px; border-radius: 50%;
+  border: 1px solid var(--border); cursor: pointer; z-index: 1100;
 }
 
 .back-button {
-    background-color: #333;
-    color: rgb(134, 156, 230);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 1.5em;
-    box-shadow: 0 2px 5px rgba(0, 255, 38, 0.2);
-    transition: background-color 0.3s ease;
-}
-
-.back-button:hover {
-    background-color: #555;
+  position: fixed; bottom: 20px; left: 20px;
+  background: var(--card-bg); color: var(--primary);
+  width: 50px; height: 50px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; box-shadow: var(--shadow); border: 1px solid var(--border);
 }
 
 .modal {
-  display: none; 
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(3px);
+  display: none; position: fixed; z-index: 2000;
+  left: 0; top: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+  justify-content: center; align-items: center;
 }
 
 .modal-content {
-  background-color: #fff;
-  margin: auto;
-  padding: 30px;
-  border-radius: 12px;
-  width: 400px;
-  max-width: 70%;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  position: relative;
-}
-
-.modal-content h2 {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.modal-content label {
-  font-weight: bold;
-  display: block;
-  margin-top: 10px;
+  background: var(--card-bg); padding: 40px; border-radius: 20px;
+  width: 100%; max-width: 400px; border: 1px solid var(--border); box-shadow: var(--shadow);
 }
 
 .modal-content input {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--bg-gradient); color: var(--text-main);
 }
 
-.submit-button {
-  width: 100%;
-  background-color: #333;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 20px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.submit-button:hover {
-  background-color: #555;
-}
-
-.close {
-  position: absolute;
-  right: 15px;
-  top: 10px;
-  font-size: 24px;
-  color: #555;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.close:hover {
-  color: red;
-}
-
-@media (max-width: 768px) {
-    .product-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-    .header {
-        height: 100px;
-    }
-    .logo-container {
-        width: 80px;
-        height: 80px;
-        bottom: -40px;
-    }
-    .logo {
-        max-width: 60px;
-        max-height: 60px;
-    }
-    .main-content {
-        padding-top: 60px;
-    }
-    .bottom-actions {
-        justify-content: center;
-        padding-right: 0;
-    }
-    .pay-button {
-        width: 80%;
-    }
-}
-
-@media (max-width: 480px) {
-    .product-grid {
-        grid-template-columns: 1fr;
-        max-width: 300px;
-    }
-    .product-card {
-        width: 100%;
-    }
-    .pay-button {
-        width: 90%;
-    }
-    .footer-navigation {
-        bottom: 15px;
-        left: 15px;
-    }
-}
+.close { position: absolute; right: 15px; top: 10px; cursor: pointer; color: var(--text-muted); font-size: 24px; }

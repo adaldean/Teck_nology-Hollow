@@ -1,110 +1,219 @@
 /* Variables para mantener consistencia */
+
 :root {
-    --primary-blue: #007bff; /* Ajusta al azul que usas en 'add-to-cart' */
-    --bg-light: #f4f7f6;
-    --card-light: #ffffff;
-    --text-dark: #333;
+
+--primary-blue: #007bff; /* Ajusta al azul que usas en 'add-to-cart' */
+
+--bg-light: #f4f7f6;
+
+--card-light: #ffffff;
+
+--text-dark: #333;
+
 }
+
+
 
 body.dark-mode {
-    --bg-light: #121212;
-    --card-light: #1e1e1e;
-    --text-dark: #e0e0e0;
+
+--bg-light: #121212;
+
+--card-light: #1e1e1e;
+
+--text-dark: #e0e0e0;
+
 }
+
+
 
 .auth-page {
-    background-color: var(--bg-light);
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    transition: background 0.3s ease;
+
+background-color: var(--bg-light);
+
+font-family: 'Montserrat', sans-serif;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center;
+
+min-height: 100vh;
+
+margin: 0;
+
+transition: background 0.3s ease;
+
 }
+
+
 
 .auth-card {
-    background: var(--card-light);
-    padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 600px;
-    border: 1px solid rgba(0,0,0,0.05);
+
+background: var(--card-light);
+
+padding: 2.5rem;
+
+border-radius: 20px;
+
+box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+width: 100%;
+
+max-width: 600px;
+
+border: 1px solid rgba(0,0,0,0.05);
+
 }
+
+
 
 .brand-badge {
-    text-align: center;
-    margin-bottom: 1.5rem;
+
+text-align: center;
+
+margin-bottom: 1.5rem;
+
 }
+
+
 
 .brand-name {
-    font-family: 'Jost', sans-serif;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--primary-blue);
+
+font-family: 'Jost', sans-serif;
+
+font-weight: 700;
+
+letter-spacing: 2px;
+
+color: var(--primary-blue);
+
 }
+
+
 
 .form-header h2 {
-    font-family: 'Jost', sans-serif;
-    color: var(--text-dark);
-    margin-bottom: 0.5rem;
+
+font-family: 'Jost', sans-serif;
+
+color: var(--text-dark);
+
+margin-bottom: 0.5rem;
+
 }
 
+
+
 .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin: 2rem 0;
+
+display: grid;
+
+grid-template-columns: 1fr 1fr;
+
+gap: 1.5rem;
+
+margin: 2rem 0;
+
 }
+
+
 
 .full-width { grid-column: span 2; }
 
+
+
 .input-group label {
-    display: block;
-    font-size: 0.85rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-dark);
-    font-weight: 600;
+
+display: block;
+
+font-size: 0.85rem;
+
+margin-bottom: 0.5rem;
+
+color: var(--text-dark);
+
+font-weight: 600;
+
 }
+
+
 
 .input-group input {
-    width: 100%;
-    padding: 0.8rem;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    background: transparent;
-    color: var(--text-dark);
-    outline: none;
-    transition: border 0.3s;
+
+width: 100%;
+
+padding: 0.8rem;
+
+border-radius: 8px;
+
+border: 1px solid #ddd;
+
+background: transparent;
+
+color: var(--text-dark);
+
+outline: none;
+
+transition: border 0.3s;
+
 }
+
+
 
 .input-group input:focus {
-    border-color: var(--primary-blue);
+
+border-color: var(--primary-blue);
+
 }
+
+
 
 /* Reutilizando tu estilo de botón de la tienda */
+
 .btn-block {
-    width: 100%;
-    padding: 1rem;
-    cursor: pointer;
-    font-weight: bold;
-    border: none;
-    transition: transform 0.2s;
+
+width: 100%;
+
+padding: 1rem;
+
+cursor: pointer;
+
+font-weight: bold;
+
+border: none;
+
+transition: transform 0.2s;
+
 }
+
+
 
 .btn-block:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.1);
+
+transform: translateY(-2px);
+
+filter: brightness(1.1);
+
 }
+
+
 
 .form-footer {
-    margin-top: 1.5rem;
-    text-align: center;
+
+margin-top: 1.5rem;
+
+text-align: center;
+
 }
 
+
+
 .theme-toggle-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+
+position: fixed;
+
+top: 20px;
+
+right: 20px;
+
 }
