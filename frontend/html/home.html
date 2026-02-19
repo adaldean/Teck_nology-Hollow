@@ -4,77 +4,127 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tr.sneakers</title>
-    <link rel="icon" href="">
+    <title>Admin Panel | Teck_nology-Hollow</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <link rel="stylesheet" href="../css/estilo_home.css">
 </head>
 <body>
-<div class="container">
-    <aside class="sidebar">
-        <div class="logo">
-            <img src="imagenes/logo.png" alt="Tr.sneakers Logo" class="logo-img">
-        </div>
-        <ul class="nav-links">
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="inventario.html">Inventario</a></li>
-            <li><a href="usuarios.html">Usuarios</a></li>
-            <li><a href="configuracion.html">Configuración</a></li>
-        </ul>
-    </aside>
-    
-    <div class="main-content">
-        <div class="header">
-            <h1>Sistema web de inventarios</h1>
-            <div class="user-info">Administrador</div>
-        </div>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../../static/images/tecknology_logo.png" alt="Logo" class="logo-img">
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li class="active"><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="inventario.html"><i class="fas fa-boxes"></i> Inventario</a></li>
+                    <li><a href="gestion_clientes.html"><i class="fas fa-users"></i> Usuarios</a></li>
+                    <li><a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a></li>
+                    <li class="logout-item">
+                        <button class="btn-logout" onclick="cerrarSesion()">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
         
-        <div id="alerta-exito" class="alerta-exito">
-            Bienvenido, Administrador!
-        </div>
+        <main class="main-content">
+            <header class="header">
+                <div class="header-title">
+                    <h1>Sistema de Inventarios</h1>
+                    <p>Panel de Control Administrativo</p>
+                </div>
+                
+                <div class="user-controls">
+                    <button class="theme-toggle-inline" onclick="toggleDarkMode()" title="Cambiar tema">
+                        <i id="theme-icon" class="fas fa-moon"></i>
+                    </button>
+                    <div class="user-info">
+                        <span class="status-indicator"></span>
+                        Administrador
+                    </div>
+                </div>
+            </header>
+            
+            <div id="alerta-exito" class="alerta-exito">
+                <i class="fas fa-check-circle"></i> ¡Bienvenido de nuevo al sistema!
+            </div>
 
-        <div class="fila-categorias-agregar">
-            <h2 style="font-size: 1.4rem; font-weight: 600;">Resumen general</h2>
-        </div>
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Resumen General</h2>
+                </div>
 
-        <div class="categorias">
-            <div class="producto-card">
-                <img src="icons/ordenes.png" alt="Órdenes" style="width:40px; margin-bottom:10px;">
-                <h3>Órdenes de Compra</h3>
-                <p>5 pendientes</p>
-            </div>
-            <div class="producto-card">
-                <img src="icons/recibidos.png" alt="Recibidos" style="width:40px; margin-bottom:10px;">
-                <h3>Compras Recibidas</h3>
-                <p>3 registradas</p>
-            </div>
-            <div class="producto-card">
-                <img src="icons/devoluciones.png" alt="Devoluciones" style="width:40px; margin-bottom:10px;">
-                <h3>Devoluciones</h3>
-                <p>2 registradas</p>
-            </div>
-            <div class="producto-card">
-                <img src="icons/ventas.png" alt="Ventas" style="width:40px; margin-bottom:10px;">
-                <h3>Ventas</h3>
-                <p>3 registradas</p>
-            </div>
-            <div class="producto-card">
-                <img src="icons/proveedores.png" alt="Proveedores" style="width:40px; margin-bottom:10px;">
-                <h3>Proveedores</h3>
-                <p>2 activos</p>
-            </div>
-            <div class="producto-card">
-                <img src="icons/productos.png" alt="Productos" style="width:40px; margin-bottom:10px;">
-                <h3>Productos</h3>
-                <p>3 en catálogo</p>
-            </div>
-            <div class="producto-card">
-                <img src="icons/usuarios.png" alt="Usuarios" style="width:40px; margin-bottom:10px;">
-                <h3>Usuarios</h3>
-                <p>1 administrador</p>
-            </div>
-        </div>
+                <div class="categorias">
+                    <div class="producto-card">
+                        <div class="icon-wrapper"><i class="fas fa-shopping-cart"></i></div>
+                        <h3>Órdenes</h3>
+                        <p class="count">5 <span>pendientes</span></p>
+                    </div>
+                    <div class="producto-card">
+                        <div class="icon-wrapper"><i class="fas fa-truck-loading"></i></div>
+                        <h3>Recibidos</h3>
+                        <p class="count">3 <span>registradas</span></p>
+                    </div>
+                    <div class="producto-card">
+                        <div class="icon-wrapper"><i class="fas fa-undo"></i></div>
+                        <h3>Devoluciones</h3>
+                        <p class="count">2 <span>registradas</span></p>
+                    </div>
+                    <div class="producto-card">
+                        <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
+                        <h3>Ventas</h3>
+                        <p class="count">3 <span>registradas</span></p>
+                    </div>
+                    <div class="producto-card">
+                        <div class="icon-wrapper"><i class="fas fa-handshake"></i></div>
+                        <h3>Proveedores</h3>
+                        <p class="count">2 <span>activos</span></p>
+                    </div>
+                    <div class="producto-card">
+                        <div class="icon-wrapper"><i class="fas fa-laptop"></i></div>
+                        <h3>Productos</h3>
+                        <p class="count">3 <span>en catálogo</span></p>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
-</div>
-<script src="js/bienvenido.js"></script>
+
+    <script>
+        // Aplicar tema al cargar la página
+        function applyTheme() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById("theme-icon").classList.replace("fa-moon", "fa-sun");
+            }
+        }
+        applyTheme();
+
+        function toggleDarkMode() {
+            const isDark = document.body.classList.toggle("dark-mode");
+            const icon = document.getElementById("theme-icon");
+            
+            if(isDark) {
+                icon.classList.replace("fa-moon", "fa-sun");
+                localStorage.setItem("theme", "dark");
+            } else {
+                icon.classList.replace("fa-sun", "fa-moon");
+                localStorage.setItem("theme", "light");
+            }
+        }
+
+        function cerrarSesion() {
+            if(confirm("¿Deseas cerrar la sesión administrativa?")) {
+                window.location.href = "login.html";
+            }
+        }
+    </script>
 </body>
 </html>
